@@ -1,41 +1,74 @@
 "use client";
 
-import { FaLock } from "react-icons/fa";
-import { AiOutlineEye } from "react-icons/ai";
+import Image from "next/image";
+import { motion } from "framer-motion";
 
 export default function Compromiso() {
     return (
-        <section id="compromiso" className="w-full bg-white py-20">
-            <div className="max-w-5xl mx-auto text-center px-6">
+        <section id="compromiso" className="w-full min-h-screen bg-white flex items-center">
+            <div className="max-w-5xl mx-auto text-center px-6 w-full relative">
 
                 {/* Título */}
                 <h2 className="text-2xl md:text-3xl font-extrabold text-[#04268c]">
                     Nuestro compromiso es servirte
                 </h2>
 
-                {/* Contenedor principal */}
-                <div className="relative mt-10 flex items-center justify-center">
-                    <div className="bg-[#31bf2c] text-white 
-                          rounded-tl-3xl  /* Esquina sup. izquierda redondeada */
-                          rounded-br-3xl  /* Esquina inf. derecha redondeada */
-                          rounded-tr-none /* Esquina sup. derecha cuadrada */
-                          rounded-bl-none /* Esquina inf. izquierda cuadrada */
-                          px-6 md:px-12 py-6 md:py-8 
-                          text-center font-semibold text-lg md:text-xl max-w-3xl">
-                        Confidencialidad y Transparencia <br />
-                        en el manejo de todos los datos
-                    </div>
+                {/* Caja principal animada */}
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 1 }}
+                    className="mt-10 mx-auto bg-[#31bf2c] text-white 
+            rounded-tl-3xl rounded-br-3xl rounded-tr-none rounded-bl-none 
+            px-8 md:px-16 py-10 md:py-14 
+            text-center font-semibold text-lg md:text-xl max-w-4xl shadow-lg"
+                >
+                    Confidencialidad y Transparencia <br />
+                    en el manejo de todos los datos
+                </motion.div>
 
-                    {/* Icono decorativo izquierda */}
-                    <div className="absolute left-0 -translate-x-12 hidden md:block">
-                        <AiOutlineEye size={48} className="text-[#a6e22d]" />
-                    </div>
-
-                    {/* Icono decorativo derecha */}
-                    <div className="absolute right-0 translate-x-12 hidden md:block">
-                        <FaLock size={48} className="text-[#a6e22d]" />
-                    </div>
+                {/* Imagen decorativa derecha (parpadeo) */}
+                <div className="absolute -top-2 right-4 animate-pulse hidden md:block z-20">
+                    <Image
+                        src="/confiabilidad_transparencia.png"
+                        alt="Confiabilidad y Transparencia"
+                        width={100}
+                        height={100}
+                        className="object-contain"
+                    />
                 </div>
+
+                {/* Imagen decorativa izquierda (animación infinita aleatoria) */}
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.5, x: -100, y: -100 }}
+                    animate={{
+                        opacity: [0, 1, 1, 0],
+                        y: [0, 100, 100, 0],
+                        x: [0, 0, 100, 100],
+                        scale: [1, 1.2, 0.8, 1],
+                    }}
+                    transition={{
+                        duration: 6,
+                        repeat: Infinity,
+                        repeatType: "loop",
+                        ease: "easeInOut",
+                        delay: Math.random() * 3,
+                    }}
+                    className="absolute z-10 pointer-events-none"
+                    style={{
+                        top: `${Math.random() * 80 + 10}%`,
+                        left: `${Math.random() * 20 + 0}%`, // 👈 lado izquierdo (0% a 20%)
+                    }}
+                >
+                    <Image
+                        src="/mira_futurista.png"
+                        alt="Mira Futurista"
+                        width={110}
+                        height={110}
+                        className="object-contain"
+                    />
+                </motion.div>
+
             </div>
         </section>
     );

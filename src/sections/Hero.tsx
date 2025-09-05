@@ -11,18 +11,18 @@ export default function Hero() {
     return (
         <section
             id="hero"
-            className="relative w-full min-h-screen bg-white flex items-center"
+            className="relative w-full min-h-screen bg-white flex items-center px-4 sm:px-6"
         >
             <Particles />
 
-            <div className="max-w-7xl mx-auto flex flex-col-reverse md:flex-row items-center justify-between gap-12 px-6 py-12 md:py-0">
+            <div className="max-w-7xl mx-auto flex flex-col-reverse md:flex-row flex-wrap items-center justify-between gap-12 md:gap-20 py-12 md:py-0 w-full">
 
                 {/* Columna izquierda: Texto */}
                 <div className="flex-1 text-center md:text-left">
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#04268c] leading-tight">
+                    <h1 className="text-[clamp(1.8rem,5vw,3rem)] font-extrabold text-[#04268c] leading-tight">
                         Consultoría especializada <br /> en orientación.
                     </h1>
-                    <p className="mt-6 text-gray-600 text-base sm:text-lg leading-relaxed">
+                    <p className="mt-6 text-gray-600 text-base sm:text-lg leading-relaxed max-w-xl mx-auto md:mx-0">
                         Somos una consultoría especializada en asesoría, orientación e innovación.
                         Contamos con un equipo de asesores altamente calificados y especializados.
                         Nuestra misión es orientarte a encontrarte la solución indicada a tus problemas.
@@ -31,16 +31,16 @@ export default function Hero() {
                     </p>
 
                     {/* Botones */}
-                    <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                    <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start w-full sm:w-auto">
                         <Link
                             href="#servicios"
-                            className="px-6 py-3 bg-[#04268c] text-white font-semibold rounded-full shadow-md hover:bg-[#034aa6] transition"
+                            className="px-6 py-3 bg-[#04268c] text-white font-semibold rounded-full shadow-md hover:bg-[#034aa6] transition w-full sm:w-auto text-center"
                         >
                             Nuestros Servicios
                         </Link>
                         <Link
                             href="#asesorias"
-                            className="px-6 py-3 border-2 border-[#31bf2c] text-[#31bf2c] font-semibold rounded-full hover:bg-[#31bf2c] hover:text-white transition"
+                            className="px-6 py-3 border-2 border-[#31bf2c] text-[#31bf2c] font-semibold rounded-full hover:bg-[#31bf2c] hover:text-white transition w-full sm:w-auto text-center"
                         >
                             Nuestras asesorías
                         </Link>
@@ -48,8 +48,7 @@ export default function Hero() {
                 </div>
 
                 {/* Columna derecha: Imagen */}
-                <div className="relative w-[400px] h-[400px] flex items-center justify-center">
-
+                <div className="relative w-full sm:w-[300px] md:w-[400px] aspect-square flex items-center justify-center mx-auto">
                     {/* 🔲 Esquinas animadas (más largas) */}
                     {/* Esquina superior izquierda */}
                     <motion.div
@@ -83,22 +82,22 @@ export default function Hero() {
                         className="absolute bottom-0 right-0 w-10 h-10 border-b-4 border-r-4 border-[#31bf2c]"
                     />
 
-                    {/* 🅰️ Logo con animación de enfoque */}
+                    {/* Logo animado */}
                     <motion.div
                         initial={{ opacity: 0, scale: 0.5, filter: "blur(10px)" }}
                         animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
                         transition={{ duration: 1.2, ease: "easeOut", delay: 1 }}
-                        className="z-10"
+                        className="z-10 w-full h-full flex items-center justify-center"
                     >
                         <Image
                             src="/logo_answer.png"
                             alt="Logo Answer ST"
-                            width={500}
-                            height={500}
+                            fill
                             className="object-contain"
                             priority
                         />
                     </motion.div>
+
                 </div>
 
 
