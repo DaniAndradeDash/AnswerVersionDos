@@ -14,7 +14,7 @@ const asesorias = [
 
 export default function Asesorias() {
     return (
-        <section id="asesorias" className="w-full min-h-screen bg-white flex items-center">
+        <section id="asesorias" className="w-full min-h-screen bg-white sm:mt-20 md:mt-20 flex items-center">
             <div className="max-w-6xl mx-auto text-center px-6 w-full relative">
 
                 {/* Título */}
