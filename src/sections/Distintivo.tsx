@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export default function Compromiso() {
     return (
-        <section id="compromiso" className="w-full min-h-screen bg-white flex items-center">
+        <section id="compromiso" className="w-full h-auto my-42 bg-white flex items-center">
             <div className="max-w-5xl mx-auto text-center px-6 w-full relative">
 
                 {/* Título */}

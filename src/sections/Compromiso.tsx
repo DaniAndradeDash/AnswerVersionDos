@@ -18,61 +18,49 @@ export default function Distintivo() {
     };
 
     return (
-        <section id="distintivo" className="w-full bg-white py-20">
-            <div className="max-w-5xl mx-auto text-center px-6">
+        <section id="distintivo" className="w-full bg-white py-10 sm:py-16 md:py-20">
+            <div className="max-w-6xl mx-auto text-center px-4 sm:px-6 lg:px-8">
 
                 {/* Título */}
-                <h2 className="text-2xl md:text-3xl font-extrabold text-[#04268c]">
+                <h2 className="text-[clamp(1.5rem,4vw,2.5rem)] font-extrabold text-[#04268c]">
                     Nuestro Distintivo
                 </h2>
 
-                {/* Logo y texto */}
-                <div className="mt-8 flex flex-col items-center">
+                {/* Logo */}
+                <div className="mt-6 sm:mt-8 flex justify-center">
                     <Image
-                        src="/logo_answer.png"
+                        src="/infonagreen.png"
                         alt="Infonagreen Logo"
-                        width={120}
-                        height={120}
-                        className="mb-4"
+                        width={320}
+                        height={320}
+                        className="w-[clamp(160px,20vw,320px)] h-auto mb-4"
                     />
-                    <h3 className="text-2xl font-bold text-[#2aa626]">INFONAGREEN</h3>
                 </div>
 
                 {/* Slider */}
-                <div className="my-12">
+                <div className="mt-6 sm:mt-10">
                     <Slider {...settings}>
-                        <div>
-                            <Image
-                                src="/logo_answer.png"
-                                alt="Slide 1"
-                                width={300}
-                                height={300}
-                                className="mx-auto"
-                            />
-                        </div>
-                        <div>
-                            <Image
-                                src="/logo_answer.png"
-                                alt="Slide 2"
-                                width={300}
-                                height={300}
-                                className="mx-auto"
-                            />
-                        </div>
-                        <div>
-                            <Image
-                                src="/logo_answer.png"
-                                alt="Slide 3"
-                                width={300}
-                                height={300}
-                                className="mx-auto"
-                            />
-                        </div>
+                        {[
+                            "/infonagreen_ecologia_uno.jpg",
+                            "/infonagreen_ecologia_dos.jpg",
+                            "/infonagreen_ecologia_tres.jpg",
+                        ].map((src, index) => (
+                            <div key={index} className="px-2 sm:px-4">
+                                <div className="relative mx-auto w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-2xl rounded-xl overflow-hidden shadow-lg border-4 border-[#31bf2c]/30 transition-transform duration-500 hover:scale-105 aspect-[4/3]">
+                                    <Image
+                                        src={src}
+                                        alt={`Infonagreen ecología ${index + 1}`}
+                                        fill
+                                        className="object-cover"
+                                    />
+                                </div>
+                            </div>
+                        ))}
                     </Slider>
                 </div>
 
                 {/* Texto descriptivo */}
-                <div className="mt-6 text-gray-700 space-y-4 text-justify">
+                <div className="mt-10 sm:mt-14 text-gray-700 space-y-4 text-justify max-w-prose mx-auto text-[clamp(0.9rem,2vw,1.2rem)] leading-relaxed">
                     <p>
                         INFONAGREEN es una página de categoría ambiental, dedicada a liderar el cuidado
                         del planeta en todos los sectores.
@@ -91,9 +79,8 @@ export default function Distintivo() {
                         sostenibilidad, desde cualquier lugar, espacio o comunidad.
                     </p>
                 </div>
-
-                
             </div>
         </section>
+
     );
 }

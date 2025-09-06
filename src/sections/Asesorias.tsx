@@ -37,13 +37,17 @@ export default function Asesorias() {
                             key={item.id}
                             initial={{ opacity: 0, scale: 0.8 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.6, delay: index * 0.2 }}
+                            transition={{ duration: 0.4, delay: index * 0.1 }} // más rápido
                             whileHover={{
-                                y: -8,
-                                scale: 1.03,
-                                boxShadow: `0px 8px 20px ${item.border}`,
+                                y: -6,
+                                scale: 1.04,
+                                boxShadow: `0px 6px 16px ${item.border}`,
+                                transition: {
+                                    duration: 0.2,
+                                    ease: "easeOut",
+                                },
                             }}
-                            className="flex flex-col items-center text-center p-6 rounded-xl transition-all duration-300 ease-in-out"
+                            className="flex flex-col items-center text-center p-6 rounded-xl"
                             style={{
                                 border: `4px solid ${item.border}`,
                                 backgroundColor: `${item.border}33`,
@@ -52,7 +56,7 @@ export default function Asesorias() {
                             <div className="overflow-hidden rounded-full mb-4">
                                 <motion.div
                                     whileHover={{ scale: 1.1 }}
-                                    transition={{ duration: 0.4 }}
+                                    transition={{ duration: 0.2 }}
                                 >
                                     <Image
                                         src={item.image}
@@ -65,7 +69,7 @@ export default function Asesorias() {
                             </div>
                             <motion.h3
                                 whileHover={{ color: item.border }}
-                                transition={{ duration: 0.3 }}
+                                transition={{ duration: 0.2 }}
                                 className="text-lg font-semibold text-[#04268c]"
                             >
                                 {item.title}
