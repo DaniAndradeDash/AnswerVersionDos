@@ -1,9 +1,19 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
 export default function Compromiso() {
+    const [position, setPosition] = useState({ top: "50%", left: "10%" });
+
+    useEffect(() => {
+        const top = `${Math.random() * 80 + 10}%`;
+        const left = `${Math.random() * 30 + 5}%`;
+        setPosition({ top, left });
+    }, []);
+
+
     return (
         <section id="compromiso" className="w-full h-auto my-42 bg-white flex items-center">
             <div className="max-w-5xl mx-auto text-center px-6 w-full relative">
@@ -56,9 +66,10 @@ export default function Compromiso() {
                     }}
                     className="absolute z-10 pointer-events-none"
                     style={{
-                        top: `${Math.random() * 80 + 10}%`,
-                        left: `${Math.random() * 20 + 0}%`, // 👈 lado izquierdo (0% a 20%)
+                        top: position.top,
+                        left: position.left,
                     }}
+
                 >
                     <Image
                         src="/mira_futurista.png"

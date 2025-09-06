@@ -23,10 +23,19 @@ export default function Contacto() {
         });
 
         const data = await res.json();
-        setStatus(data.success ? "success" : "error");
+        if (data.success) {
+            setStatus("success");
+
+            // ✅ Limpiar campos
+            setNombre("");
+            setEmail("");
+            setTelefono("");
+            setEmpresa("");
+            setMensaje("");
+        } else {
+            setStatus("error");
+        }
     };
-
-
 
     return (
         <section id="contacto" className="w-full bg-white py-[clamp(3rem,6vw,5rem)]">
