@@ -67,7 +67,7 @@ export default function Contacto() {
                     </div>
 
                     {/* Íconos sociales */}
-                    <div className="mt-12 flex flex-col sm:flex-row flex-wrap justify-center gap-8">
+                    <div className="mt-12 flex flex-row sm:flex-row flex-wrap justify-center gap-8">
                         {/* Facebook */}
                         <a href="https://www.facebook.com/tu_pagina" target="_blank" rel="noopener noreferrer"
                             className="group relative w-[80px] h-[100px] cursor-pointer">
