@@ -22,7 +22,7 @@ export default function Distintivo() {
             <div className="max-w-6xl mx-auto text-center px-4 sm:px-6 lg:px-8">
 
                 {/* Título */}
-                <h2 className="text-[clamp(1.5rem,4vw,2.5rem)] font-extrabold text-[#04268c]">
+                <h2 className="px-6 py-3 bg-blue-950 text-white font-semibold rounded-full shadow-md hover:bg-[#034aa6] transition w-full sm:w-auto text-center inline-block text-[clamp(1.5rem,4vw,2.5rem)]">
                     Nuestro Distintivo
                 </h2>
 
@@ -41,9 +41,10 @@ export default function Distintivo() {
                 <div className="mt-6 sm:mt-10">
                     <Slider {...settings}>
                         {[
-                            "/infonagreen_ecologia_uno.jpg",
-                            "/infonagreen_ecologia_dos.jpg",
-                            "/infonagreen_ecologia_tres.jpg",
+                            "/infonagreen_uno.jpg",
+                            "/infonagreen_dos.jpg",
+                            "/infonagreen_tres.jpeg",
+                            "/infonagreen_comercial.jpeg",
                         ].map((src, index) => (
                             <div key={index} className="px-2 sm:px-4">
                                 <div className="relative mx-auto w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-2xl rounded-xl overflow-hidden shadow-lg border-4 border-[#31bf2c]/30 transition-transform duration-500 hover:scale-105 aspect-[4/3]">

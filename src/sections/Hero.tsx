@@ -30,7 +30,7 @@ export default function Hero() {
                         todo tipo de asesorías.
                     </p>
 
-                    {/* Botones */}
+                    {/* Botones 
                     <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start w-full sm:w-auto">
                         <Link
                             href="#servicios"
@@ -44,7 +44,7 @@ export default function Hero() {
                         >
                             Nuestras asesorías
                         </Link>
-                    </div>
+                    </div>*/}
                 </div>
 
                 {/* Columna derecha: Imagen */}
@@ -90,7 +90,7 @@ export default function Hero() {
                         className="z-10 w-full h-full flex items-center justify-center"
                     >
                         <Image
-                            src="/logo_answer.png"
+                            src="/answer_heroDos.png"
                             alt="Logo Answer ST"
                             fill
                             className="object-contain"
