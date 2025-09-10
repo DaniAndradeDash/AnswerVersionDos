@@ -1,16 +1,17 @@
 "use client";
 
-import Image from "next/image";
 import { AnimatePresence, motion, easeInOut } from "framer-motion";
 import { useEffect, useState } from "react";
 
-const images = [
-    "/celula_alargada.png",
-    "/celula_dos_alargada.png",
-    "/celula_tres_alargada.png",
-    "/celula_redondita.png",
-];
+const shapes = ["circle", "square", "triangle"];
 
+// función para generar color aleatorio
+function getRandomColor() {
+    const colors = ["#31bf2c", "#04268c", "#ffd700", "#ff6b6b", "#6bc5ff"];
+    return colors[Math.floor(Math.random() * colors.length)];
+}
+
+// posición aleatoria
 function getRandomPosition() {
     return {
         top: `${Math.random() * 100}%`,
@@ -18,6 +19,7 @@ function getRandomPosition() {
     };
 }
 
+// propiedades de animación
 function getRandomMotionProps() {
     return {
         initial: {
@@ -37,37 +39,35 @@ function getRandomMotionProps() {
         exit: {
             opacity: 0,
             scale: 0.5,
-            // transition: { duration: 1.5 }, // ❌ Elimina esta línea
         },
         transition: {
             duration: 6,
             ease: easeInOut,
-            // Puedes agregar aquí la duración de exit si lo necesitas:
-            // cuando exit ocurra, usará este transition
         },
-        exitTransition: { duration: 1.5 }, // 👈 Agrega esto si quieres transición diferente para exit
+        exitTransition: { duration: 1.5 },
     };
 }
 
 type Particle = {
     id: string;
-    src: string;
+    shape: string;
+    color: string;
     position: { top: string; left: string };
     motionProps: ReturnType<typeof getRandomMotionProps>;
 };
-
 
 export default function Particles() {
     const [particles, setParticles] = useState<Particle[]>([]);
 
     useEffect(() => {
         const cycle = () => {
-            const count = Math.floor(Math.random() * 4) + 8; // 👈 entre 12 y 20
+            const count = Math.floor(Math.random() * 4) + 12; // entre 12 y 16
             const newParticles: Particle[] = Array.from({ length: count }).map(() => {
-                const src = images[Math.floor(Math.random() * images.length)];
+                const shape = shapes[Math.floor(Math.random() * shapes.length)];
                 return {
-                    id: Math.random().toString(36).substring(2), // 👈 id único
-                    src,
+                    id: Math.random().toString(36).substring(2),
+                    shape,
+                    color: getRandomColor(),
                     position: getRandomPosition(),
                     motionProps: getRandomMotionProps(),
                 };
@@ -84,26 +84,44 @@ export default function Particles() {
     return (
         <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
             <AnimatePresence>
-
-                {particles.map(({ id, src, position, motionProps }) => (
-                    <div key={id}>
-                        <motion.div
-                            initial={motionProps.initial}
-                            animate={motionProps.animate}
-                            exit={motionProps.exit}
-                            transition={motionProps.transition}
-                            className="absolute"
-                            style={position}
-                        >
-                            <Image
-                                src={src}
-                                alt="Partícula"
-                                width={80}
-                                height={80}
-                                className="object-contain"
+                {particles.map(({ id, shape, color, position, motionProps }) => (
+                    <motion.div
+                        key={id}
+                        initial={motionProps.initial}
+                        animate={motionProps.animate}
+                        exit={motionProps.exit}
+                        transition={motionProps.transition}
+                        className="absolute"
+                        style={position}
+                    >
+                        {shape === "circle" && (
+                            <div
+                                className="w-6 h-6 md:w-8 md:h-8"
+                                style={{
+                                    backgroundColor: color,
+                                    borderRadius: "50%",
+                                }}
                             />
-                        </motion.div>
-                    </div>
+                        )}
+                        {shape === "square" && (
+                            <div
+                                className="w-6 h-6 md:w-8 md:h-8"
+                                style={{
+                                    backgroundColor: color,
+                                }}
+                            />
+                        )}
+                        {shape === "triangle" && (
+                            <div
+                                className="w-0 h-0 md:w-0 md:h-0"
+                                style={{
+                                    borderLeft: "12px solid transparent",
+                                    borderRight: "12px solid transparent",
+                                    borderBottom: `20px solid ${color}`,
+                                }}
+                            />
+                        )}
+                    </motion.div>
                 ))}
             </AnimatePresence>
         </div>

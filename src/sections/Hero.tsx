@@ -22,7 +22,7 @@ export default function Hero() {
                     <h1 className="text-[clamp(1.8rem,5vw,3rem)] font-extrabold text-[#04268c] leading-tight">
                         Consultoría especializada <br /> en orientación.
                     </h1>
-                    <p className="mt-6 text-gray-600 text-base sm:text-lg leading-relaxed max-w-xl mx-auto md:mx-0">
+                    <p className="mt-6 text-gray-600 text-base text-justify sm:text-lg leading-relaxed max-w-xl mx-auto md:mx-0">
                         Somos una consultoría especializada en asesoría, orientación e innovación.
                         Contamos con un equipo de asesores altamente calificados y especializados.
                         Nuestra misión es orientarte a encontrarte la solución indicada a tus problemas.

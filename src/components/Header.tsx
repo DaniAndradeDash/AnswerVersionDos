@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -38,14 +39,46 @@ export default function Header() {
             </div>
 
             {/* Menú móvil desplegable */}
-            {menuOpen && (
-                <div className="absolute top-full left-0 w-full bg-white shadow-md border-t border-gray-200 px-6 py-4 space-y-4 text-gray-700 font-medium md:hidden">
-                    <Link href="#hero" onClick={() => setMenuOpen(false)} className="block hover:text-green-600">Inicio</Link>
-                    <Link href="#servicios" onClick={() => setMenuOpen(false)} className="block hover:text-green-600">Servicios</Link>
-                    <Link href="#asesorias" onClick={() => setMenuOpen(false)} className="block hover:text-green-600">Asesorías</Link>
-                    <Link href="#contacto" onClick={() => setMenuOpen(false)} className="block hover:text-green-600">Contacto</Link>
-                </div>
-            )}
+            <AnimatePresence>
+                {menuOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
+                        className="absolute top-full left-0 w-full bg-white shadow-md border-t border-gray-200 px-6 py-4 space-y-4 text-gray-700 font-medium md:hidden"
+                    >
+                        <Link
+                            href="#hero"
+                            onClick={() => setMenuOpen(false)}
+                            className="block hover:text-green-600"
+                        >
+                            Inicio
+                        </Link>
+                        <Link
+                            href="#servicios"
+                            onClick={() => setMenuOpen(false)}
+                            className="block hover:text-green-600"
+                        >
+                            Servicios
+                        </Link>
+                        <Link
+                            href="#asesorias"
+                            onClick={() => setMenuOpen(false)}
+                            className="block hover:text-green-600"
+                        >
+                            Asesorías
+                        </Link>
+                        <Link
+                            href="#contacto"
+                            onClick={() => setMenuOpen(false)}
+                            className="block hover:text-green-600"
+                        >
+                            Contacto
+                        </Link>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </header>
     );
 }
