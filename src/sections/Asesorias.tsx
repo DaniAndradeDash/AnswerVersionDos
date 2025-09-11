@@ -28,7 +28,7 @@ export default function Asesorias() {
             <div className="max-w-6xl mx-auto text-center px-6 w-full relative">
                 {/* Título */}
                 <h2 className="px-6 py-3 bg-blue-950 text-white font-semibold rounded-full shadow-md hover:bg-[#034aa6] transition w-full sm:w-auto text-center inline-block text-[clamp(1.5rem,4vw,2.5rem)]">
-                    Nuestras Asesorías
+                    Portafolio de Asesorías
                 </h2>
 
                 {/* Vector animador */}

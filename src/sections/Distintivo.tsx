@@ -19,8 +19,8 @@ export default function Compromiso() {
             <div className="max-w-5xl mx-auto text-center px-6 w-full relative">
 
                 {/* Título */}
-                <h2 className="px-6 py-3 bg-blue-950 text-white font-semibold rounded-full shadow-md hover:bg-[#034aa6] transition w-full sm:w-auto text-center inline-block text-[clamp(1.5rem,4vw,2.5rem)]">
-                    Nuestro compromiso es servirte
+                <h2 className="px-6 py-3 bg-gray-400 text-white font-semibold rounded-full shadow-md hover:bg-[#034aa6] transition w-full sm:w-auto text-center inline-block text-[clamp(1.5rem,4vw,2.5rem)]">
+                    Estrategias Sustentables
                 </h2>
 
                 {/* Caja principal animada */}
