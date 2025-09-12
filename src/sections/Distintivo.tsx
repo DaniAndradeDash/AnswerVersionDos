@@ -19,7 +19,7 @@ export default function Compromiso() {
             <div className="max-w-5xl mx-auto text-center px-6 w-full relative">
 
                 {/* Título */}
-                <h2 className="px-6 py-3  text-[#31bf2c] text-shadow-lg text-shadow-[#31bf2c] font-semibold rounded-full hover:scale-105 transition w-full sm:w-auto text-center inline-block text-[clamp(1.5rem,4vw,2.5rem)]">
+                <h2 className="px-6 py-3  text-[#31bf2c] text-shadow-lg font-semibold rounded-full hover:scale-105 transition w-full sm:w-auto text-center inline-block text-[clamp(1.5rem,4vw,2.5rem)]">
                     Estrategias Sustentables
                 </h2>
 
