@@ -5,12 +5,12 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 
 const asesorias = [
-    { id: 1, title: "Financiera", image: "/financiera_img.png", border: "#e7d52fff" },
+    { id: 1, title: "Financiera", image: "/financiera_img.png", border: "rgba(2, 31, 94, 1)" },
     { id: 2, title: "Legal", image: "/Legal_img_gray.png", border: "#d4d5d6ff" },
-    { id: 3, title: "Empresarial", image: "/Empresarial_img_rgba.png", border: "rgba(2, 31, 94, 1)" },
-    { id: 4, title: "Salud", image: "/salud_img_celeste.png", border: "#d0e6ff" },
-    { id: 5, title: "Mediación de conflictos", image: "/mediacion_conflictos.png", border: "#e2d6ff" },
-    { id: 6, title: "Medio ambiente", image: "/medio_ambiente_img.png", border: "#d4f4c2" },
+    { id: 3, title: "Empresarial", image: "/Empresarial_img_rgba.png", border: "#e7d52fff" }, //border: "#e7d52fff"
+    { id: 4, title: "Salud", image: "/salud_img_celeste.png", border: "#92c4fdff" },
+    { id: 5, title: "Mediación de conflictos", image: "/mediacion_conflictos.png", border: "#a88aecff" },
+    { id: 6, title: "Medio ambiente", image: "/medio_ambiente_img.png", border: "#67f714ff" },
 ];
 
 export default function Asesorias() {

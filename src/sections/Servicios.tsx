@@ -43,7 +43,7 @@ export default function Servicios() {
                     Nuestros servicios
                 </h2>
                 <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-                    En Answer ST ofrecemos soluciones estratégicas, asesoría
+                    En Answer <span className="text-[#31bf2c]">st</span> ofrecemos soluciones estratégicas, asesoría
                     personalizada y gestión eficiente de trámites para ayudarte a
                     alcanzar tus objetivos.
                 </p>

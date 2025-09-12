@@ -67,8 +67,8 @@ export default function Distintivo() {
                     <Slider {...settings}>
                         {[
                             "/infonagreen_uno.jpg",
-                            "/infonagreen_dos.jpg",
-                            "/infonagreen_tres.jpeg",
+                            "/check.jpeg",
+                            "/cel_world.jpeg",
                             "/infonagreen_comercial.jpeg",
                         ].map((src, index) => (
                             <div key={index} className="px-2 sm:px-4">
