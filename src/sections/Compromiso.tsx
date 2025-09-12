@@ -68,8 +68,7 @@ export default function Distintivo() {
                         {[
                             "/infonagreen_uno.jpg",
                             "/check.jpeg",
-                            "/cel_world.jpeg",
-                            "/infonagreen_comercial.jpeg",
+                            "/cel_world.jpeg"
                         ].map((src, index) => (
                             <div key={index} className="px-2 sm:px-4">
                                 <div className="relative mx-auto w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-2xl rounded-xl overflow-hidden shadow-lg border-4 border-[#31bf2c]/60 transition-transform duration-500 hover:scale-105 aspect-[4/3]">

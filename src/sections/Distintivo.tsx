@@ -19,7 +19,7 @@ export default function Compromiso() {
             <div className="max-w-5xl mx-auto text-center px-6 w-full relative">
 
                 {/* Título */}
-                <h2 className="px-6 py-3 bg-[#474B4E] text-blue-950  font-semibold rounded-full shadow-md hover:bg-[#034aa6] transition w-full sm:w-auto text-center inline-block text-[clamp(1.5rem,4vw,2.5rem)]">
+                <h2 className="px-6 py-3  text-[#31bf2c] text-shadow-lg text-shadow-[#31bf2c] font-semibold rounded-full hover:scale-105 transition w-full sm:w-auto text-center inline-block text-[clamp(1.5rem,4vw,2.5rem)]">
                     Estrategias Sustentables
                 </h2>
 
@@ -29,16 +29,16 @@ export default function Compromiso() {
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 1 }}
                     className="mt-10 mx-auto bg-[#31bf2c] text-white 
-            rounded-tl-3xl rounded-br-3xl rounded-tr-none rounded-bl-none 
-            px-8 md:px-16 py-10 md:py-14 
-            text-center font-semibold text-lg md:text-xl max-w-4xl shadow-lg"
-                >
+                        rounded-tl-3xl rounded-br-3xl rounded-tr-none rounded-bl-none 
+                        px-8 md:px-16 py-10 md:py-14 
+                        text-center font-semibold text-lg md:text-xl max-w-4xl shadow-lg"
+                            >
                     Confidencialidad y Transparencia <br />
                     en el manejo de todos los datos
                 </motion.div>
 
                 {/* Imagen decorativa derecha (parpadeo) */}
-                <div className="absolute -top-2 right-4 animate-pulse hidden md:block z-20">
+                <div className="absolute top-10 right-4 animate-pulse hidden md:block z-20">
                     <Image
                         src="/confiabilidad_transparencia.png"
                         alt="Confiabilidad y Transparencia"
