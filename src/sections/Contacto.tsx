@@ -80,7 +80,7 @@ export default function Contacto() {
                         </a>
 
                         {/* WhatsApp */}
-                        <a href="https://wa.me/521XXXXXXXXXX" target="_blank" rel="noopener noreferrer"
+                        <a href="https://wa.me/+528186863395" target="_blank" rel="noopener noreferrer"
                             className="group relative w-[80px] h-[100px] cursor-pointer">
                             <Image src="/icono_whats.png" alt="WhatsApp" width={80} height={80}
                                 className="transition-transform duration-300 group-hover:scale-110 group-hover:shadow-[0_8px_20px_#31bf2c50]" />
@@ -91,7 +91,7 @@ export default function Contacto() {
                         </a>
 
                         {/* Correo */}
-                        <a href="mailto:contacto@tudominio.com"
+                        <a href="mailto:contacto@answerst.com"
                             className="group relative w-[80px] h-[100px] cursor-pointer">
                             <Image src="/icono_correo.png" alt="Correo" width={80} height={80}
                                 className="transition-transform duration-300 group-hover:scale-110 group-hover:shadow-[0_8px_20px_#31bf2c50]" />
