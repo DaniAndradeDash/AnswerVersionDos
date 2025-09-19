@@ -69,7 +69,7 @@ export default function Contacto() {
                     {/* Íconos sociales */}
                     <div className="mt-12 flex flex-row sm:flex-row flex-wrap justify-center gap-8">
                         {/* Facebook */}
-                        <a href="https://www.facebook.com/tu_pagina" target="_blank" rel="noopener noreferrer"
+                        <a href="https://www.facebook.com/share/1JMbyxjzvd/" target="_blank" rel="noopener noreferrer"
                             className="group relative w-[80px] h-[100px] cursor-pointer">
                             <Image src="/Icono_Face.png" alt="Facebook" width={80} height={80}
                                 className="transition-transform duration-300 group-hover:scale-110 group-hover:shadow-[0_8px_20px_#31bf2c50]" />
