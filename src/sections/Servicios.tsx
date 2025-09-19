@@ -18,7 +18,7 @@ const services = [
         title: "Análisis Detallado",
         description:
             "Realizamos un análisis exhaustivo de tu situación para identificar las mejores opciones y estrategias que resuelvan tus necesidades de manera óptima.",
-        image: "/analisis_detallado.png",
+        image: "/Analisis_detallado.png",
     },
     {
         id: 3,
@@ -57,8 +57,8 @@ export default function Servicios() {
                                 setSelected(selected === service.id ? null : service.id)
                             }
                             className={`group cursor-pointer bg-white rounded-lg shadow-md border hover:shadow-xl transition p-6 flex flex-col items-center relative overflow-hidden min-h-[300px] ${selected === service.id
-                                    ? "border-[#31bf2c]"
-                                    : "border-gray-200"
+                                ? "border-[#31bf2c]"
+                                : "border-gray-200"
                                 }`}
                         >
                             {/* Fondo en hover */}

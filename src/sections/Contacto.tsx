@@ -54,15 +54,15 @@ export default function Contacto() {
                     <div className="mt-8 space-y-4 text-gray-700 text-[clamp(0.9rem,2vw,1rem)]">
                         <div className="flex items-center gap-3">
                             <FaEnvelope className="text-[#31bf2c]" />
-                            <span>contact@answerst.com</span>
+                            <span>contacto@answerst.com</span>
                         </div>
                         <div className="flex items-center gap-3">
                             <FaPhone className="text-[#31bf2c]" />
-                            <span>(123) 456 - 789</span>
+                            <span>(81) 8686 3395</span>
                         </div>
                         <div className="flex items-center gap-3">
                             <FaMapMarkerAlt className="text-[#31bf2c]" />
-                            <span>794 Mcallister St, San Francisco, 94102</span>
+                            <span>Monterrey, Nuevo Leon</span>
                         </div>
                     </div>
 
@@ -80,7 +80,7 @@ export default function Contacto() {
                         </a>
 
                         {/* WhatsApp */}
-                        <a href="https://wa.me/+528186863395" target="_blank" rel="noopener noreferrer"
+                        <a href="https://wa.me/8186863395" target="_blank" rel="noopener noreferrer"
                             className="group relative w-[80px] h-[100px] cursor-pointer">
                             <Image src="/icono_whats.png" alt="WhatsApp" width={80} height={80}
                                 className="transition-transform duration-300 group-hover:scale-110 group-hover:shadow-[0_8px_20px_#31bf2c50]" />

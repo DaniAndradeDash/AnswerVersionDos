@@ -14,7 +14,7 @@ export default function Header() {
             <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 py-3 min-h-[80px] h-20">
                 {/* Logo */}
                 <div className="flex items-center gap-2 flex-wrap">
-                    <Image src="/Logo_Letra.png" alt="Logo Answer ST" width={50} height={50} />
+                    <Image src="/Logo_letra.png" alt="Logo Answer ST" width={50} height={50} />
                     <span className="font-bold text-lg sm:text-xl text-gray-800 whitespace-nowrap">
                         ANSWER<span className="text-green-600">.st</span>
                     </span>
