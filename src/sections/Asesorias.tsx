@@ -10,7 +10,7 @@ const asesorias = [
     { id: 3, title: "Empresarial", image: "/Empresarial_img_red.png", border: "#d4d5d6ff" }, //border: "#e7d52fff"
     { id: 4, title: "Salud", image: "/salud_img_celeste.png", border: "#d4d5d6ff" },
     { id: 5, title: "Mediación de conflictos", image: "/mediacion_conflictos.png", border: "#d4d5d6ff" },
-    { id: 6, title: "Medio ambiente", image: "/medio_ambiente_img.png", border: "#67f714ff" },
+    { id: 6, title: "Medio ambiente", image: "/Medio_ambiente_img.png", border: "#67f714ff" },
 ];
 
 export default function Asesorias() {
@@ -20,6 +20,7 @@ export default function Asesorias() {
         // Si ya está activa, se apaga. Si no, la activa.
         setActiveCard(activeCard === id ? null : id);
     };
+
     return (
         <section
             id="asesorias"

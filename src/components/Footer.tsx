@@ -17,11 +17,11 @@ export default function Footer() {
                 </div>
 
                 {/* Redes sociales */}
-                <div className="flex space-x-4 mt-4 md:mt-0">
+                {/*<div className="flex space-x-4 mt-4 md:mt-0">
                     <a href="#" className="hover:text-green-600"><FaFacebook size={18} /></a>
                     <a href="#" className="hover:text-green-600"><FaTwitter size={18} /></a>
                     <a href="#" className="hover:text-green-600"><FaInstagram size={18} /></a>
-                </div>
+                </div>*/}
             </div>
         </footer>
     );
