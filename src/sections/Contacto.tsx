@@ -16,7 +16,7 @@ export default function Contacto() {
         e.preventDefault();
         setStatus("idle");
 
-        const res = await fetch("/phpmailer/sendmail.php", {
+        const res = await fetch("/sendmail.php", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ nombre, email, telefono, empresa, mensaje }),
