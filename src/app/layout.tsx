@@ -6,7 +6,7 @@ export const metadata = {
   title: "Answer ST",
   description: "Consultoría y asesorías profesionales",
   icons: {
-    icon: '/favicon.png',
+    icon: '/Favicon.png',
   },
 };
 

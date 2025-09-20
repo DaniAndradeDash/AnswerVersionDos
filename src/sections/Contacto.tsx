@@ -16,7 +16,7 @@ export default function Contacto() {
         e.preventDefault();
         setStatus("idle");
 
-        const res = await fetch("/api/contact", {
+        const res = await fetch("/phpmailer/sendmail.php", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ nombre, email, telefono, empresa, mensaje }),
@@ -25,15 +25,10 @@ export default function Contacto() {
         const data = await res.json();
         if (data.success) {
             setStatus("success");
-
-            // ✅ Limpiar campos
-            setNombre("");
-            setEmail("");
-            setTelefono("");
-            setEmpresa("");
-            setMensaje("");
+            setNombre(""); setEmail(""); setTelefono(""); setEmpresa(""); setMensaje("");
         } else {
             setStatus("error");
+            console.error(data.error);
         }
     };
 
