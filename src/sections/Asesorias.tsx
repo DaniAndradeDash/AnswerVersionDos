@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
@@ -14,115 +13,99 @@ const asesorias = [
 ];
 
 export default function Asesorias() {
-    const [activeCard, setActiveCard] = useState<number | null>(null);
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: { staggerChildren: 0.1 },
+        },
+    };
 
-    const handleMobileClick = (id: number) => {
-        // Si ya está activa, se apaga. Si no, la activa.
-        setActiveCard(activeCard === id ? null : id);
+    const cardVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
     };
 
     return (
         <section
             id="asesorias"
-            className="w-full min-h-screen bg-white sm:mt-20 md:mt-20 flex items-center"
+            className="w-full min-h-screen bg-white py-20 md:py-32 flex items-center"
         >
             <div className="max-w-6xl mx-auto text-center px-6 w-full relative">
                 {/* Título */}
-                <h2 className="px-6 py-3 bg-blue-950 text-white font-semibold rounded-full shadow-md hover:bg-[#034aa6] transition w-full sm:w-auto text-center inline-block text-[clamp(1.5rem,4vw,2.5rem)]">
+                <motion.h2
+                    initial={{ opacity: 0, y: -20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="px-6 py-3 bg-blue-950 text-white font-semibold rounded-full shadow-md hover:bg-[#034aa6] transition w-full sm:w-auto text-center inline-block text-[clamp(1.5rem,4vw,2.5rem)]"
+                >
                     Portafolio de Asesorías
-                </h2>
-
-                {/* Vector animador */}
-                <motion.div
-                    initial={{ x: "-100%" }}
-                    animate={{ x: "100%" }}
-                    transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                    className="absolute -top-5 left-0 h-1 w-32 bg-[#31bf2c] rounded-full"
-                />
+                </motion.h2>
 
                 {/* Grid de asesorías */}
-                <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12">
-                    {asesorias.map((item, index) => {
-                        const isActive = activeCard === item.id;
-                        return (
-                            <motion.div
-                                key={item.id}
-                                initial={{ opacity: 0, scale: 0.8 }}
-                                animate={
-                                    isActive
-                                        ? {
-                                            opacity: 1,
-                                            scale: [1, 1.05, 1], // efecto rebote
-                                            boxShadow: `0px 6px 16px ${item.border}`, // efecto neón
-                                        }
-                                        : {
-                                            opacity: 1,
-                                            scale: 1,
-                                            boxShadow: "none"
-                                        }
-                                }
-                                transition={{ duration: 0.4, delay: index * 0.1 }}
-                                whileHover={{
-                                    y: -6,
-                                    scale: 1.04,
-                                    boxShadow: `0px 6px 16px ${item.border}`,
-                                    transition: { duration: 0.2, ease: "easeOut" },
-                                }}
-                                // En móvil usamos onClick para simular hover
-                                onClick={() => handleMobileClick(item.id)}
-                                className="flex flex-col items-center text-center p-6 rounded-xl cursor-pointer"
-                                style={{
-                                    border: `4px solid ${item.border}`,
-                                    backgroundColor: `${item.border}30`,
-                                }}
-                            >
-                                <div className="overflow-hidden rounded-full mb-4">
-                                    <Image
-                                        src={item.image}
-                                        alt={item.title}
-                                        width={80}
-                                        height={80}
-                                        className="object-contain"
-                                    />
-                                </div>
-                                <motion.h3
-                                    whileHover={{ color: item.border }}
-                                    transition={{ duration: 0.2 }}
-                                    animate={isActive ? { color: item.border } : { color: "#04268c" }}
-                                    className="text-lg font-semibold"
-                                >
-                                    {item.title}
-                                </motion.h3>
-                            </motion.div>
-                        );
-                    })}
-                </div>
+                <motion.div
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    className="mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8"
+                >
+                    {asesorias.map((item) => (
+                        <motion.div
+                            key={item.id}
+                            variants={cardVariants}
+                            whileHover={{ y: -10, scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            className="flex flex-col items-center text-center p-8 rounded-2xl cursor-pointer transition-all duration-300 border-2"
+                            style={{
+                                borderColor: item.border,
+                                backgroundColor: `${item.border}10`,
+                            }}
+                        >
+                            <div className="rounded-full mb-6 p-4 bg-white shadow-lg shadow-gray-200 border-2 border-transparent group-hover:border-[#31bf2c] transition-colors duration-300">
+                                <Image
+                                    src={item.image}
+                                    alt={item.title}
+                                    width={60}
+                                    height={60}
+                                    className="object-contain"
+                                />
+                            </div>
+                            <h3 className="text-xl font-bold text-blue-950">
+                                {item.title}
+                            </h3>
+                        </motion.div>
+                    ))}
+                </motion.div>
 
                 {/* Texto final */}
-                <div className="mt-12">
-                    <motion.p
+                <div className="mt-20">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
                         animate={{
-                            scale: [1, 1.1, 1],
-                            rotate: [0, -2, 2, 0],
-                            color: ["#99abb9", "#31bf2c", "#99abb9"], // alterna entre gris y verde
-                            textShadow: [
-                                "0px 0px 0px rgba(49,191,44,0)",
-                                "0px 0px 8px rgba(49,191,44,0.8)",
-                                "0px 0px 0px rgba(49,191,44,0)"
+                            boxShadow: [
+                                "0 0 0px rgba(49, 191, 44, 0)",
+                                "0 0 20px rgba(49, 191, 44, 0.5)",
+                                "0 0 0px rgba(49, 191, 44, 0)",
                             ],
                         }}
                         transition={{
                             duration: 2,
                             repeat: Infinity,
-                            ease: "easeInOut"
+                            ease: "easeInOut",
                         }}
-                        className="uppercase cursor-pointer tracking-wide font-semibold text-lg"
+                        className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 text-[#31bf2c] border-2 border-[#31bf2c] shadow-lg"
                     >
-                        🚀 Muchas opciones más
-                    </motion.p>
-                    {/*<p className="text-sm text-gray-400 mt-2 italic">
-                        Próximamente nuevas asesorías disponibles
-                    </p>*/}
+                        <motion.span
+                            animate={{ rotate: [0, -10, 10, -10, 0] }}
+                            transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                            className="text-2xl"
+                        >
+                            🚀
+                        </motion.span>
+                        <span className="font-bold tracking-wide text-lg">Más opciones en desarrollo</span>
+                    </motion.div>
                 </div>
             </div>
         </section>

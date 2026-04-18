@@ -3,6 +3,13 @@
 import { useState } from "react";
 import Image from "next/image";
 import { FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
+import { motion } from "framer-motion";
+
+const socialLinks = [
+    { name: "Facebook", href: "https://www.facebook.com/share/1JMbyxjzvd/", icon: "/Icono_Face.png", color: "#1877f2" },
+    { name: "WhatsApp", href: "https://wa.me/8186863395", icon: "/icono_whats.png", color: "#25d366" },
+    { name: "Correo", href: "mailto:contacto@answerst.com", icon: "/icono_correo.png", color: "#ea4335" },
+];
 
 export default function Contacto() {
     const [nombre, setNombre] = useState("");
@@ -61,40 +68,31 @@ export default function Contacto() {
                         </div>
                     </div>
 
-                    {/* Íconos sociales */}
-                    <div className="mt-12 flex flex-row sm:flex-row flex-wrap justify-center gap-8">
-                        {/* Facebook */}
-                        <a href="https://www.facebook.com/share/1JMbyxjzvd/" target="_blank" rel="noopener noreferrer"
-                            className="group relative w-[80px] h-[100px] cursor-pointer">
-                            <Image src="/Icono_Face.png" alt="Facebook" width={80} height={80}
-                                className="transition-transform duration-300 group-hover:scale-110 group-hover:shadow-[0_8px_20px_#31bf2c50]" />
-                            <div className="absolute top-full left-0 w-full h-[20px] overflow-hidden">
-                                <Image src="/Icono_Face.png" alt="Reflejo Facebook" width={80} height={80}
-                                    className="opacity-30 blur-sm scale-y-[-1]" />
-                            </div>
-                        </a>
-
-                        {/* WhatsApp */}
-                        <a href="https://wa.me/8186863395" target="_blank" rel="noopener noreferrer"
-                            className="group relative w-[80px] h-[100px] cursor-pointer">
-                            <Image src="/icono_whats.png" alt="WhatsApp" width={80} height={80}
-                                className="transition-transform duration-300 group-hover:scale-110 group-hover:shadow-[0_8px_20px_#31bf2c50]" />
-                            <div className="absolute top-full left-0 w-full h-[20px] overflow-hidden">
-                                <Image src="/icono_whats.png" alt="Reflejo WhatsApp" width={80} height={80}
-                                    className="opacity-30 blur-sm scale-y-[-1]" />
-                            </div>
-                        </a>
-
-                        {/* Correo */}
-                        <a href="mailto:contacto@answerst.com"
-                            className="group relative w-[80px] h-[100px] cursor-pointer">
-                            <Image src="/icono_correo.png" alt="Correo" width={80} height={80}
-                                className="transition-transform duration-300 group-hover:scale-110 group-hover:shadow-[0_8px_20px_#31bf2c50]" />
-                            <div className="absolute top-full left-0 w-full h-[20px] overflow-hidden">
-                                <Image src="/icono_correo.png" alt="Reflejo Correo" width={80} height={80}
-                                    className="opacity-30 blur-sm scale-y-[-1]" />
-                            </div>
-                        </a>
+                    {/* Íconos sociales mejorados */}
+                    <div className="mt-12 flex flex-wrap justify-center gap-10">
+                        {socialLinks.map((link) => (
+                            <motion.a
+                                key={link.name}
+                                href={link.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                whileHover={{ y: -15, scale: 1.1 }}
+                                className="relative group p-4 bg-gray-50 rounded-2xl shadow-lg border border-gray-100 transition-colors duration-300"
+                                style={{ boxShadow: `0 10px 25px -5px ${link.color}30` }}
+                            >
+                                <motion.div
+                                    className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                    style={{ boxShadow: `0 0 20px ${link.color}` }}
+                                />
+                                <Image 
+                                    src={link.icon} 
+                                    alt={link.name} 
+                                    width={60} 
+                                    height={60} 
+                                    className="relative z-10" 
+                                />
+                            </motion.a>
+                        ))}
                     </div>
                 </div>
 
@@ -159,10 +157,7 @@ export default function Contacto() {
                         )}
                     </form>
                 </div>
-
-
             </div>
         </section>
-
     );
 }

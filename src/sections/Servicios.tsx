@@ -32,6 +32,21 @@ const services = [
 export default function Servicios() {
     const [selected, setSelected] = useState<number | null>(null);
 
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.2,
+            },
+        },
+    };
+
+    const cardVariants = {
+        hidden: { opacity: 0, y: 50 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+    };
+
     return (
         <section
             id="servicios"
@@ -39,20 +54,40 @@ export default function Servicios() {
         >
             <div className="max-w-7xl mx-auto text-center px-6 w-full">
                 {/* Título */}
-                <h2 className="px-6 py-3 bg-blue-950 text-white font-semibold rounded-full shadow-md hover:bg-[#034aa6] transition w-full sm:w-auto text-center inline-block text-[clamp(1.5rem,4vw,2.5rem)]">
+                <motion.h2
+                    initial={{ opacity: 0, y: -20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="px-6 py-3 bg-blue-950 text-white font-semibold rounded-full shadow-md hover:bg-[#034aa6] transition w-full sm:w-auto text-center inline-block text-[clamp(1.5rem,4vw,2.5rem)]"
+                >
                     Nuestros servicios
-                </h2>
-                <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
+                </motion.h2>
+                <motion.p
+                    initial={{ opacity: 0, y: -20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.2 }}
+                    className="mt-4 text-gray-600 max-w-2xl mx-auto"
+                >
                     En Answer <span className="text-[#31bf2c]">st</span> ofrecemos soluciones estratégicas, asesoría
                     personalizada y gestión eficiente de trámites para ayudarte a
                     alcanzar tus objetivos.
-                </p>
+                </motion.p>
 
                 {/* Cards */}
-                <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+                <motion.div
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8"
+                >
                     {services.map((service) => (
-                        <div
+                        <motion.div
                             key={service.id}
+                            variants={cardVariants}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
                             onClick={() =>
                                 setSelected(selected === service.id ? null : service.id)
                             }
@@ -72,7 +107,11 @@ export default function Servicios() {
                             </div>
 
                             {/* Imagen */}
-                            <div className="relative z-40 flex justify-center items-center mb-4">
+                            <motion.div
+                                whileHover={{ rotate: [0, -10, 10, -10, 0] }}
+                                transition={{ duration: 0.5 }}
+                                className="relative z-40 flex justify-center items-center mb-4"
+                            >
                                 <Image
                                     src={service.image}
                                     alt={service.title}
@@ -80,7 +119,7 @@ export default function Servicios() {
                                     height={100}
                                     className="object-contain"
                                 />
-                            </div>
+                            </motion.div>
 
                             {/* Título */}
                             <h3 className="font-semibold text-lg text-gray-800 relative z-20">
@@ -92,39 +131,36 @@ export default function Servicios() {
                                 {selected === service.id && (
                                     <motion.div
                                         key={service.id}
-                                        initial={{ opacity: 0, y: 10 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: -10 }}
-                                        transition={{ duration: 0.2 }}
+                                        initial={{ opacity: 0, height: 0 }}
+                                        animate={{ opacity: 1, height: "auto" }}
+                                        exit={{ opacity: 0, height: 0 }}
+                                        transition={{ duration: 0.3 }}
                                         className="block md:hidden mt-4 px-4 py-3 bg-[#f9f9f9] border-l-4 border-[#31bf2c] rounded-md shadow-sm text-sm text-gray-700 text-justify relative z-30"
                                     >
                                         {service.description}
                                     </motion.div>
                                 )}
                             </AnimatePresence>
-                        </div>
+                        </motion.div>
                     ))}
-                </div>
+                </motion.div>
 
                 {/* Texto dinámico SOLO en escritorio */}
-                <div className="hidden md:block mt-8 min-h-[100px]">
-                    <AnimatePresence>
-                        {selected !== null && (
-                            <motion.div
-                                key={selected}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -20 }}
-                                transition={{ duration: 0.3 }}
-                                className="mt-8 min-h-[100px] max-w-2xl mx-auto px-6 py-4 bg-[#f9f9f9] border-l-4 border-[#31bf2c] rounded-md shadow-sm"
-                            >
-                                <p className="text-gray-700 text-lg text-justify leading-relaxed">
-                                    {services.find((s) => s.id === selected)?.description}
-                                </p>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
-                </div>
+                <AnimatePresence mode="wait">
+                    {selected !== null && (
+                        <motion.div
+                            key={selected}
+                            initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                            animate={{ opacity: 1, height: "auto", marginTop: 32 }}
+                            exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                            className="hidden md:block max-w-2xl mx-auto px-8 py-6 bg-white border-2 border-[#31bf2c] rounded-2xl shadow-xl"
+                        >
+                            <p className="text-gray-800 text-lg text-justify leading-relaxed font-medium">
+                                {services.find((s) => s.id === selected)?.description}
+                            </p>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
 
                 {/* Botón */}
                 <div className="mt-12">
