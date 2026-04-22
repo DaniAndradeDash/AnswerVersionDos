@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import VideoPlayer from "../components/VideoPlayer";
 
 export default function Distintivo() {
     const settings = {
@@ -111,6 +112,7 @@ export default function Distintivo() {
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
+                    className="mb-16"
                 >
                     <Slider {...settings}>
                         {[
@@ -131,6 +133,12 @@ export default function Distintivo() {
                         ))}
                     </Slider>
                 </motion.div>
+
+                {/* Nuevo video Infonagreen */}
+                <div className="mt-10">
+                    <h3 className="text-center text-xl font-bold text-blue-950 mb-6">Conoce Infonagreen</h3>
+                    <VideoPlayer src="/Infonagreen.mp4" title="Infonagreen Video" />
+                </div>
             </div>
         </section>
     );

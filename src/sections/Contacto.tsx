@@ -157,7 +157,9 @@ export default function Contacto() {
                         )}
                     </form>
                 </div>
+                
             </div>
+                
         </section>
     );
 }
