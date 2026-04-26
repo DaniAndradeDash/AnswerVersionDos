@@ -4,8 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+//import "slick-carousel/slick/slick.css";
+//mport "slick-carousel/slick/slick-theme.css";
 import VideoPlayer from "../components/VideoPlayer";
 
 export default function Distintivo() {
@@ -28,24 +28,25 @@ export default function Distintivo() {
         <section id="distintivo" className="w-full bg-white py-16 md:py-20 overflow-hidden">
             <div className="max-w-6xl mx-auto px-6">
                 {/* Título */}
-                <motion.div
-                    initial={{ opacity: 0, y: -20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="text-center mb-10"
-                >
-                    <h2 className="px-8 py-4 bg-blue-950 text-white font-bold rounded-full shadow-2xl text-[clamp(1.5rem,4vw,2.5rem)] inline-block">
-                        Nuestro Distintivo
-                    </h2>
-                </motion.div>
+                    <motion.div
+                        initial={{ opacity: 0, y: -20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="text-center mb-18"
+                    >
+                        <h2 className="px-8 py-4 bg-blue-950 text-white font-bold rounded-full shadow-2xl text-[clamp(1.5rem,4vw,2.5rem)] inline-block">
+                            Nuestro Distintivo
+                        </h2>
+                    </motion.div>
 
-                <div className="grid md:grid-cols-2 gap-8 items-center mb-10">
+
+                <div className="grid md:grid-cols-2 gap-26 items-center mb-10">
                     {/* Sección Visual (Logo + Botón) */}
                     <motion.div
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
-                        className="flex flex-col items-center gap-6"
+                        className="flex flex-col items-center gap-22"
                     >
                         <motion.div
                             animate={{ rotate: [0, 5, -5, 0] }}
@@ -61,7 +62,7 @@ export default function Distintivo() {
                         </motion.div>
 
                         <Link
-                            href="https://www.facebook.com/profile.php?id=61563095009879"
+                            href="https://www.facebook.com/share/1JMbyxjzvd/"
                             target="_blank"
                             className="flex items-center gap-3 px-6 py-3 bg-[#31bf2c] text-white font-bold rounded-full shadow-lg hover:bg-[#28a428] transition-all hover:scale-105"
                         >
