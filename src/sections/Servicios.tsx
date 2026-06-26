@@ -1,177 +1,118 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState } from 'react'
+import Link from 'next/link'
+import { Users, Search, ClipboardCheck, ChevronDown, ChevronUp, ArrowRight } from 'lucide-react'
+import { Section } from '@/components/ui/Section'
+import { Card } from '@/components/ui/Card'
+import { Button } from '@/components/ui/Button'
+import { AnimatedSection } from '@/components/motion/AnimatedSection'
+import { StaggerContainer } from '@/components/motion/StaggerContainer'
+import { services } from '@/constants/services'
 
-const services = [
-    {
-        id: 1,
-        title: "Asesoramiento Personalizado",
-        description:
-            "Nuestro equipo de expertos está aquí para atender tus metas y necesidades personales o empresariales.",
-        image: "/asesoramiento_personalizado.png",
-    },
-    {
-        id: 2,
-        title: "Análisis Detallado",
-        description:
-            "Realizamos un análisis exhaustivo de tu situación para identificar las mejores opciones y estrategias que resuelvan tus necesidades de manera óptima.",
-        image: "/Analisis_detallado.png",
-    },
-    {
-        id: 3,
-        title: "Gestión de Trámites",
-        description:
-            "Simplificamos el proceso de tu solicitud, gestionando los trámites correspondientes agilizando el desarrollo de los temas, garantizando amplios beneficios. Creamos soluciones sostenibles y estratégicas que generan resultados.",
-        image: "/gestion_tramites.png",
-    },
-];
+const iconMap: Record<string, React.ElementType> = {
+  Users,
+  Search,
+  ClipboardCheck,
+}
 
 export default function Servicios() {
-    const [selected, setSelected] = useState<number | null>(null);
+  const [selected, setSelected] = useState<number | null>(null)
 
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.2,
-            },
-        },
-    };
+  return (
+    <Section id="servicios" variant="default" headingId="servicios-heading">
+      <div className="text-center">
+        <AnimatedSection animation="fade-up" duration={0.6}>
+          <h2 id="servicios-heading" className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">
+            Nuestros <span className="text-secondary">Servicios</span>
+          </h2>
+        </AnimatedSection>
 
-    const cardVariants = {
-        hidden: { opacity: 0, y: 50 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-    };
+        <AnimatedSection animation="fade-up" delay={0.15} duration={0.6}>
+          <p className="mt-4 text-muted-foreground max-w-2xl mx-auto text-base sm:text-lg">
+            En Answer <span className="text-secondary font-semibold">st</span> ofrecemos soluciones estratégicas,
+            asesoría personalizada y gestión eficiente de trámites para ayudarte a
+            alcanzar tus objetivos.
+          </p>
+        </AnimatedSection>
+      </div>
 
-    return (
-        <section
-            id="servicios"
-            className="w-full min-h-screen bg-white flex items-center"
-        >
-            <div className="max-w-7xl mx-auto text-center px-6 w-full">
-                {/* Título */}
-                <motion.h2
-                    initial={{ opacity: 0, y: -20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="px-6 py-3 bg-blue-950 text-white font-semibold rounded-full shadow-md hover:bg-[#034aa6] transition w-full sm:w-auto text-center inline-block text-[clamp(1.5rem,4vw,2.5rem)]"
-                >
-                    Nuestros servicios
-                </motion.h2>
-                <motion.p
-                    initial={{ opacity: 0, y: -20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.2 }}
-                    className="mt-4 text-gray-600 max-w-2xl mx-auto"
-                >
-                    En Answer <span className="text-[#31bf2c]">st</span> ofrecemos soluciones estratégicas, asesoría
-                    personalizada y gestión eficiente de trámites para ayudarte a
-                    alcanzar tus objetivos.
-                </motion.p>
+      {/* Service Cards */}
+      <StaggerContainer
+        className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+        staggerDelay={0.15}
+      >
+        {services.map((service) => {
+          const Icon = iconMap[service.icon] ?? Users
+          const isSelected = selected === service.id
 
-                {/* Cards */}
-                <motion.div
-                    variants={containerVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8"
-                >
-                    {services.map((service) => (
-                        <motion.div
-                            key={service.id}
-                            variants={cardVariants}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            onClick={() =>
-                                setSelected(selected === service.id ? null : service.id)
-                            }
-                            className={`group cursor-pointer bg-white rounded-lg shadow-md border hover:shadow-xl transition p-6 flex flex-col items-center relative overflow-hidden min-h-[300px] ${selected === service.id
-                                ? "border-[#31bf2c]"
-                                : "border-gray-200"
-                                }`}
-                        >
-                            {/* Fondo en hover */}
-                            <div className="absolute inset-0 z-0 opacity-0 group-hover:opacity-100 transition duration-500">
-                                <Image
-                                    src="/fondo_servicios.png"
-                                    alt="Fondo decorativo"
-                                    fill
-                                    className="object-cover"
-                                />
-                            </div>
+          return (
+            <Card
+              key={service.id}
+              variant={isSelected ? 'selected' : 'hover'}
+              className="cursor-pointer p-6 min-h-[280px] flex flex-col items-center text-center group relative overflow-hidden"
+              onClick={() => setSelected(isSelected ? null : service.id)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault()
+                  setSelected(isSelected ? null : service.id)
+                }
+              }}
+              aria-expanded={isSelected}
+              aria-label={`${service.title}${isSelected ? ', detalles ocultos' : ', haz clic para ver detalles'}`}
+            >
+              {/* Icon */}
+              <div className="relative z-10 mb-4 p-4 rounded-2xl bg-surface group-hover:bg-secondary/10 transition-colors duration-300">
+                <Icon className="h-8 w-8 text-primary group-hover:text-secondary transition-colors duration-300" aria-hidden="true" />
+              </div>
 
-                            {/* Imagen */}
-                            <motion.div
-                                whileHover={{ rotate: [0, -10, 10, -10, 0] }}
-                                transition={{ duration: 0.5 }}
-                                className="relative z-40 flex justify-center items-center mb-4"
-                            >
-                                <Image
-                                    src={service.image}
-                                    alt={service.title}
-                                    width={100}
-                                    height={100}
-                                    className="object-contain"
-                                />
-                            </motion.div>
+              {/* Title */}
+              <h3 className="font-semibold text-lg text-foreground relative z-10">
+                {service.title}
+              </h3>
 
-                            {/* Título */}
-                            <h3 className="font-semibold text-lg text-gray-800 relative z-20">
-                                {service.title}
-                            </h3>
+              {/* Toggle indicator */}
+              <div className="mt-3 text-muted-foreground group-hover:text-secondary transition-colors duration-300" aria-hidden="true">
+                {isSelected ? (
+                  <ChevronUp className="h-5 w-5 mx-auto" />
+                ) : (
+                  <ChevronDown className="h-5 w-5 mx-auto" />
+                )}
+              </div>
 
-                            {/* Descripción SOLO en móviles */}
-                            <AnimatePresence>
-                                {selected === service.id && (
-                                    <motion.div
-                                        key={service.id}
-                                        initial={{ opacity: 0, height: 0 }}
-                                        animate={{ opacity: 1, height: "auto" }}
-                                        exit={{ opacity: 0, height: 0 }}
-                                        transition={{ duration: 0.3 }}
-                                        className="block md:hidden mt-4 px-4 py-3 bg-[#f9f9f9] border-l-4 border-[#31bf2c] rounded-md shadow-sm text-sm text-gray-700 text-justify relative z-30"
-                                    >
-                                        {service.description}
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                        </motion.div>
-                    ))}
-                </motion.div>
-
-                {/* Texto dinámico SOLO en escritorio */}
-                <AnimatePresence mode="wait">
-                    {selected !== null && (
-                        <motion.div
-                            key={selected}
-                            initial={{ opacity: 0, height: 0, marginTop: 0 }}
-                            animate={{ opacity: 1, height: "auto", marginTop: 32 }}
-                            exit={{ opacity: 0, height: 0, marginTop: 0 }}
-                            className="hidden md:block max-w-2xl mx-auto px-8 py-6 bg-white border-2 border-[#31bf2c] rounded-2xl shadow-xl"
-                        >
-                            <p className="text-gray-800 text-lg text-justify leading-relaxed font-medium">
-                                {services.find((s) => s.id === selected)?.description}
-                            </p>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-
-                {/* Botón */}
-                <div className="mt-12">
-                    <Link
-                        href="#contacto"
-                        className="px-6 py-3 bg-[#04268c] text-white font-semibold rounded-full shadow-md hover:bg-[#034aa6] transition"
-                    >
-                        Contáctanos
-                    </Link>
+              {/* Expanded description */}
+              <div
+                className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                  isSelected ? 'max-h-48 opacity-100 mt-4' : 'max-h-0 opacity-0'
+                }`}
+              >
+                <div className="pt-4 border-t border-border">
+                  <p className="text-sm text-muted-foreground leading-relaxed text-left">
+                    {service.description}
+                  </p>
                 </div>
-            </div>
-        </section>
-    );
+              </div>
+            </Card>
+          )
+        })}
+      </StaggerContainer>
+
+      {/* CTA */}
+      <AnimatedSection animation="fade-up" delay={0.3} duration={0.6}>
+        <div className="mt-12 text-center">
+          <Link href="#contacto">
+            <Button
+              variant="primary"
+              size="lg"
+              iconRight={<ArrowRight className="h-5 w-5" aria-hidden="true" />}
+            >
+              Contáctanos
+            </Button>
+          </Link>
+        </div>
+      </AnimatedSection>
+    </Section>
+  )
 }

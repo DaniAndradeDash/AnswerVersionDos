@@ -1,0 +1,8 @@
+# robots.txt — AnswerST
+# https://answerst.com/robots.txt
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://answerst.com/sitemap.xml

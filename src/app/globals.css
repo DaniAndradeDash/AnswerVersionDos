@@ -1,22 +1,239 @@
 @import "tailwindcss";
-@import "slick-carousel/slick/slick.css";
-@import "slick-carousel/slick/slick-theme.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================
+   CSS Variables — Light Theme (default)
+   ============================================ */
+:root {
+  /* Background */
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --surface: #f8fafc;
+  --surface-hover: #f1f5f9;
+
+  /* Primary (blue brand) */
+  --primary: #04268c;
+  --primary-foreground: #ffffff;
+  --primary-light: #1e3a8a;
+  --primary-lighter: #dbeafe;
+
+  /* Secondary (green brand) */
+  --secondary: #31bf2c;
+  --secondary-foreground: #ffffff;
+  --secondary-light: #4ade80;
+  --secondary-lighter: #dcfce7;
+
+  /* Accent */
+  --accent: #1e3a8a;
+
+  /* Muted */
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+
+  /* Borders */
+  --border: #e2e8f0;
+  --border-light: #f1f5f9;
+
+  /* Ring */
+  --ring: #31bf2c;
+
+  /* Cards */
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+
+  /* Input */
+  --input: #e2e8f0;
+  --input-background: #ffffff;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  --shadow-glow: 0 0 20px rgba(49, 191, 44, 0.3);
+  --shadow-glow-blue: 0 0 20px rgba(4, 38, 140, 0.3);
+
+  /* Header */
+  --header-height: 80px;
+}
+
+/* ============================================
+   CSS Variables — Dark Theme
+   ============================================ */
+[data-theme="dark"] {
+  --background: #020617;
+  --foreground: #f8fafc;
+  --surface: #0f172a;
+  --surface-hover: #1e293b;
+
+  --primary: #60a5fa;
+  --primary-foreground: #020617;
+  --primary-light: #3b82f6;
+  --primary-lighter: #1e3a8a;
+
+  --secondary: #4ade80;
+  --secondary-foreground: #020617;
+  --secondary-light: #2aa626;
+  --secondary-lighter: #052e16;
+
+  --accent: #3b82f6;
+
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+
+  --border: #1e293b;
+  --border-light: #334155;
+
+  --ring: #4ade80;
+
+  --card: #0f172a;
+  --card-foreground: #f8fafc;
+
+  --input: #334155;
+  --input-background: #0f172a;
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px -1px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+  --shadow-glow: 0 0 20px rgba(74, 222, 128, 0.2);
+  --shadow-glow-blue: 0 0 20px rgba(96, 165, 250, 0.2);
+}
+
+/* ============================================
+   Base Styles
+   ============================================ */
+* {
+  border-color: var(--border);
+}
+
 html {
   scroll-behavior: smooth;
-  /* transición suave */
 }
 
 body {
-  background: #ffffff;
-  /* color: #171717; */
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
-section {
-  scroll-margin-top: 90px;
-  /* un poco más para dar aire */
+/* Theme transition on all elements */
+*, *::before, *::after {
+  transition-property: background-color, border-color, color;
+  transition-duration: 300ms;
+  transition-timing-function: ease-in-out;
+}
+
+/* ============================================
+   Scroll Margin for Fixed Header
+   ============================================ */
+section[id] {
+  scroll-margin-top: calc(var(--header-height) + 16px);
+}
+
+/* ============================================
+   Text Gradient Utility
+   ============================================ */
+.text-gradient {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+[data-theme="dark"] .text-gradient {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================
+   Scroll Snap Slider (Distintivo Section)
+   ============================================ */
+.scroll-snap-slider {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  gap: 1rem;
+  scrollbar-width: none;
+}
+
+.scroll-snap-slider::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-snap-slider > * {
+  scroll-snap-align: center;
+  flex-shrink: 0;
+}
+
+/* ============================================
+   Shine Effect (Compromiso Section)
+   ============================================ */
+@keyframes shine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.shine-effect::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  animation: shine 3s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+/* ============================================
+   Grid Background Pattern (Hero)
+   ============================================ */
+.grid-pattern {
+  background-image:
+    linear-gradient(rgba(4, 38, 140, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(4, 38, 140, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+[data-theme="dark"] .grid-pattern {
+  background-image:
+    linear-gradient(rgba(96, 165, 250, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(96, 165, 250, 0.05) 1px, transparent 1px);
+}
+
+/* ============================================
+   Focus Visible Styles
+   ============================================ */
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   Reduced Motion
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

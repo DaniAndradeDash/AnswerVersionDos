@@ -1,107 +1,116 @@
-"use client";
+'use client'
 
-import Image from "next/image";
-import Link from "next/link";
-import { motion } from "framer-motion";
-import FloatingShapes from "@/components/FloatingShapes";
-import Particles from "@/components/Particles";
-
+import Image from 'next/image'
+import Link from 'next/link'
+import { ArrowRight, ArrowDownRight } from 'lucide-react'
+import { AnimatedSection } from '@/components/motion/AnimatedSection'
+import { Button } from '@/components/ui/Button'
+import { Float } from '@/components/motion/Float'
+import { useReducedMotion } from '@/hooks/useReducedMotion'
 
 export default function Hero() {
-    return (
-        <section
-            id="hero"
-            className="relative w-full min-h-screen bg-white flex items-center px-4 sm:px-6"
-        >
-            <Particles />
+  const reducedMotion = useReducedMotion()
 
-            <div className="max-w-7xl mx-auto flex flex-col-reverse md:flex-row flex-wrap items-center justify-between gap-12 md:gap-20 py-12 md:py-0 w-full">
+  return (
+    <section
+      id="hero"
+      className="relative w-full min-h-[calc(100vh-var(--header-height))] bg-background flex items-center overflow-hidden grid-pattern"
+      aria-labelledby="hero-heading"
+    >
+      {/* Decorative Elements */}
+      {!reducedMotion && (
+        <>
+          <div className="absolute top-20 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl" aria-hidden="true" />
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-secondary/5 rounded-full blur-3xl" aria-hidden="true" />
 
-                {/* Columna izquierda: Texto */}
-                <div className="flex-1 text-center md:text-left">
-                    <h1 className="text-[clamp(1.8rem,5vw,3rem)] font-extrabold text-[#04268c] leading-tight">
-                        Consultoría especializada <br /> en orientación.
-                    </h1>
-                    <p className="mt-6 text-gray-600 text-base text-justify sm:text-lg leading-relaxed max-w-xl mx-auto md:mx-0">
-                        Somos una consultoría especializada en asesoría, orientación e innovación.
-                        Contamos con un equipo de asesores altamente calificados y especializados.
-                        Nuestra misión es orientarte a encontrarte la solución indicada a tus problemas.
-                        En Answer contamos con personal calificado, especialistas y profesionistas en
-                        todo tipo de asesorías.
-                    </p>
+          {/* Floating corner accents */}
+          <Float distance={8} duration={5} delay={0} axis="y" className="absolute top-24 right-20 hidden lg:block">
+            <div className="w-12 h-12 border-t-2 border-l-2 border-secondary/40" aria-hidden="true" />
+          </Float>
+          <Float distance={10} duration={6} delay={1} axis="y" className="absolute bottom-32 left-16 hidden lg:block">
+            <div className="w-16 h-16 border-b-2 border-r-2 border-primary/30" aria-hidden="true" />
+          </Float>
+        </>
+      )}
 
-                    {/* Botones 
-                    <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start w-full sm:w-auto">
-                        <Link
-                            href="#servicios"
-                            className="px-6 py-3 bg-[#04268c] text-white font-semibold rounded-full shadow-md hover:bg-[#034aa6] transition w-full sm:w-auto text-center"
-                        >
-                            Nuestros Servicios
-                        </Link>
-                        <Link
-                            href="#asesorias"
-                            className="px-6 py-3 border-2 border-[#31bf2c] text-[#31bf2c] font-semibold rounded-full hover:bg-[#31bf2c] hover:text-white transition w-full sm:w-auto text-center"
-                        >
-                            Nuestras asesorías
-                        </Link>
-                    </div>*/}
-                </div>
+      <div className="mx-auto max-w-7xl flex flex-col-reverse lg:flex-row items-center justify-between gap-12 lg:gap-20 py-12 lg:py-0 px-4 sm:px-6 w-full">
+        {/* Left Column: Content */}
+        <div className="flex-1 text-center lg:text-left">
+          <AnimatedSection animation="fade-up" duration={0.6}>
+            <h1 id="hero-heading" className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight">
+              <span className="text-gradient">Consultoría</span>
+              <br />
+              <span className="text-foreground">especializada</span>
+              <br />
+              <span className="text-foreground">en orientación.</span>
+            </h1>
+          </AnimatedSection>
 
-                {/* Columna derecha: Imagen */}
-                <div className="relative w-full sm:w-[300px] md:w-[400px] aspect-square flex items-center justify-center mx-auto">
-                    {/* 🔲 Esquinas animadas (más largas) */}
-                    {/* Esquina superior izquierda */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.5, x: -20, y: -20 }}
-                        animate={{ opacity: 1, scale: 1, x: 0, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                        className="absolute top-0 left-0 w-10 h-10 border-t-4 border-l-4 border-[#31bf2c]"
-                    />
+          <AnimatedSection animation="fade-up" delay={0.2} duration={0.6}>
+            <p className="mt-6 text-muted-foreground text-base sm:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0">
+              Somos una consultoría especializada en asesoría, orientación e innovación.
+              Contamos con un equipo de asesores altamente calificados para encontrar
+              la solución indicada a tus problemas.
+            </p>
+          </AnimatedSection>
 
-                    {/* Esquina superior derecha */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.5, x: 20, y: -20 }}
-                        animate={{ opacity: 1, scale: 1, x: 0, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.4 }}
-                        className="absolute top-0 right-0 w-10 h-10 border-t-4 border-r-4 border-[#31bf2c]"
-                    />
-
-                    {/* Esquina inferior izquierda */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.5, x: -20, y: 20 }}
-                        animate={{ opacity: 1, scale: 1, x: 0, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.6 }}
-                        className="absolute bottom-0 left-0 w-10 h-10 border-b-4 border-l-4 border-[#31bf2c]"
-                    />
-
-                    {/* Esquina inferior derecha */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.5, x: 20, y: 20 }}
-                        animate={{ opacity: 1, scale: 1, x: 0, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.8 }}
-                        className="absolute bottom-0 right-0 w-10 h-10 border-b-4 border-r-4 border-[#31bf2c]"
-                    />
-
-                    {/* Logo animado */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.5, filter: "blur(10px)" }}
-                        animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                        transition={{ duration: 1.2, ease: "easeOut", delay: 1 }}
-                        className="z-10 w-full h-full flex items-center justify-center"
-                    >
-                        <Image
-                            src="/answer_heroDos.png"
-                            alt="Logo Answer ST"
-                            fill
-                            className="object-contain"
-                            priority
-                        />
-                    </motion.div>
-
-                </div>
-
-
+          <AnimatedSection animation="fade-up" delay={0.4} duration={0.6}>
+            <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <Link href="#servicios">
+                <Button
+                  variant="primary"
+                  size="lg"
+                  iconRight={<ArrowRight className="h-5 w-5" aria-hidden="true" />}
+                >
+                  Nuestros Servicios
+                </Button>
+              </Link>
+              <Link href="#asesorias">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  iconRight={<ArrowDownRight className="h-5 w-5" aria-hidden="true" />}
+                >
+                  Nuestras Asesorías
+                </Button>
+              </Link>
             </div>
-        </section>
-    );
+          </AnimatedSection>
+        </div>
+
+        {/* Right Column: Image */}
+        <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-lg aspect-square flex items-center justify-center mx-auto">
+          {/* Corner brackets */}
+          <AnimatedSection animation="scale" delay={0.2} duration={0.5}>
+            {/* Top-left */}
+            <div className="absolute top-0 left-0 w-12 h-12 border-t-4 border-l-4 border-secondary" aria-hidden="true" />
+            {/* Top-right */}
+            <div className="absolute top-0 right-0 w-12 h-12 border-t-4 border-r-4 border-secondary" aria-hidden="true" />
+            {/* Bottom-left */}
+            <div className="absolute bottom-0 left-0 w-12 h-12 border-b-4 border-l-4 border-secondary" aria-hidden="true" />
+            {/* Bottom-right */}
+            <div className="absolute bottom-0 right-0 w-12 h-12 border-b-4 border-r-4 border-secondary" aria-hidden="true" />
+          </AnimatedSection>
+
+          {/* Logo */}
+          <AnimatedSection animation="scale" delay={0.4} duration={0.8}>
+            <div className="relative z-10 w-full h-full p-8">
+              <Image
+                src="/answer_heroDos.png"
+                alt="Answer ST — Logo de la consultora"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+          </AnimatedSection>
+
+          {/* Decorative glow */}
+          {!reducedMotion && (
+            <div className="absolute inset-0 bg-secondary/5 rounded-full blur-3xl scale-75" aria-hidden="true" />
+          )}
+        </div>
+      </div>
+    </section>
+  )
 }
