@@ -9,7 +9,7 @@ export const siteConfig: SiteConfig = {
   email: 'contacto@answerst.com',
   phone: '8186863395',
   location: 'Monterrey, Nuevo León',
-  facebook: 'https://www.facebook.com/share/1CxTbthhWd/',
+  facebook: 'https://www.facebook.com/profile.php?id=61563095009879&locale=es_LA',
   whatsapp: 'https://wa.me/528186863395',
   twitter: '',
   instagram: '',

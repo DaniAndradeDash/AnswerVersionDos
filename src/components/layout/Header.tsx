@@ -5,7 +5,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Menu, X, Sun, Moon } from 'lucide-react'
 import { useTheme } from 'next-themes'
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
+import { useReducedMotion } from '@/hooks/useReducedMotion'
 import { navItems } from '@/constants/navigation'
 
 export default function Header() {
@@ -17,6 +18,12 @@ export default function Header() {
   const lastScrollYRef = useRef(0)
   const { theme, setTheme } = useTheme()
   const prefersReducedMotion = useReducedMotion()
+  const [mounted, setMounted] = useState(false)
+
+  //Asegurar que cambie a true solo en el cliente
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   // Scroll handler: auto-hide + scrolled state
   useEffect(() => {
@@ -149,7 +156,7 @@ export default function Header() {
               )}
             </div>
             <span className="font-bold text-lg sm:text-xl text-foreground whitespace-nowrap relative">
-              ANSWER<span className="text-secondary">.st</span>
+              NSWER<span className="text-secondary">.st</span>
             </span>
           </Link>
 
@@ -199,59 +206,69 @@ export default function Header() {
             <span className="w-px h-6 bg-border/50 mx-2" aria-hidden="true" />
 
             {/* Theme Toggle */}
-            <button
-              type="button"
-              onClick={toggleTheme}
-              className={`
-                relative p-2.5 rounded-full transition-all duration-300 ease-out
-                hover:bg-foreground/5
-                ${themeToggled ? 'text-secondary' : 'text-foreground/70 hover:text-foreground'}
-              `}
-              aria-label={theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
-            >
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={theme === 'dark' ? 'sun' : 'moon'}
-                  initial={{ rotate: -90, opacity: 0, scale: 0.5 }}
-                  animate={{ rotate: 0, opacity: 1, scale: 1 }}
-                  exit={{ rotate: 90, opacity: 0, scale: 0.5 }}
-                  transition={{ duration: 0.4, ease: 'easeInOut' }}
-                  className="flex items-center justify-center"
-                >
-                  <Sun className="h-5 w-5 hidden dark:block" aria-hidden="true" />
-                  <Moon className="h-5 w-5 block dark:hidden" aria-hidden="true" />
-                </motion.span>
-              </AnimatePresence>
-            </button>
+            {mounted && (
+              <button
+                type="button"
+                onClick={toggleTheme}
+                className={`
+                  relative p-2.5 rounded-full transition-all duration-300 ease-out
+                  hover:bg-foreground/5
+                  ${themeToggled ? 'text-secondary' : 'text-foreground/70 hover:text-foreground'}
+                `}
+                aria-label={theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
+              >
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={theme}
+                    initial={{ rotate: -90, opacity: 0, scale: 0.5 }}
+                    animate={{ rotate: 0, opacity: 1, scale: 1 }}
+                    exit={{ rotate: 90, opacity: 0, scale: 0.5 }}
+                    transition={{ duration: 0.4, ease: 'easeInOut' }}
+                    className="flex items-center justify-center"
+                  >
+                    {theme === 'dark' ? (
+                      <Sun className="h-5 w-5" aria-hidden="true" />
+                    ) : (
+                      <Moon className="h-5 w-5" aria-hidden="true" />
+                    )}
+                  </motion.span>
+                </AnimatePresence>
+              </button>
+            )}
           </nav>
 
           {/* Mobile Controls */}
           <div className="flex items-center gap-2 md:hidden">
             {/* Theme Toggle Mobile */}
-            <button
-              type="button"
-              onClick={toggleTheme}
-              className={`
-                p-2 rounded-full transition-all duration-300 ease-out
-                hover:bg-foreground/5
-                ${themeToggled ? 'text-secondary' : 'text-foreground/70 hover:text-foreground'}
-              `}
-              aria-label={theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
-            >
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={theme === 'dark' ? 'sun' : 'moon'}
-                  initial={{ rotate: -90, opacity: 0, scale: 0.5 }}
-                  animate={{ rotate: 0, opacity: 1, scale: 1 }}
-                  exit={{ rotate: 90, opacity: 0, scale: 0.5 }}
-                  transition={{ duration: 0.4, ease: 'easeInOut' }}
-                  className="flex items-center justify-center"
-                >
-                  <Sun className="h-5 w-5 hidden dark:block" aria-hidden="true" />
-                  <Moon className="h-5 w-5 block dark:hidden" aria-hidden="true" />
-                </motion.span>
-              </AnimatePresence>
-            </button>
+            {mounted && (
+              <button
+                type="button"
+                onClick={toggleTheme}
+                className={`
+                  p-2 rounded-full transition-all duration-300 ease-out
+                  hover:bg-foreground/5
+                  ${themeToggled ? 'text-secondary' : 'text-foreground/70 hover:text-foreground'}
+                `}
+                aria-label={theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
+              >
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={theme}
+                    initial={{ rotate: -90, opacity: 0, scale: 0.5 }}
+                    animate={{ rotate: 0, opacity: 1, scale: 1 }}
+                    exit={{ rotate: 90, opacity: 0, scale: 0.5 }}
+                    transition={{ duration: 0.4, ease: 'easeInOut' }}
+                    className="flex items-center justify-center"
+                  >
+                    {theme === 'dark' ? (
+                      <Sun className="h-5 w-5" aria-hidden="true" />
+                    ) : (
+                      <Moon className="h-5 w-5" aria-hidden="true" />
+                    )}
+                  </motion.span>
+                </AnimatePresence>
+              </button>
+            )}
 
             {/* Menu Toggle */}
             <button

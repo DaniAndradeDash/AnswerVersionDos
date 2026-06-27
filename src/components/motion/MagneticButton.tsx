@@ -17,7 +17,7 @@ export function MagneticButton({
   children,
   className,
   strength = 30,
-  as: Component = 'button',
+  as: Component = 'div',
   onClick,
   href,
   ...props

@@ -70,15 +70,20 @@ export default function Hero() {
   const reducedMotion = useReducedMotion()
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
 
-  // Particles
-  const particles = Array.from({ length: 16 }, (_, i) => ({
-    id: i,
-    delay: Math.random() * 3,
-    x: Math.random() * 100,
-    y: 20 + Math.random() * 70,
-    size: 2 + Math.random() * 4,
-    duration: 3 + Math.random() * 4,
-  }))
+  const [particles, setParticles] = useState<Array<{ id: number; delay: number; x: number; y: number; size: number; duration: number }>>([])
+
+  useEffect(() => {
+    setParticles(
+      Array.from({ length: 16 }, (_, i) => ({
+        id: i,
+        delay: Math.random() * 3,
+        x: Math.random() * 100,
+        y: 20 + Math.random() * 70,
+        size: 2 + Math.random() * 4,
+        duration: 3 + Math.random() * 4,
+      }))
+    )
+  }, [])
 
   // Mouse parallax
   useEffect(() => {
