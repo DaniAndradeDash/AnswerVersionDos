@@ -45,23 +45,14 @@ export default function Servicios() {
         {services.map((service) => {
           const Icon = iconMap[service.icon] ?? Users
           const isSelected = selected === service.id
+          const panelId = `service-panel-${service.id}`
+          const buttonId = `service-button-${service.id}`
 
           return (
             <Card
               key={service.id}
               variant={isSelected ? 'selected' : 'hover'}
-              className="cursor-pointer p-6 min-h-[280px] flex flex-col items-center text-center group relative overflow-hidden"
-              onClick={() => setSelected(isSelected ? null : service.id)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault()
-                  setSelected(isSelected ? null : service.id)
-                }
-              }}
-              aria-expanded={isSelected}
-              aria-label={`${service.title}${isSelected ? ', detalles ocultos' : ', haz clic para ver detalles'}`}
+              className="p-6 min-h-[280px] flex flex-col items-center text-center group relative overflow-hidden"
             >
               {/* Icon */}
               <div className="relative z-10 mb-4 p-4 rounded-2xl bg-surface group-hover:bg-secondary/10 transition-colors duration-300">
@@ -73,17 +64,28 @@ export default function Servicios() {
                 {service.title}
               </h3>
 
-              {/* Toggle indicator */}
-              <div className="mt-3 text-muted-foreground group-hover:text-secondary transition-colors duration-300" aria-hidden="true">
+              {/* Toggle button */}
+              <button
+                id={buttonId}
+                type="button"
+                className="mt-3 text-muted-foreground group-hover:text-secondary transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 rounded-full p-1"
+                aria-expanded={isSelected}
+                aria-controls={panelId}
+                aria-label={`${service.title} — ${isSelected ? 'ocultar detalles' : 'ver detalles'}`}
+                onClick={() => setSelected(isSelected ? null : service.id)}
+              >
                 {isSelected ? (
-                  <ChevronUp className="h-5 w-5 mx-auto" />
+                  <ChevronUp className="h-5 w-5 mx-auto" aria-hidden="true" />
                 ) : (
-                  <ChevronDown className="h-5 w-5 mx-auto" />
+                  <ChevronDown className="h-5 w-5 mx-auto" aria-hidden="true" />
                 )}
-              </div>
+              </button>
 
-              {/* Expanded description */}
+              {/* Expanded description panel */}
               <div
+                id={panelId}
+                role="region"
+                aria-labelledby={buttonId}
                 className={`overflow-hidden transition-all duration-500 ease-in-out ${
                   isSelected ? 'max-h-48 opacity-100 mt-4' : 'max-h-0 opacity-0'
                 }`}

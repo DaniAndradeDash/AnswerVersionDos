@@ -1,36 +1,197 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AnswerST — Landing Page
 
-## Getting Started
+> Consultoría Especializada en Monterrey, Nuevo León.
 
-First, run the development server:
+## Descripción
+
+Landing page moderna, tecnológica y orientada a la conversión para **Answer ST**, consultora especializada en asesoría empresarial, legal, financiera, ambiental y más.
+
+Diseñada con inspiración en Vercel, Stripe, Linear y Framer. Transmite innovación, confianza y calidad.
+
+---
+
+## Stack
+
+| Categoría | Tecnología |
+|-----------|------------|
+| Framework | Next.js 15 (App Router) |
+| Runtime | React 19 |
+| Lenguaje | TypeScript 5 (strict) |
+| Estilos | Tailwind CSS v4 |
+| Animaciones | GSAP + Lenis (smooth scroll) |
+| Formularios | React Hook Form + Zod |
+| Email (dev) | nodemailer + Mailtrap |
+| Email (prod) | PHPMailer + SMTP (Neubox) |
+| Deploy | Exportación estática → Hostinger |
+
+---
+
+## Comandos
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev       # Desarrollo con Turbopack → http://localhost:3000
+npm run build     # Exportación estática → out/
+npm run lint      # ESLint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+> **Nota:** `npm run start` NO funciona con exportación estática.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Arquitectura
 
-## Learn More
+### Exportación Estática
 
-To learn more about Next.js, take a look at the following resources:
+El proyecto usa `output: 'export'` en `next.config.ts`. Esto genera HTML estático en `out/` sin servidor Node.js. Los archivos se despliegan directamente a un host PHP (Neubox/Hostinger).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Flujo de Correo (Dos Rutas)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Ambiente | Método | Proveedor |
+|----------|--------|-----------|
+| **Desarrollo** | `POST /api/contact` → nodemailer | Mailtrap sandbox |
+| **Producción** | `POST phpmailer/sendmail.php` → PHPMailer | SMTP Neubox |
 
-## Deploy on Vercel
+**Variables de entorno (desarrollo):**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```env
+SMTP_HOST=sandbox.smtp.mailtrap.io
+SMTP_PORT=2525
+MAILTRAP_USER=tu_usuario
+MAILTRAP_PASS=tu_password
+EMAILJS_USER=contacto@answerst.com
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Estructura
+
+```
+├── src/
+│   ├── app/                    # Next.js App Router
+│   │   ├── layout.tsx          # Root layout + metadata + providers
+│   │   ├── page.tsx            # Composición de 7 secciones
+│   │   ├── globals.css         # Variables CSS + keyframes + utilidades
+│   │   └── api/contact/        # API route (solo desarrollo)
+│   ├── sections/               # Hero, Servicios, Distintivo, Asesorías, Videos, Compromiso, Contacto
+│   ├── components/
+│   │   ├── layout/             # Header, Footer
+│   │   ├── ui/                 # Button, Input, Card, Badge, Section
+│   │   ├── motion/             # AnimatedSection, StaggerContainer, Float, ScrollReveal
+│   │   └── seo/                # JsonLd, SkipToContent
+│   ├── providers/              # ThemeProvider, LenisProvider
+│   ├── constants/              # Servicios, Distintivo, SEO, Navegación, Contacto
+│   ├── hooks/                  # useReducedMotion, useMediaQuery
+│   ├── lib/                    # Contact schema, GSAP scroll utils, Lenis config
+│   ├── styles/                 # Design tokens (colores, tipografía, spacing)
+│   ├── config/                 # Site config (URL, contacto, redes)
+│   └── types/                  # TypeScript types
+├── public/                     # Assets estáticos (imágenes, videos, favicon)
+├── phpmailer/                  # PHPMailer + sendmail.php (producción)
+└── out/                        # Output del build (gitignored)
+```
+
+---
+
+## Secciones
+
+| # | Sección | Descripción |
+|---|---------|-------------|
+| 1 | Hero | Presentación principal con CTA y animaciones decorativas |
+| 2 | Servicios | 8 cards de servicios con accordion expandible |
+| 3 | Distintivo | Badge Infonagreen + galería slider con navegación |
+| 4 | Asesorías | Sección de valor con CTAs |
+| 5 | Videos | Reproductor de video con lazy loading |
+| 6 | Compromiso | Sección de confianza y valores |
+| 7 | Contacto | Info de contacto + formulario con validación completa |
+
+---
+
+## Características
+
+### Accesibilidad (WCAG AA)
+- Skip-to-content link
+- Navegación por teclado completa
+- ARIA labels y roles semánticos
+- Focus visible
+- `prefers-reduced-motion` respetado
+- Formulario con `aria-invalid` y `aria-describedby`
+
+### Dark Mode
+- Automático según preferencia del sistema
+- Toggle manual en Header
+- Variables CSS para light/dark
+- `next-themes` con `data-theme` attribute
+
+### Seguridad del Formulario
+- Validación Zod (client + server)
+- Honeypot anti-spam
+- Rate limiting (5 envíos/hora por IP)
+- Sanitización XSS
+- Timeout de 15s + retry automático
+- CSRF token (producción PHP)
+
+### SEO
+- Metadata API completa (title, description, OG, Twitter)
+- JSON-LD (Organization, WebSite, Breadcrumb)
+- Sitemap.xml + robots.txt
+- Canonical URL
+- Encabezados semánticos (H1→H2→H3)
+
+---
+
+## Responsive
+
+Diseñado mobile-first. Breakpoints validados:
+
+| Breakpoint | Resolución |
+|------------|------------|
+| Mobile | 320px, 375px |
+| Tablet | 768px |
+| Laptop | 1024px |
+| Desktop | 1440px |
+| UltraWide | 1920px |
+
+---
+
+## Producción
+
+### Despliegue
+
+1. `npm run build` → genera `out/`
+2. Subir contenido de `out/` a Hostinger/Neubox
+3. Subir `phpmailer/` al mismo directorio
+4. Configurar `.env` en producción con credenciales SMTP
+5. Configurar HTTPS forzado
+6. Cambiar CORS de `*` a `https://answerst.com`
+
+### Checklist Pre-Deploy
+
+- [ ] Variables de entorno configuradas
+- [ ] SMTP autenticado (no `mail()`)
+- [ ] HTTPS activo
+- [ ] CORS restrictivo
+- [ ] `og-image.png` creada (1200x630) en `public/`
+- [ ] Google Search Console verification code agregado
+- [ ] Permisos de `.env` restringidos
+
+---
+
+## Librerías
+
+### Permitidas
+- Framer Motion, GSAP, Lenis
+- React Hook Form, Zod
+- Lucide React
+- clsx, class-variance-authority
+- next-themes
+
+### Prohibidas
+- Bootstrap, jQuery
+- PHPMailer en desarrollo (solo producción)
+- CSS frameworks adicionales
+
+---
+
+## Créditos
+
+- **Desarrollo:** Dash Systems
+- **Diseño:** Inspirado en Vercel, Stripe, Linear, Framer, Apple
+- **Hosting:** Hostinger / Neubox

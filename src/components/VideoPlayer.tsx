@@ -54,7 +54,6 @@ export default function VideoPlayer({ src, title }: VideoPlayerProps) {
           controls
           preload="metadata"
           playsInline
-          aria-label={title}
         >
           <source src={src} type="video/mp4" />
           Tu navegador no soporta el formato de video.

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Menu, X, Sun, Moon } from 'lucide-react'
@@ -10,25 +10,25 @@ import { navItems } from '@/constants/navigation'
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [visible, setVisible] = useState(true)
-  const [lastScrollY, setLastScrollY] = useState(0)
+  const lastScrollYRef = useRef(0)
   const { theme, setTheme } = useTheme()
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY
 
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+      if (currentScrollY > lastScrollYRef.current && currentScrollY > 100) {
         setVisible(false) // Scrolling down
       } else {
         setVisible(true) // Scrolling up
       }
 
-      setLastScrollY(currentScrollY)
+      lastScrollYRef.current = currentScrollY
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [lastScrollY])
+  }, [])
 
   // Close mobile menu on Escape
   useEffect(() => {
@@ -89,6 +89,7 @@ export default function Header() {
 
             {/* Theme Toggle */}
             <button
+              type="button"
               onClick={toggleTheme}
               className="p-2 rounded-full hover:bg-surface transition-colors duration-200"
               aria-label={theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
@@ -102,6 +103,7 @@ export default function Header() {
           <div className="flex items-center gap-2 md:hidden">
             {/* Theme Toggle Mobile */}
             <button
+              type="button"
               onClick={toggleTheme}
               className="p-2 rounded-full hover:bg-surface transition-colors duration-200"
               aria-label={theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}

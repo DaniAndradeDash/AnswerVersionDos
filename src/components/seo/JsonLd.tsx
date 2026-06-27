@@ -14,9 +14,9 @@ export function JsonLd() {
 
   return (
     <>
-      {schemas.map((schema, index) => (
+      {schemas.map((schema) => (
         <script
-          key={index}
+          key={schema['@type']}
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />

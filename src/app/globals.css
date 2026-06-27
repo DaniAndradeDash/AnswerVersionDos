@@ -1,7 +1,4 @@
 @import "tailwindcss";
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 /* ============================================
    CSS Variables — Light Theme (default)
@@ -124,9 +121,9 @@ body {
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
-/* Theme transition on all elements */
-*, *::before, *::after {
-  transition-property: background-color, border-color, color;
+/* Theme transitions — only on interactive elements */
+a, button, [role="button"], input, textarea, select {
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
   transition-duration: 300ms;
   transition-timing-function: ease-in-out;
 }
@@ -224,6 +221,62 @@ section[id] {
 :focus-visible {
   outline: 2px solid var(--ring);
   outline-offset: 2px;
+}
+
+/* ============================================
+   Float Animations
+   ============================================ */
+
+/* Float Y axis — distance/duration combos used across the app */
+@keyframes float-y-8-5 {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes float-y-10-5 {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes float-y-10-6 {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes float-y-12-5 {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes float-y-15-4 {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+}
+
+@keyframes float-y-20-6 {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+/* Float X axis */
+@keyframes float-x-15-4 {
+  0%, 100% { transform: translateX(0px); }
+  50% { transform: translateX(15px); }
+}
+
+/* Float both axes */
+@keyframes float-both-10-7 {
+  0%, 100% { transform: translate(0px, 0px); }
+  25% { transform: translate(5px, -10px); }
+  50% { transform: translate(0px, -5px); }
+  75% { transform: translate(-5px, 0px); }
+}
+
+@keyframes float-both-15-4 {
+  0%, 100% { transform: translate(0px, 0px); }
+  25% { transform: translate(7.5px, -15px); }
+  50% { transform: translate(0px, -7.5px); }
+  75% { transform: translate(-7.5px, 0px); }
 }
 
 /* ============================================

@@ -28,7 +28,7 @@ export const distintivoItems: DistintivoItem[] = [
 ] as const
 
 export const sliderImages: SliderImage[] = [
-  { id: 1, src: '/infonagreen_1.png', alt: 'Infonagreen - Imagen 1' },
-  { id: 2, src: '/infonagreen_2.png', alt: 'Infonagreen - Imagen 2' },
-  { id: 3, src: '/infonagreen_3.png', alt: 'Infonagreen - Imagen 3' },
+  { id: 1, src: '/infonagreen_uno.jpg', alt: 'Infonagreen - Imagen 1' },
+  { id: 2, src: '/infonagreen.png', alt: 'Infonagreen - Imagen 2' },
+  { id: 3, src: '/infonagreen_tres.jpeg', alt: 'Infonagreen - Imagen 3' },
 ] as const

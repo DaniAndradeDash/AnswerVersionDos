@@ -1,7 +1,8 @@
 'use client'
 
+import { useRef, useCallback, useState } from 'react'
 import Image from 'next/image'
-import { Leaf, Lightbulb, ShieldCheck, Eye, ExternalLink } from 'lucide-react'
+import { Leaf, Lightbulb, ShieldCheck, Eye, ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react'
 import { Section } from '@/components/ui/Section'
 import { AnimatedSection } from '@/components/motion/AnimatedSection'
 import { StaggerContainer } from '@/components/motion/StaggerContainer'
@@ -29,6 +30,44 @@ const iconMap: Record<string, React.ElementType> = {
 export default function Distintivo() {
   const reducedMotion = useReducedMotion()
   const isDesktop = useMediaQuery('(min-width: 1024px)')
+  const sliderRef = useRef<HTMLDivElement>(null)
+  const [currentSlide, setCurrentSlide] = useState(0)
+
+  const scrollByAmount = useCallback((direction: 'prev' | 'next') => {
+    const slider = sliderRef.current
+    if (!slider) return
+    const slideWidth = slider.querySelector('[role="group"]')?.clientWidth ?? 320
+    const gap = 16 // matches gap-4
+    const scrollAmount = slideWidth + gap
+    slider.scrollBy({
+      left: direction === 'next' ? scrollAmount : -scrollAmount,
+      behavior: 'smooth',
+    })
+    setCurrentSlide((prev) => {
+      if (direction === 'next') return Math.min(prev + 1, sliderImages.length - 1)
+      return Math.max(prev - 1, 0)
+    })
+  }, [])
+
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault()
+      scrollByAmount('prev')
+    } else if (e.key === 'ArrowRight') {
+      e.preventDefault()
+      scrollByAmount('next')
+    }
+  }, [scrollByAmount])
+
+  // Sync current slide on scroll
+  const handleScroll = useCallback(() => {
+    const slider = sliderRef.current
+    if (!slider) return
+    const slideWidth = slider.querySelector('[role="group"]')?.clientWidth ?? 320
+    const gap = 16
+    const index = Math.round(slider.scrollLeft / (slideWidth + gap))
+    setCurrentSlide(Math.min(Math.max(index, 0), sliderImages.length - 1))
+  }, [])
 
   return (
     <Section id="distintivo" variant="alt" headingId="distintivo-heading">
@@ -39,7 +78,7 @@ export default function Distintivo() {
             <div className="flex items-center gap-3">
               <div className="h-16 w-16 sm:h-20 sm:w-20 relative flex-shrink-0">
                 <Image
-                  src="/infonagreen_logo.png"
+                  src="/infonagreen.png"
                   alt="Logo de INFONAGREEN"
                   fill
                   className="object-contain"
@@ -98,11 +137,46 @@ export default function Distintivo() {
           <AnimatedSection animation="fade-left" duration={0.6}>
             <div>
               <h3 id="distintivo-gallery-heading" className="text-lg font-semibold text-foreground mb-4">Galería</h3>
-              <div className="scroll-snap-slider rounded-2xl overflow-hidden" role="region" aria-labelledby="distintivo-gallery-heading">
-                {sliderImages.map((image) => (
+              <div
+                ref={sliderRef}
+                className="scroll-snap-slider rounded-2xl overflow-hidden relative"
+                role="region"
+                aria-label="Galería Infonagreen"
+                aria-roledescription="carousel"
+                aria-labelledby="distintivo-gallery-heading"
+                tabIndex={0}
+                onKeyDown={handleKeyDown}
+                onScroll={handleScroll}
+              >
+                {/* Prev button */}
+                <button
+                  type="button"
+                  className="absolute left-2 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-background/80 backdrop-blur-sm text-foreground hover:bg-background/90 transition-colors duration-200 shadow-md"
+                  onClick={() => scrollByAmount('prev')}
+                  aria-label="Imagen anterior"
+                  disabled={currentSlide === 0}
+                >
+                  <ChevronLeft className="h-5 w-5" aria-hidden="true" />
+                </button>
+
+                {/* Next button */}
+                <button
+                  type="button"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-background/80 backdrop-blur-sm text-foreground hover:bg-background/90 transition-colors duration-200 shadow-md"
+                  onClick={() => scrollByAmount('next')}
+                  aria-label="Imagen siguiente"
+                  disabled={currentSlide === sliderImages.length - 1}
+                >
+                  <ChevronRight className="h-5 w-5" aria-hidden="true" />
+                </button>
+
+                {sliderImages.map((image, index) => (
                   <div
                     key={image.id}
                     className="w-72 sm:w-80 h-48 sm:h-56 relative flex-shrink-0 rounded-xl overflow-hidden border border-border"
+                    role="group"
+                    aria-roledescription="slide"
+                    aria-label={`Imagen ${index + 1} de ${sliderImages.length}`}
                   >
                     <Image
                       src={image.src}
@@ -111,6 +185,33 @@ export default function Distintivo() {
                       className="object-cover"
                     />
                   </div>
+                ))}
+              </div>
+
+              {/* Slide indicators */}
+              <div className="flex items-center justify-center gap-2 mt-4" role="tablist" aria-label="Indicadores de diapositiva">
+                {sliderImages.map((_, index) => (
+                  <button
+                    key={index}
+                    type="button"
+                    role="tab"
+                    className={`h-2 rounded-full transition-all duration-300 ${
+                      index === currentSlide
+                        ? 'w-8 bg-secondary'
+                        : 'w-2 bg-muted-foreground/40 hover:bg-muted-foreground/60'
+                    }`}
+                    onClick={() => {
+                      const slider = sliderRef.current
+                      if (!slider) return
+                      const slideWidth = slider.querySelector('[role="group"]')?.clientWidth ?? 320
+                      const gap = 16
+                      slider.scrollTo({ left: index * (slideWidth + gap), behavior: 'smooth' })
+                      setCurrentSlide(index)
+                    }}
+                    aria-label={`Ir a imagen ${index + 1}`}
+                    aria-selected={index === currentSlide}
+                    tabIndex={index === currentSlide ? 0 : -1}
+                  />
                 ))}
               </div>
             </div>

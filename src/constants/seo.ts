@@ -29,27 +29,31 @@ export const siteMetadata = {
     siteName: siteConfig.name,
     locale: DEFAULT_LOCALE,
     type: 'website' as const,
-    images: [
-      {
-        url: `${siteConfig.url}/og-image.png`,
-        width: 1200,
-        height: 630,
-        alt: `${siteConfig.name} — Consultoría Especializada en Monterrey`,
-      },
-    ],
+    // TODO: Crear og-image.png (1200x630px) en public/ antes de producción.
+    // Sin este archivo las redes sociales no mostrarán preview al compartir el enlace.
+    // images: [
+    //   {
+    //     url: `${siteConfig.url}/og-image.png`,
+    //     width: 1200,
+    //     height: 630,
+    //     alt: `${siteConfig.name} — Consultoría Especializada en Monterrey`,
+    //   },
+    // ],
+    images: [],
   },
   twitter: {
     card: 'summary_large_image' as const,
     title: `${siteConfig.name} | Consultoría Especializada`,
     description: siteConfig.description,
-    images: [`${siteConfig.url}/og-image.png`],
+    // TODO: Descomentar cuando se cree og-image.png (1200x630px) en public/
+    // images: [`${siteConfig.url}/og-image.png`],
   },
   robots: {
-    index: true,
-    follow: true,
+    index: process.env.NODE_ENV === 'production',
+    follow: process.env.NODE_ENV === 'production',
     googleBot: {
-      index: true,
-      follow: true,
+      index: process.env.NODE_ENV === 'production',
+      follow: process.env.NODE_ENV === 'production',
       'max-video-preview': -1,
       'max-image-preview': 'large' as const,
       'max-snippet': -1,
@@ -83,7 +87,8 @@ export const jsonLdOrganization = {
   description: siteConfig.description,
   url: siteConfig.url,
   logo: `${siteConfig.url}/Logo_completo.png`,
-  image: `${siteConfig.url}/og-image.png`,
+  // TODO: Descomentar cuando se cree og-image.png (1200x630px) en public/
+  // image: `${siteConfig.url}/og-image.png`,
   telephone: `+52${siteConfig.phone}`,
   email: siteConfig.email,
   address: {
