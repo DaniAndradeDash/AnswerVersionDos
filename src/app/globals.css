@@ -416,6 +416,37 @@ section[id] {
 }
 
 /* ============================================
+    Neon Effects for Icons (Dark Mode)
+    ============================================ */
+.neon-red {
+  transition: filter 0.3s ease;
+}
+[data-theme="dark"] .neon-red {
+  filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.6));
+}
+
+.neon-yellow {
+  transition: filter 0.3s ease;
+}
+[data-theme="dark"] .neon-yellow {
+  filter: drop-shadow(0 0 8px rgba(234, 179, 8, 0.6));
+}
+
+.neon-blue {
+  transition: filter 0.3s ease;
+}
+[data-theme="dark"] .neon-blue {
+  filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.6));
+}
+
+.neon-cyan {
+  transition: filter 0.3s ease;
+}
+[data-theme="dark"] .neon-cyan {
+  filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.6));
+}
+
+/* ============================================
     Reduced Motion
     ============================================ */
 @media (prefers-reduced-motion: reduce) {

@@ -1,11 +1,10 @@
 'use client'
 
-import { useRef, useCallback, useState } from 'react'
+import { useCallback, useState, useEffect } from 'react'
 import Image from 'next/image'
 import { Leaf, Lightbulb, ShieldCheck, Eye, ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react'
 import { Section } from '@/components/ui/Section'
 import { AnimatedSection } from '@/components/motion/AnimatedSection'
-import { StaggerContainer } from '@/components/motion/StaggerContainer'
 import { Float } from '@/components/motion/Float'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
@@ -27,27 +26,28 @@ const iconMap: Record<string, React.ElementType> = {
   Eye,
 }
 
+const iconColors = [
+  { bg: 'bg-red-500/10', text: 'text-red-500', neon: 'neon-red' },
+  { bg: 'bg-yellow-500/10', text: 'text-yellow-500', neon: 'neon-yellow' },
+  { bg: 'bg-blue-500/10', text: 'text-blue-500', neon: 'neon-blue' },
+  { bg: 'bg-cyan-400/10', text: 'text-cyan-400', neon: 'neon-cyan' },
+]
+
 export default function Distintivo() {
   const reducedMotion = useReducedMotion()
   const isDesktop = useMediaQuery('(min-width: 1024px)')
-  const sliderRef = useRef<HTMLDivElement>(null)
   const [currentSlide, setCurrentSlide] = useState(0)
 
-  const scrollByAmount = useCallback((direction: 'prev' | 'next') => {
-    const slider = sliderRef.current
-    if (!slider) return
-    const slideWidth = slider.querySelector('[role="group"]')?.clientWidth ?? 320
-    const gap = 16 // matches gap-4
-    const scrollAmount = slideWidth + gap
-    slider.scrollBy({
-      left: direction === 'next' ? scrollAmount : -scrollAmount,
-      behavior: 'smooth',
-    })
-    setCurrentSlide((prev) => {
-      if (direction === 'next') return Math.min(prev + 1, sliderImages.length - 1)
-      return Math.max(prev - 1, 0)
-    })
+  const goToSlide = useCallback((index: number) => {
+    const maxIndex = sliderImages.length - 1
+    const targetIndex = Math.max(0, Math.min(index, maxIndex))
+    setCurrentSlide(targetIndex)
   }, [])
+
+  const scrollByAmount = useCallback((direction: 'prev' | 'next') => {
+    const newIndex = direction === 'next' ? currentSlide + 1 : currentSlide - 1
+    goToSlide(newIndex)
+  }, [currentSlide, goToSlide])
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if (e.key === 'ArrowLeft') {
@@ -59,15 +59,13 @@ export default function Distintivo() {
     }
   }, [scrollByAmount])
 
-  // Sync current slide on scroll
-  const handleScroll = useCallback(() => {
-    const slider = sliderRef.current
-    if (!slider) return
-    const slideWidth = slider.querySelector('[role="group"]')?.clientWidth ?? 320
-    const gap = 16
-    const index = Math.round(slider.scrollLeft / (slideWidth + gap))
-    setCurrentSlide(Math.min(Math.max(index, 0), sliderImages.length - 1))
-  }, [])
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const next = (currentSlide + 1) % sliderImages.length
+      goToSlide(next)
+    }, 5000)
+    return () => clearInterval(interval)
+  }, [currentSlide, goToSlide])
 
   return (
     <Section id="distintivo" variant="alt" headingId="distintivo-heading">
@@ -78,33 +76,31 @@ export default function Distintivo() {
             <div className="flex items-center gap-3">
               <div className="h-16 w-16 sm:h-20 sm:w-20 relative flex-shrink-0">
                 <Image
-                  src="/infonagreen.png"
+                  src="/infonagreenV2.png"
                   alt="Logo de INFONAGREEN"
                   fill
                   className="object-contain"
                 />
               </div>
               <div>
-                <h2 id="distintivo-heading" className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground">
+                <h2 id="distintivo-heading" className="text-2xl sm:text-3xl lg:text-6xl font-bold text-foreground text-green-700">
                   Infonagreen
                 </h2>
-                <p className="text-sm sm:text-base text-muted-foreground mt-1">
-                  Estrategias sustentables para un futuro mejor
-                </p>
               </div>
             </div>
           </AnimatedSection>
 
-          {/* Feature items */}
-          <StaggerContainer className="space-y-4" staggerDelay={0.1}>
-            {distintivoItems.map((item) => {
+          {/* Feature items - stable, no re-render on slide change */}
+          <div className="space-y-4">
+            {distintivoItems.map((item, index) => {
               const Icon = iconMap[item.icon] ?? Leaf
+              const colors = iconColors[index % iconColors.length]
               return (
                 <div
                   key={item.id}
                   className="flex items-start gap-3 p-3 rounded-xl hover:bg-surface-hover transition-colors duration-200"
                 >
-                  <div className="p-2 rounded-lg bg-secondary/10 text-secondary flex-shrink-0 mt-0.5">
+                  <div className={`p-2 rounded-lg ${colors.bg} ${colors.text} ${colors.neon} flex-shrink-0 mt-0.5`}>
                     <Icon className="h-5 w-5" aria-hidden="true" />
                   </div>
                   <div>
@@ -114,7 +110,7 @@ export default function Distintivo() {
                 </div>
               )
             })}
-          </StaggerContainer>
+          </div>
 
           {/* CTA */}
           <AnimatedSection animation="fade-right" delay={0.3} duration={0.6}>
@@ -138,20 +134,32 @@ export default function Distintivo() {
             <div>
               <h3 id="distintivo-gallery-heading" className="text-lg font-semibold text-foreground mb-4">Galería</h3>
               <div
-                ref={sliderRef}
-                className="scroll-snap-slider rounded-2xl overflow-hidden relative"
+                className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-slate-950 shadow-2xl"
                 role="region"
                 aria-label="Galería Infonagreen"
                 aria-roledescription="carousel"
                 aria-labelledby="distintivo-gallery-heading"
                 tabIndex={0}
                 onKeyDown={handleKeyDown}
-                onScroll={handleScroll}
               >
+                {/* Current image */}
+                <Image
+                  key={currentSlide}
+                  src={sliderImages[currentSlide].src}
+                  alt={sliderImages[currentSlide].alt}
+                  fill
+                  className="object-cover transition-opacity duration-500"
+                />
+
                 {/* Prev button */}
                 <button
                   type="button"
-                  className="absolute left-2 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-background/80 backdrop-blur-sm text-foreground hover:bg-background/90 transition-colors duration-200 shadow-md"
+                  className={`absolute left-4 top-1/2 -translate-y-1/2 z-10 w-11 h-11 flex items-center justify-center rounded-full bg-slate-900/40 backdrop-blur-sm border border-white/10 text-white transition-all duration-300
+                    ${currentSlide === 0
+                      ? 'opacity-30 cursor-not-allowed'
+                      : 'opacity-80 hover:opacity-100 hover:scale-110 hover:bg-slate-900/60 hover:border-white/20'
+                    }
+                  `}
                   onClick={() => scrollByAmount('prev')}
                   aria-label="Imagen anterior"
                   disabled={currentSlide === 0}
@@ -162,52 +170,33 @@ export default function Distintivo() {
                 {/* Next button */}
                 <button
                   type="button"
-                  className="absolute right-2 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-background/80 backdrop-blur-sm text-foreground hover:bg-background/90 transition-colors duration-200 shadow-md"
+                  className={`absolute right-4 top-1/2 -translate-y-1/2 z-10 w-11 h-11 flex items-center justify-center rounded-full bg-slate-900/40 backdrop-blur-sm border border-white/10 text-white transition-all duration-300
+                    ${currentSlide === sliderImages.length - 1
+                      ? 'opacity-30 cursor-not-allowed'
+                      : 'opacity-80 hover:opacity-100 hover:scale-110 hover:bg-slate-900/60 hover:border-white/20'
+                    }
+                  `}
                   onClick={() => scrollByAmount('next')}
                   aria-label="Imagen siguiente"
                   disabled={currentSlide === sliderImages.length - 1}
                 >
                   <ChevronRight className="h-5 w-5" aria-hidden="true" />
                 </button>
-
-                {sliderImages.map((image, index) => (
-                  <div
-                    key={image.id}
-                    className="w-72 sm:w-80 h-48 sm:h-56 relative flex-shrink-0 rounded-xl overflow-hidden border border-border"
-                    role="group"
-                    aria-roledescription="slide"
-                    aria-label={`Imagen ${index + 1} de ${sliderImages.length}`}
-                  >
-                    <Image
-                      src={image.src}
-                      alt={image.alt}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                ))}
               </div>
 
               {/* Slide indicators */}
-              <div className="flex items-center justify-center gap-2 mt-4" role="tablist" aria-label="Indicadores de diapositiva">
+              <div className="flex items-center justify-center gap-2 mt-5" role="tablist" aria-label="Indicadores de diapositiva">
                 {sliderImages.map((_, index) => (
                   <button
                     key={index}
                     type="button"
                     role="tab"
-                    className={`h-2 rounded-full transition-all duration-300 ${
+                    className={`h-2 rounded-full transition-all duration-400 ${
                       index === currentSlide
-                        ? 'w-8 bg-secondary'
-                        : 'w-2 bg-muted-foreground/40 hover:bg-muted-foreground/60'
+                        ? 'w-10 bg-gradient-to-r from-secondary to-green-400 shadow-md shadow-secondary/40'
+                        : 'w-2 bg-muted-foreground/40 hover:bg-muted-foreground/60 hover:w-3'
                     }`}
-                    onClick={() => {
-                      const slider = sliderRef.current
-                      if (!slider) return
-                      const slideWidth = slider.querySelector('[role="group"]')?.clientWidth ?? 320
-                      const gap = 16
-                      slider.scrollTo({ left: index * (slideWidth + gap), behavior: 'smooth' })
-                      setCurrentSlide(index)
-                    }}
+                    onClick={() => goToSlide(index)}
                     aria-label={`Ir a imagen ${index + 1}`}
                     aria-selected={index === currentSlide}
                     tabIndex={index === currentSlide ? 0 : -1}
@@ -223,7 +212,7 @@ export default function Distintivo() {
               <h3 id="distintivo-video-heading" className="text-lg font-semibold text-foreground mb-4">Video Infonagreen</h3>
               <div className="relative aspect-video rounded-2xl overflow-hidden border border-border bg-surface group cursor-pointer">
                 <video
-                  src="/answerst.mp4"
+                  src="/Infonagreen.mp4"
                   className="w-full h-full object-cover"
                   controls
                   preload="metadata"

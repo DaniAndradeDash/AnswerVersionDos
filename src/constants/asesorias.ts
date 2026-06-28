@@ -5,21 +5,21 @@ export const asesorias: Advisory[] = [
     id: 1,
     title: 'Financiera',
     icon: 'Landmark',
-    color: '#d4d5d6',
+    color: '#2b92fa',
     description: 'Asesoría en planificación financiera, inversiones y optimización de recursos.',
   },
   {
     id: 2,
     title: 'Legal',
     icon: 'Scale',
-    color: '#d4d5d6',
+    color: '#a91cf5',
     description: 'Orientación jurídica para proteger tus intereses patrimoniales y empresariales.',
   },
   {
     id: 3,
     title: 'Empresarial',
     icon: 'Building2',
-    color: '#e7d52f',
+    color: '#ffea28',
     description: 'Estrategias de crecimiento, optimización operativa y desarrollo organizacional.',
   },
   {
@@ -33,7 +33,7 @@ export const asesorias: Advisory[] = [
     id: 5,
     title: 'Mediación de Conflictos',
     icon: 'Handshake',
-    color: '#d4d5d6',
+    color: '#d90b80',
     description: 'Resolución efectiva de disputas mediante mediación profesional.',
   },
   {

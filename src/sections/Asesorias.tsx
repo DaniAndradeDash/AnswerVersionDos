@@ -135,13 +135,7 @@ function AsesoriaCard({
           {/* Content */}
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-3 mb-2">
-              <span
-                className="text-xs font-mono font-bold"
-                style={{ color: item.color }}
-                aria-hidden="true"
-              >
-                {String(index + 1).padStart(2, '0')}
-              </span>
+              
               <h3 className="font-bold text-base text-foreground truncate">
                 {item.title}
               </h3>
