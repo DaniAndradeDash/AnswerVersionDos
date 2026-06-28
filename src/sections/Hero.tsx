@@ -17,13 +17,13 @@ gsap.registerPlugin(ScrollTrigger)
 /* ── Trust Pill ── */
 function TrustPill({ icon: Icon, value, label }: { icon: React.ElementType; value: string; label: string }) {
   return (
-    <div className="flex items-center gap-3 px-4 py-2.5 rounded-full bg-card/60 backdrop-blur-sm border border-border/50 hover:border-secondary/30 hover:bg-secondary/5 transition-all duration-300 group">
+    <div className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-2.5 rounded-full bg-card/60 backdrop-blur-sm border border-border/50 hover:border-secondary/30 hover:bg-secondary/5 transition-all duration-300 group">
       <div className="p-1.5 rounded-lg bg-secondary/10 group-hover:bg-secondary/20 transition-colors">
         <Icon className="h-3.5 w-3.5 text-secondary" aria-hidden="true" />
       </div>
       <div>
-        <span className="text-sm font-bold text-foreground">{value}</span>
-        <span className="text-xs text-muted-foreground ml-1.5">{label}</span>
+        <span className="text-xs sm:text-sm font-bold text-foreground">{value}</span>
+        <span className="text-[10px] sm:text-xs text-muted-foreground ml-1.5">{label}</span>
       </div>
     </div>
   )
@@ -162,7 +162,7 @@ export default function Hero() {
 
       {/* ── Content ── */}
       <div
-        className="mx-auto max-w-7xl flex flex-col-reverse lg:flex-row items-center justify-between gap-12 lg:gap-20 py-16 lg:py-0 px-4 sm:px-6 w-full relative z-10"
+        className="mx-auto max-w-7xl flex flex-col-reverse lg:flex-row items-center justify-between gap-8 lg:gap-20 py-10 lg:py-0 px-4 sm:px-6 w-full relative z-10"
         style={
           !reducedMotion
             ? { transform: `translate(${mousePos.x * -6}px, ${mousePos.y * -6}px)`, transition: 'transform 0.3s ease-out' }
@@ -172,9 +172,9 @@ export default function Hero() {
         {/* Left — Content */}
         <div className="flex-1 text-center lg:text-left">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10 border border-secondary/20 mb-8">
-            <Shield className="h-4 w-4 text-secondary" />
-            <span className="text-sm font-semibold text-secondary tracking-wide">Asesoría · Innovación · Resultados</span>
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-secondary/10 border border-secondary/20 mb-6 sm:mb-8">
+            <Shield className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-secondary" />
+            <span className="text-xs sm:text-sm font-semibold text-secondary tracking-wide">Asesoría · Innovación · Resultados</span>
           </div>
 
           {/* Title — clip-path reveal */}
@@ -238,7 +238,7 @@ export default function Hero() {
         {/* Right — Logo Image */}
         <div
           ref={imageRef}
-          className="relative w-full max-w-sm sm:max-w-md lg:max-w-lg aspect-square flex items-center justify-center mx-auto"
+          className="relative w-full max-w-[280px] sm:max-w-sm md:max-w-md lg:max-w-lg aspect-square flex items-center justify-center mx-auto"
           style={!reducedMotion ? { transform: `translate(${mousePos.x * 10}px, ${mousePos.y * 10}px)`, transition: 'transform 0.4s ease-out' } : undefined}
         >
           {/* Soft glow behind logo */}
@@ -261,7 +261,7 @@ export default function Hero() {
           )}
 
           {/* Logo with breathe animation */}
-          <div className="relative z-10 w-full h-full p-8 lg:p-12">
+          <div className="relative z-10 w-full h-full p-6 sm:p-8 lg:p-12">
             <Image
               src="/answer_heroDos.png"
               alt="Answer ST — Logo de la consultora"
