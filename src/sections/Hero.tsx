@@ -183,7 +183,7 @@ export default function Hero() {
             ref={titleRef}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.08] tracking-tight"
           >
-            <span className="title-line block text-gradient">Tu negocio merece</span>
+            <span className="title-line block text-gradient">Tus busquedas merecen</span>
             <span className="title-line block text-foreground">mejores</span>
             <span className="title-line block text-gradient">respuestas.</span>
           </h1>
@@ -273,18 +273,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      {!reducedMotion && (
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground text-xs">
-          <span>Descubre más</span>
-          <div className="w-6 h-10 rounded-full border-2 border-muted-foreground/30 flex items-start justify-center p-1.5">
-            <div
-              className="w-1.5 h-1.5 rounded-full bg-secondary"
-              style={{ animation: 'scroll-indicator 2s ease-in-out infinite' }}
-            />
-          </div>
-        </div>
-      )}
     </section>
   )
 }
