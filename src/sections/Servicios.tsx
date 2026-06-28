@@ -318,14 +318,9 @@ function ServiceCard({
       <div
         ref={cardRef}
         className={`relative h-full min-h-[380px] rounded-2xl overflow-hidden group cursor-pointer transition-all duration-500
-          /* Light mode — Pure white glass card */
-          bg-white
-          hover:shadow-2xl ${accent.borderHover}
-          /* Dark mode — Neon glow */
-          dark:bg-slate-900/80 dark:backdrop-blur-md ${accent.neonCard}`}
-        style={{
-          border: `1px solid ${accent.neonBorderLight}`,
-        }}
+          bg-white border border-emerald-500/10
+          hover:border-emerald-400/40 hover:shadow-[0_0_30px_rgba(49,191,44,0.15)] hover:shadow-emerald-400/10
+          dark:bg-slate-900 dark:border-0 ${accent.neonCard}`}
         onClick={onToggle}
         role="button"
         tabIndex={0}
@@ -333,109 +328,85 @@ function ServiceCard({
         onKeyDown={(e) => e.key === "Enter" && onToggle()}
         onMouseEnter={handleAccentEnter}
       >
-        {/* Light mode — Subtle glass border glow & elevation shadow */}
-        <div
-          className="absolute inset-0 rounded-2xl pointer-events-none dark:hidden"
-          style={{
-            boxShadow: `0 1px 3px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,1)`,
-          }}
-          aria-hidden="true"
-        />
-
-        {/* Tech pattern overlay — circuit grid traces */}
-        <div
-          className="absolute inset-0 opacity-[0.025] dark:opacity-[0.06] pointer-events-none transition-opacity duration-500 group-hover:opacity-[0.04] dark:group-hover:opacity-[0.1]"
-          style={{
-            backgroundImage: `linear-gradient(${accent.neonGridColor} 1px, transparent 1px),
-              linear-gradient(90deg, ${accent.neonGridColor} 1px, transparent 1px)`,
-            backgroundSize: '32px 32px',
-          }}
-          aria-hidden="true"
-        />
-
-        {/* Top accent bar — animated */}
+        {/* Top accent bar */}
         <div
           ref={accentRef}
-          className={`absolute top-0 left-0 right-0 h-[2px] ${accent.bg} dark:shadow-[0_0_12px_currentColor]`}
+          className={`absolute top-0 left-0 right-0 h-[2px] ${accent.bg}`}
           aria-hidden="true"
         />
 
-        {/* Corner accent lines — tech frame */}
-        <div className={`absolute top-0 left-0 w-12 h-[2px] ${accent.bg} opacity-50 dark:opacity-70`} aria-hidden="true" />
-        <div className={`absolute top-0 left-0 w-[2px] h-12 ${accent.bg} opacity-50 dark:opacity-70`} aria-hidden="true" />
-        <div className={`absolute bottom-0 right-0 w-12 h-[2px] ${accent.bg} opacity-50 dark:opacity-70`} aria-hidden="true" />
-        <div className={`absolute bottom-0 right-0 w-[2px] h-12 ${accent.bg} opacity-50 dark:opacity-70`} aria-hidden="true" />
+        {/* Corner accent lines */}
+        <div className={`absolute top-0 left-0 w-10 h-[2px] ${accent.bg} opacity-30`} aria-hidden="true" />
+        <div className={`absolute top-0 left-0 w-[2px] h-10 ${accent.bg} opacity-30`} aria-hidden="true" />
+        <div className={`absolute bottom-0 right-0 w-10 h-[2px] ${accent.bg} opacity-30`} aria-hidden="true" />
+        <div className={`absolute bottom-0 right-0 w-[2px] h-10 ${accent.bg} opacity-30`} aria-hidden="true" />
 
-        {/* Circuit watermark — Futuristic background decoration */}
+        {/* Circuit watermark */}
         <div
-          className="absolute -bottom-12 -right-12 w-[260px] h-[260px] sm:w-[320px] sm:h-[320px] md:w-[340px] md:h-[340px] select-none pointer-events-none circuit-watermark transition-all duration-500 group-hover:opacity-[0.12]"
+          className="absolute -bottom-12 -right-12 w-[260px] h-[260px] sm:w-[320px] sm:h-[320px] md:w-[340px] md:h-[340px] select-none pointer-events-none transition-all duration-500 group-hover:opacity-[0.1]"
           aria-hidden="true"
-          style={{
-            color: 'rgba(100, 116, 139, 0.08)',
-            opacity: 1,
-          }}
+          style={{ opacity: 0.06 }}
         >
-          <div className="dark:hidden" style={{ color: 'rgba(100, 116, 139, 0.08)' }}>
+          <div className="dark:hidden" style={{ color: 'rgb(148, 163, 184)' }}>
             {circuitDesigns[index % circuitDesigns.length]()}
           </div>
-          <div className="hidden dark:block" style={{ color: index === 1 ? 'rgba(96, 165, 250, 0.5)' : 'rgba(74, 222, 128, 0.5)', filter: 'drop-shadow(0 0 8px rgba(74, 222, 128, 0.15))' }}>
+          <div className="hidden dark:block" style={{ color: index === 1 ? 'rgb(96, 165, 250)' : 'rgb(74, 222, 128)', opacity: 0.6 }}>
             {circuitDesigns[index % circuitDesigns.length]()}
           </div>
         </div>
 
-        {/* Subtle gradient overlay */}
+        {/* Subtle gradient overlay on hover */}
         <div
           className={`absolute inset-0 bg-gradient-to-br ${accent.gradient} via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`}
           aria-hidden="true"
         />
 
         <div className="relative z-10 flex flex-col h-full p-8">
-          {/* Icon — Glass container with neon glow in dark mode */}
+          {/* Icon container — neon glow on hover */}
           <div
             ref={iconRef}
             className={`relative mb-8 inline-flex h-16 w-16 items-center justify-center rounded-2xl border transition-all duration-500
-              ${accent.borderHover}
-              neon-icon-container`}
+              bg-white border-emerald-500/20 group-hover:shadow-lg
+              dark:bg-slate-800 dark:border-slate-700/50 neon-icon-container`}
             style={{
-              backgroundColor: accent.neonIconBg,
-              borderColor: accent.neonIconBorderLight,
-              boxShadow: '0 2px 12px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.6)',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
+              borderColor: index === 1 ? 'rgba(59, 130, 246, 0.2)' : 'rgba(34, 197, 94, 0.2)',
               '--icon-bg-dark': accent.neonIconBgDark,
               '--icon-border-dark': accent.neonIconBorderDark,
               '--icon-border-dark-hover': accent.neonIconBorderDarkHover,
               '--icon-glow-color': index === 1 ? 'rgba(96,165,250,0.2)' : 'rgba(74,222,128,0.2)',
             } as React.CSSProperties}
           >
-            <Icon className={`h-7 w-7 ${accent.text} dark:drop-shadow-[0_0_8px_currentColor]`} aria-hidden="true" />
-            {/* Icon glow ring */}
+            <Icon className={`h-7 w-7 ${index === 0 ? 'text-green-500' : index === 1 ? 'text-blue-500' : 'text-emerald-500'}`} aria-hidden="true" />
+            {/* Icon glow ring on hover */}
             <div
-              className={`absolute inset-0 rounded-2xl ${accent.bg} opacity-0 group-hover:opacity-[0.08] transition-opacity duration-300`}
+              className={`absolute inset-0 rounded-2xl ${accent.bg} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}
               aria-hidden="true"
             />
           </div>
 
           {/* Title */}
-          <h3 className="font-bold text-xl text-foreground mb-3 tracking-tight">
+          <h3 className="font-bold text-xl text-white tracking-tight dark:text-foreground">
             {service.title}
           </h3>
 
           {/* Short description */}
-          <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2 mb-auto">
+          <p className="text-sm text-slate-600 leading-relaxed line-clamp-2 mb-auto">
             {service.description.slice(0, 120)}...
           </p>
 
           {/* Divider + Toggle */}
-          <div className="mt-6 pt-4 border-t border-border/30 flex items-center justify-between">
+          <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
             <span
-              className={`text-xs font-medium ${accent.text} uppercase tracking-wider`}
+              className={`text-xs font-medium uppercase tracking-wider ${index === 0 ? 'text-green-600' : index === 1 ? 'text-blue-600' : 'text-emerald-600'}`}
             >
               {isSelected ? "Cerrar detalles" : "Ver detalles"}
             </span>
             <div
               className={`flex h-8 w-8 items-center justify-center rounded-full transition-all duration-300 ${
                 isSelected
-                  ? `${accent.bg} text-white shadow-lg dark:shadow-[0_0_16px_rgba(74,222,128,0.4)]`
-                  : "bg-muted/50 text-muted-foreground hover:bg-muted/70"
+                  ? `${accent.bg} text-white shadow-lg`
+                  : "bg-slate-100 text-slate-500 hover:bg-slate-200"
               }`}
             >
               {isSelected ? (
@@ -452,23 +423,22 @@ function ServiceCard({
             className="overflow-hidden"
             style={{ height: 0, opacity: 0 }}
           >
-            <div className="pt-5 mt-2 border-t border-border/30 space-y-4">
-              <p className="text-sm text-muted-foreground leading-relaxed">
+            <div className="pt-5 mt-2 border-t border-slate-100 space-y-4">
+              <p className="text-sm text-slate-600 leading-relaxed">
                 {service.description}
               </p>
 
               {/* Service image */}
               {service.image && (
-                <div className="relative w-full h-[600px] rounded-xl overflow-hidden border border-border/30">
+                <div className="relative w-full h-[600px] rounded-xl overflow-hidden border border-slate-200">
                   <Image
                     src={service.image}
                     alt={service.title}
                     fill
                     className="object-contain transition-transform duration-500 group-hover:scale-105"
                   />
-                  {/* Image overlay gradient */}
                   <div
-                    className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent"
+                    className="absolute inset-0 bg-gradient-to-t from-white/40 to-transparent"
                     aria-hidden="true"
                   />
                 </div>
@@ -560,13 +530,13 @@ export default function Servicios() {
           </div>
         </div>
 
-        {/* Horizontal decorative line */}
+        {/* Horizontal decorative line
         <div className="flex items-center gap-4 mb-6">
           <div className="h-px w-12 bg-secondary" aria-hidden="true" />
           <span className="text-xs font-mono font-medium text-secondary uppercase tracking-[0.2em]">
             Lo que hacemos
           </span>
-        </div>
+        </div> */}
 
         {/* Two-column header layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start relative">
@@ -619,51 +589,49 @@ export default function Servicios() {
 
       {/* CTA Bar — premium full-width treatment */}
       <div ref={ctaRef} className="mt-20 relative z-10">
-        {/* Estrategias sustentables - Versión Tecnológica y Moderna */}
-        <div className="group relative mb-12 rounded-3xl border border-emerald-500/20 bg-slate-900/90 backdrop-blur-md overflow-hidden transition-all duration-500 hover:border-emerald-500/40 hover:shadow-[0_0_30px_rgba(16,185,129,0.1)]">
-          {/* Efecto de Luces de Fondo (Glow) */}
-          <div className="absolute -right-10 -top-10 w-40 h-40 bg-emerald-500/10 rounded-full blur-3xl group-hover:bg-emerald-500/20 transition-all duration-700" />
-          <div className="absolute -left-10 -bottom-10 w-40 h-40 bg-cyan-500/10 rounded-full blur-3xl group-hover:bg-cyan-500/20 transition-all duration-700" />
+        {/* Estrategias sustentables */}
+        <div className="group relative mb-12 rounded-3xl overflow-hidden transition-all duration-500
+          bg-white border border-emerald-500/20 hover:border-emerald-500/40 hover:shadow-xl hover:shadow-emerald-500/5
+          dark:bg-slate-900 dark:border-emerald-500/20 dark:hover:border-emerald-500/40 dark:hover:shadow-[0_0_30px_rgba(16,185,129,0.1)]">
+          {/* Light mode — subtle accent glow */}
+          <div className="absolute -right-10 -top-10 w-40 h-40 bg-emerald-500/5 rounded-full blur-3xl group-hover:bg-emerald-500/10 transition-all duration-700 dark:hidden" />
+          <div className="absolute -left-10 -bottom-10 w-40 h-40 bg-emerald-500/5 rounded-full blur-3xl group-hover:bg-emerald-500/10 transition-all duration-700 dark:hidden" />
+          {/* Dark mode — glow effects */}
+          <div className="hidden dark:block absolute -right-10 -top-10 w-40 h-40 bg-emerald-500/10 rounded-full blur-3xl group-hover:bg-emerald-500/20 transition-all duration-700" />
+          <div className="hidden dark:block absolute -left-10 -bottom-10 w-40 h-40 bg-cyan-500/10 rounded-full blur-3xl group-hover:bg-cyan-500/20 transition-all duration-700" />
 
-          {/* Malla de fondo sutil o gradiente */}
-          <div
-            className="absolute inset-0 bg-gradient-to-br from-emerald-500/[0.03] via-transparent to-cyan-500/[0.03]"
-            aria-hidden="true"
-          />
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/[0.02] via-transparent to-emerald-500/[0.02] dark:from-emerald-500/[0.03] dark:to-cyan-500/[0.03]" aria-hidden="true" />
 
-          {/* Línea de acento izquierda interactiva */}
-          <div
-            className="absolute left-0 top-0 bottom-0 w-[4px] bg-gradient-to-b from-emerald-500 via-cyan-500 to-emerald-500 transition-all duration-500 group-hover:scale-y-105"
-            aria-hidden="true"
-          />
+          {/* Left accent line */}
+          <div className="absolute left-0 top-0 bottom-0 w-[4px] bg-gradient-to-b from-emerald-500 via-emerald-400 to-emerald-500 transition-all duration-500 group-hover:scale-y-105" aria-hidden="true" />
 
           <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6 p-8 lg:p-10">
-            {/* Contenedor de Icono + Texto */}
+            {/* Icon + Text */}
             <div className="flex flex-col sm:flex-row items-center sm:items-start lg:items-center gap-5 text-center sm:text-left flex-1">
-              {/* Icono Tecnológico */}
-              <div className="flex-shrink-0 p-4 rounded-2xl bg-gradient-to-br from-slate-800 to-slate-950 border border-slate-700/50 shadow-xl group-hover:border-emerald-500/50 transition-colors duration-300">
-                <ShieldCheck className="h-8 w-8 text-emerald-400 animate-pulse" />
+              {/* Icon container */}
+              <div className="flex-shrink-0 p-4 rounded-2xl bg-emerald-50 dark:bg-slate-800 border border-emerald-500/20 dark:border-slate-700/50 shadow-sm dark:shadow-xl group-hover:border-emerald-500/40 dark:group-hover:border-emerald-500/50 transition-colors duration-300">
+                <ShieldCheck className="h-8 w-8 text-emerald-600 dark:text-emerald-400 animate-pulse [animation-duration:3s]" />
               </div>
 
-              {/* Contenido de Texto */}
+              {/* Text content */}
               <div className="space-y-1">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-2">
-                  ⚡ Innovación Segura
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20 mb-2">
+                  <span className="text-sm">⚡</span> Innovación Segura
                 </div>
-                <h3 className="text-2xl sm:text-3xl font-black bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent tracking-tight">
+                <h3 className="text-2xl sm:text-3xl font-black text-slate-900 dark:bg-gradient-to-r dark:from-white dark:via-slate-200 dark:to-slate-400 dark:bg-clip-text dark:text-transparent tracking-tight">
                   Estrategias sustentables
                 </h3>
-                <p className="text-slate-400 text-sm sm:text-base max-w-xl font-medium">
-                  Confidencialidad y Transparencia en el manejo de todos los
-                  datos
+                <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base max-w-xl font-medium">
+                  Confidencialidad y Transparencia en el manejo de todos los datos
                 </p>
               </div>
             </div>
 
-            {/* Botón CTA Activado y Modernizado */}
+            {/* CTA Button */}
             <div className="flex-shrink-0 w-full md:w-auto">
               <Link href="#contacto">
-                <button className="group/btn relative w-full md:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold text-slate-900 bg-emerald-400 rounded-xl overflow-hidden hover:bg-emerald-300 transition-all duration-300 shadow-[0_4px_20px_rgba(52,211,153,0.3)] hover:shadow-[0_4px_25px_rgba(52,211,153,0.5)] active:scale-98">
+                <button className="group/btn relative w-full md:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold text-white bg-emerald-600 dark:bg-emerald-400 dark:text-slate-900 rounded-xl overflow-hidden hover:bg-emerald-500 dark:hover:bg-emerald-300 transition-all duration-300 shadow-lg shadow-emerald-600/20 dark:shadow-[0_4px_20px_rgba(52,211,153,0.3)] hover:shadow-xl hover:shadow-emerald-600/30 dark:hover:shadow-[0_4px_25px_rgba(52,211,153,0.5)] active:scale-98">
                   <span>Contactanos</span>
                   <ArrowRight className="h-4 w-4 transform group-hover/btn:translate-x-1.5 transition-transform duration-300" />
                 </button>
@@ -672,51 +640,49 @@ export default function Servicios() {
           </div>
         </div>
 
-        {/* ¿No encuentras lo que buscas? - Versión Neón y Tecnológica */}
-        <div className="group relative rounded-3xl border border-cyan-500/30 bg-slate-900/90 backdrop-blur-md overflow-hidden transition-all duration-500 hover:border-cyan-400 hover:shadow-[0_0_35px_rgba(6,182,212,0.25)]">
-          {/* Efecto Glow de Resplandor Neón en las esquinas */}
-          <div className="absolute -right-12 -bottom-12 w-48 h-48 bg-cyan-500/15 rounded-full blur-3xl group-hover:bg-cyan-500/25 transition-all duration-700" />
-          <div className="absolute -left-12 -top-12 w-48 h-48 bg-indigo-500/10 rounded-full blur-3xl group-hover:bg-indigo-500/20 transition-all duration-700" />
+        {/* ¿No encuentras lo que buscas? */}
+        <div className="group relative rounded-3xl overflow-hidden transition-all duration-500
+          bg-white border border-cyan-500/20 hover:border-cyan-500/40 hover:shadow-xl hover:shadow-cyan-500/5
+          dark:bg-slate-900 dark:border-cyan-500/30 dark:hover:border-cyan-400 dark:hover:shadow-[0_0_35px_rgba(6,182,212,0.25)]">
+          {/* Light mode — subtle accent glow */}
+          <div className="absolute -right-12 -bottom-12 w-48 h-48 bg-cyan-500/5 rounded-full blur-3xl group-hover:bg-cyan-500/10 transition-all duration-700 dark:hidden" />
+          <div className="absolute -left-12 -top-12 w-48 h-48 bg-cyan-500/5 rounded-full blur-3xl group-hover:bg-cyan-500/10 transition-all duration-700 dark:hidden" />
+          {/* Dark mode — neon glow */}
+          <div className="hidden dark:block absolute -right-12 -bottom-12 w-48 h-48 bg-cyan-500/15 rounded-full blur-3xl group-hover:bg-cyan-500/25 transition-all duration-700" />
+          <div className="hidden dark:block absolute -left-12 -top-12 w-48 h-48 bg-indigo-500/10 rounded-full blur-3xl group-hover:bg-indigo-500/20 transition-all duration-700" />
 
-          {/* Fondo con gradiente imperceptible */}
-          <div
-            className="absolute inset-0 bg-gradient-to-br from-cyan-500/[0.02] via-transparent to-indigo-500/[0.02]"
-            aria-hidden="true"
-          />
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/[0.02] via-transparent to-cyan-500/[0.02] dark:from-cyan-500/[0.02] dark:to-indigo-500/[0.02]" aria-hidden="true" />
 
-          {/* Línea de acento izquierda interactiva (Gradiente Cian Eléctrico) */}
-          <div
-            className="absolute left-0 top-0 bottom-0 w-[4px] bg-gradient-to-b from-cyan-500 via-indigo-500 to-cyan-500 transition-all duration-500 group-hover:scale-y-105"
-            aria-hidden="true"
-          />
+          {/* Left accent line */}
+          <div className="absolute left-0 top-0 bottom-0 w-[4px] bg-gradient-to-b from-cyan-500 via-cyan-400 to-cyan-500 transition-all duration-500 group-hover:scale-y-105" aria-hidden="true" />
 
           <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-8 p-8 lg:p-10">
-            {/* Contenedor de Icono de Ayuda + Texto */}
+            {/* Icon + Text */}
             <div className="flex flex-col sm:flex-row items-center sm:items-start lg:items-center gap-5 text-center sm:text-left flex-1">
-              {/* Icono de soporte tecnológico */}
-              <div className="flex-shrink-0 p-4 rounded-2xl bg-gradient-to-br from-slate-800 to-slate-950 border border-slate-700/50 shadow-xl group-hover:border-cyan-500/50 transition-all duration-300">
-                <HelpCircle className="h-8 w-8 text-cyan-400 animate-bounce [animation-duration:3s]" />
+              {/* Icon container */}
+              <div className="flex-shrink-0 p-4 rounded-2xl bg-cyan-50 dark:bg-slate-800 border border-cyan-500/20 dark:border-slate-700/50 shadow-sm dark:shadow-xl group-hover:border-cyan-500/40 dark:group-hover:border-cyan-500/50 transition-all duration-300">
+                <HelpCircle className="h-8 w-8 text-cyan-600 dark:text-cyan-400 animate-bounce [animation-duration:3s]" />
               </div>
 
-              {/* Contenido de Texto */}
+              {/* Text content */}
               <div className="space-y-1">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 mb-2">
-                  ✨ Soporte Inmediato
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-cyan-500/10 text-cyan-700 dark:text-cyan-400 border border-cyan-500/20 mb-2">
+                  <span className="text-sm">✨</span> Soporte Inmediato
                 </div>
-                <h3 className="text-2xl sm:text-3xl font-black bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent tracking-tight">
+                <h3 className="text-2xl sm:text-3xl font-black text-slate-900 dark:bg-gradient-to-r dark:from-white dark:via-slate-200 dark:to-slate-400 dark:bg-clip-text dark:text-transparent tracking-tight">
                   ¿No encuentras lo que buscas?
                 </h3>
-                <p className="text-slate-400 text-sm sm:text-base max-w-xl font-medium">
-                  Contáctanos para una consulta personalizada. Analizamos tu
-                  caso y te ofrecemos la mejor solución.
+                <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base max-w-xl font-medium">
+                  Contáctanos para una consulta personalizada. Analizamos tu caso y te ofrecemos la mejor solución.
                 </p>
               </div>
             </div>
 
-            {/* Botón CTA Activado y Estilizado */}
+            {/* CTA Button */}
             <div className="flex-shrink-0 w-full lg:w-auto">
               <Link href="#contacto">
-                <button className="group/btn relative w-full lg:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold text-slate-900 bg-cyan-400 rounded-xl overflow-hidden hover:bg-cyan-300 transition-all duration-300 shadow-[0_4px_20px_rgba(6,182,212,0.3)] hover:shadow-[0_4px_25px_rgba(6,182,212,0.5)] active:scale-98">
+                <button className="group/btn relative w-full lg:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold text-white bg-cyan-600 dark:bg-cyan-400 dark:text-slate-900 rounded-xl overflow-hidden hover:bg-cyan-500 dark:hover:bg-cyan-300 transition-all duration-300 shadow-lg shadow-cyan-600/20 dark:shadow-[0_4px_20px_rgba(6,182,212,0.3)] hover:shadow-xl hover:shadow-cyan-600/30 dark:hover:shadow-[0_4px_25px_rgba(6,182,212,0.5)] active:scale-98">
                   <span>Solicitar consulta</span>
                   <ArrowRight className="h-4 w-4 transform group-hover/btn:translate-x-1.5 transition-transform duration-300" />
                 </button>
