@@ -183,9 +183,9 @@ export default function Hero() {
             ref={titleRef}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.08] tracking-tight"
           >
-            <span className="title-line block text-gradient">Tus busquedas merecen</span>
+            <span className="title-line block text-gradient">¡Tus busquedas merecen</span>
             <span className="title-line block text-foreground">mejores</span>
-            <span className="title-line block text-gradient">respuestas.</span>
+            <span className="title-line block text-gradient">respuestas!</span>
           </h1>
 
           {/* Subtitle — word reveal */}

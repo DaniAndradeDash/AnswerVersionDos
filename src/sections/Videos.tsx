@@ -1,6 +1,5 @@
 'use client'
 
-import dynamic from 'next/dynamic'
 import { useRef, useEffect, useState } from 'react'
 import { Play } from 'lucide-react'
 import { gsap } from 'gsap'
@@ -12,30 +11,69 @@ import { useReducedMotion } from '@/hooks/useReducedMotion'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const VideoPlayer = dynamic(() => import('@/components/VideoPlayer'), {
-  ssr: false,
-  loading: () => (
-    <div
-      className="relative aspect-video w-full rounded-xl bg-slate-800/50 animate-pulse"
-      aria-hidden="true"
-    />
-  ),
-})
+function VectorGrid({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+          <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="0.5" opacity="0.15" />
+        </pattern>
+      </defs>
+      <rect width="400" height="400" fill="url(#grid)" />
+    </svg>
+  )
+}
+
+function CircuitLines({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M0 150 H80 L100 100 H150" stroke="currentColor" strokeWidth="1" opacity="0.2" />
+      <circle cx="150" cy="100" r="3" fill="currentColor" opacity="0.3" />
+      <path d="M150 100 V50 L200 30 H250" stroke="currentColor" strokeWidth="1" opacity="0.15" />
+      <circle cx="250" cy="30" r="2" fill="currentColor" opacity="0.25" />
+      <path d="M100 100 V180 L160 200 H200 V250" stroke="currentColor" strokeWidth="1" opacity="0.15" />
+      <circle cx="200" cy="250" r="2.5" fill="currentColor" opacity="0.2" />
+      <path d="M160 200 H280" stroke="currentColor" strokeWidth="1" opacity="0.1" />
+      <path d="M80 150 V220 L40 240 H0" stroke="currentColor" strokeWidth="1" opacity="0.12" />
+    </svg>
+  )
+}
+
+function HexPattern({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M50 10 L85 30 V70 L50 90 L15 70 V30 Z" stroke="currentColor" strokeWidth="0.8" opacity="0.15" />
+      <path d="M100 50 L135 70 V110 L100 130 L65 110 V70 Z" stroke="currentColor" strokeWidth="0.8" opacity="0.12" />
+      <path d="M150 90 L185 110 V150 L150 170 L115 150 V110 Z" stroke="currentColor" strokeWidth="0.8" opacity="0.1" />
+      <path d="M30 100 L65 120 V160 L30 180 L-5 160 V120 Z" stroke="currentColor" strokeWidth="0.8" opacity="0.1" />
+    </svg>
+  )
+}
+
+function DotMatrix({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 150 150" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse">
+          <circle cx="2" cy="2" r="1.5" fill="currentColor" opacity="0.12" />
+        </pattern>
+      </defs>
+      <rect width="150" height="150" fill="url(#dots)" />
+    </svg>
+  )
+}
 
 export default function Videos() {
   const sectionRef = useRef<HTMLElement>(null)
-  const headerRef = useRef<HTMLDivElement>(null)
-  const playOverlayRef = useRef<HTMLDivElement>(null)
+  const videoWrapperRef = useRef<HTMLDivElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const reducedMotion = useReducedMotion()
 
-  // GSAP entrance animations
   useEffect(() => {
     const el = sectionRef.current
     if (!el || reducedMotion) return
 
     const ctx = gsap.context(() => {
-      // Subtle float-in for the video container area
       const videoContainer = el.querySelector('[data-video-container]')
       if (videoContainer) {
         gsap.fromTo(
@@ -60,59 +98,11 @@ export default function Videos() {
     return () => ctx.revert()
   }, [reducedMotion])
 
-  // Play button entrance animation
-  useEffect(() => {
-    const el = playOverlayRef.current
-    if (!el || reducedMotion || isPlaying) return
-
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        el,
-        { opacity: 0, scale: 0.8 },
-        {
-          opacity: 1,
-          scale: 1,
-          duration: 0.6,
-          ease: 'back.out(1.7)',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 85%',
-            toggleActions: 'play none none none',
-          },
-        }
-      )
-    })
-
-    return () => ctx.revert()
-  }, [reducedMotion, isPlaying])
-
-  // Pulse animation for the play button ring
-  useEffect(() => {
-    const el = playOverlayRef.current
-    if (!el || reducedMotion || isPlaying) return
-
-    const ring = el.querySelector('[data-play-ring]')
-    if (!ring) return
-
-    const ctx = gsap.context(() => {
-      gsap.to(ring, {
-        scale: 1.15,
-        opacity: 0.3,
-        duration: 2,
-        repeat: -1,
-        yoyo: true,
-        ease: 'sine.inOut',
-      })
-    })
-
-    return () => ctx.revert()
-  }, [reducedMotion, isPlaying])
-
   return (
     <Section
       ref={sectionRef}
       id="videos"
-      variant="dark"
+      variant="alt"
       headingId="videos-heading"
       className="relative overflow-hidden"
     >
@@ -120,47 +110,53 @@ export default function Videos() {
       {!reducedMotion && (
         <>
           <GradientOrb
-            size={600}
+            size={500}
             color="var(--secondary)"
             blur={150}
-            opacity={0.04}
+            opacity={0.06}
             speed={0.4}
-            className="top-0 -right-40"
+            className="top-10 -right-40"
           />
           <GradientOrb
-            size={400}
+            size={350}
             color="var(--primary)"
             blur={120}
-            opacity={0.03}
+            opacity={0.04}
             speed={0.6}
-            className="bottom-0 -left-32"
+            className="bottom-10 -left-32"
           />
         </>
       )}
 
-      {/* Large PLAY watermark */}
-      {!reducedMotion && (
-        <div
-          className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
-          aria-hidden="true"
-        >
-          <span className="text-[18rem] sm:text-[22rem] lg:text-[28rem] font-black leading-none tracking-tighter text-white/[0.015]">
-            PLAY
-          </span>
-        </div>
-      )}
+      {/* ── Vector Effects ── */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+        {/* Left side: circuit lines */}
+        <CircuitLines className="absolute top-8 left-4 w-64 h-64 text-secondary neon-circuit opacity-60" />
 
-      {/* Subtle horizontal divider lines */}
-      <div
-        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-slate-700/30 to-transparent"
-        aria-hidden="true"
-      />
+        {/* Right side: hex pattern */}
+        <HexPattern className="absolute top-12 right-8 w-40 h-40 text-primary neon-hex opacity-50" />
 
-      {/* ── Section Header — Breaks the pattern ── */}
-      <div ref={headerRef} className="relative z-10 mb-12 lg:mb-16">
-        {/* Minimal label */}
+        {/* Bottom-left: dot matrix */}
+        <DotMatrix className="absolute bottom-16 left-8 w-36 h-36 text-secondary neon-dots opacity-40" />
+
+        {/* Bottom-right: grid */}
+        <VectorGrid className="absolute bottom-8 right-12 w-52 h-52 text-primary neon-grid opacity-40" />
+
+        {/* Center-left floating hex */}
+        <HexPattern className="absolute top-1/2 -translate-y-1/2 left-16 w-32 h-32 text-cyan-400 neon-cyan opacity-30" />
+
+        {/* Top-right circuit */}
+        <CircuitLines className="absolute top-20 right-1/3 w-48 h-48 text-green-400 neon-green opacity-35 scale-75" />
+
+        {/* Decorative lines */}
+        <div className="absolute top-1/4 left-0 w-24 h-px bg-gradient-to-r from-secondary/30 to-transparent neon-line" />
+        <div className="absolute bottom-1/3 right-0 w-32 h-px bg-gradient-to-l from-primary/30 to-transparent neon-line-reverse" />
+      </div>
+
+      {/* ── Section Header ── */}
+      <div className="relative z-10 mb-10 lg:mb-14 text-center">
         <AnimatedSection animation="fade-up" duration={0.6}>
-          <div className="flex items-center gap-3 mb-6">
+          <div className="flex items-center justify-center gap-3 mb-4">
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-secondary/10 ring-1 ring-secondary/20">
               <Play className="h-3.5 w-3.5 text-secondary" fill="currentColor" aria-hidden="true" />
             </div>
@@ -170,151 +166,88 @@ export default function Videos() {
           </div>
         </AnimatedSection>
 
-        {/* Title — left-aligned, bold, minimal */}
         <AnimatedSection animation="fade-up" delay={0.1} duration={0.6}>
           <h2
             id="videos-heading"
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight"
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight leading-tight"
           >
             Conoce{' '}
-            <span className="text-gradient">Answer ST</span>
+            <span className="text-gradient">Answer </span>
+            <span className="text-green-500">ST</span>
           </h2>
         </AnimatedSection>
 
-        {/* Description — minimal, let the video speak */}
         <AnimatedSection animation="fade-up" delay={0.2} duration={0.6}>
-          <p className="mt-4 text-slate-400 max-w-lg text-base sm:text-lg leading-relaxed">
+          <p className="mt-4 text-muted-foreground max-w-lg mx-auto text-base sm:text-lg leading-relaxed">
             Descubre quiénes somos y cómo podemos ayudarte a alcanzar tus objetivos.
           </p>
         </AnimatedSection>
-
-        {/* Decorative line under header */}
-        {!reducedMotion && (
-          <div className="mt-8 flex items-center gap-4">
-            <div className="h-px w-16 bg-gradient-to-r from-secondary to-transparent" aria-hidden="true" />
-            <div className="h-1 w-1 rounded-full bg-secondary/40" aria-hidden="true" />
-          </div>
-        )}
       </div>
 
-      {/* ── Premium Video Presentation ── */}
+      {/* ── Vertical Video ── */}
       <div
         data-video-container
-        className="relative z-10 max-w-5xl mx-auto"
+        className="relative z-10 flex justify-center"
       >
-        {/* Outer glow behind the video */}
-        {!reducedMotion && (
+        {/* Video container */}
+        <div className="relative">
+          {/* Outer glow */}
+          {!reducedMotion && (
+            <div
+              className="absolute -inset-6 bg-secondary/10 rounded-[2rem] blur-3xl scale-[0.95] neon-glow"
+              aria-hidden="true"
+            />
+          )}
+
+          {/* Main video wrapper */}
           <div
-            className="absolute -inset-4 bg-secondary/5 rounded-3xl blur-2xl scale-[0.98]"
-            aria-hidden="true"
-          />
-        )}
+            ref={videoWrapperRef}
+            className="relative aspect-[9/16] w-72 sm:w-80 md:w-96 rounded-3xl overflow-hidden bg-slate-900 shadow-2xl border border-border/50"
+          >
+            {/* Video */}
+            <video
+              src="/answerst.mp4"
+              className="w-full h-full object-cover"
+              controls
+              preload="metadata"
+              playsInline
+              aria-label="Video institucional de Answer ST"
+              onPlay={() => setIsPlaying(true)}
+              onPause={() => setIsPlaying(false)}
+            />
 
-        {/* Main video frame — glass morphism with gradient border */}
-        <div
-          className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-slate-700/60 via-slate-800/80 to-slate-700/60 p-px shadow-2xl shadow-black/40"
-        >
-          {/* Inner container */}
-          <div className="relative rounded-[15px] overflow-hidden bg-slate-900">
-            {/* Top bar — subtle, not macOS dots */}
-            <div className="relative flex items-center justify-between px-5 py-3 bg-slate-900/90 backdrop-blur-sm border-b border-slate-700/40">
-              {/* Left side: dot indicator (minimal, single accent) */}
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-secondary/60" aria-hidden="true" />
-                <span className="text-xs text-slate-500 font-medium tracking-wide">
-                  Video Institucional
-                </span>
-              </div>
-
-              {/* Right side: resolution badge */}
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] font-mono text-slate-600 uppercase tracking-wider">
-                  HD
-                </span>
-              </div>
-            </div>
-
-            {/* Video area with play overlay */}
-            <div className="relative">
-              <VideoPlayer
-                src="/answerst.mp4"
-                title="Video Institucional Answer ST"
-              />
-
-              {/* Custom play overlay — fades when playing */}
-              {!isPlaying && (
-                <div
-                  ref={playOverlayRef}
-                  className="absolute inset-0 flex items-center justify-center bg-black/20 backdrop-blur-[2px] cursor-pointer transition-opacity duration-500"
-                  onClick={() => setIsPlaying(true)}
-                  role="button"
-                  tabIndex={0}
-                  aria-label="Reproducir video institucional"
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault()
-                      setIsPlaying(true)
-                    }
-                  }}
-                >
-                  {/* Pulsing ring */}
-                  <div
-                    data-play-ring
-                    className="absolute flex h-24 w-24 sm:h-28 sm:w-28 items-center justify-center rounded-full bg-secondary/20"
+            {/* Play overlay */}
+            {!isPlaying && (
+              <div
+                className="absolute inset-0 flex items-center justify-center bg-black/30 backdrop-blur-[2px] cursor-pointer transition-opacity duration-500"
+                onClick={() => {
+                  const video = videoWrapperRef?.current?.querySelector('video')
+                  video?.play()
+                  setIsPlaying(true)
+                }}
+                role="button"
+                tabIndex={0}
+                aria-label="Reproducir video institucional"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    const video = videoWrapperRef?.current?.querySelector('video')
+                    video?.play()
+                    setIsPlaying(true)
+                  }
+                }}
+              >
+                <div className="relative flex h-16 w-16 items-center justify-center rounded-full bg-secondary/90 backdrop-blur-sm shadow-lg shadow-secondary/40 ring-1 ring-white/10 transition-transform duration-300 hover:scale-110 group">
+                  <Play
+                    className="h-7 w-7 text-white ml-0.5 transition-transform duration-300 group-hover:scale-110"
+                    fill="currentColor"
                     aria-hidden="true"
                   />
-
-                  {/* Play button */}
-                  <div className="relative flex h-16 w-16 sm:h-20 sm:w-20 items-center justify-center rounded-full bg-secondary/90 backdrop-blur-sm shadow-lg shadow-secondary/30 ring-1 ring-white/10 transition-transform duration-300 hover:scale-110 group">
-                    <Play
-                      className="h-7 w-7 sm:h-8 sm:w-8 text-white ml-0.5 transition-transform duration-300 group-hover:scale-110"
-                      fill="currentColor"
-                      aria-hidden="true"
-                    />
-                  </div>
                 </div>
-              )}
-            </div>
-
-            {/* Bottom caption bar */}
-            <div className="relative px-5 py-4 bg-slate-900/90 backdrop-blur-sm border-t border-slate-700/40">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-                <div className="flex items-center gap-3">
-                  {/* Green accent line */}
-                  <div className="h-6 w-0.5 rounded-full bg-secondary" aria-hidden="true" />
-                  <div>
-                    <p className="text-sm font-semibold text-white/90">
-                      Answer ST — Consultoría Especializada
-                    </p>
-                    <p className="text-xs text-slate-500 mt-0.5">
-                      Video institucional · Descubre nuestros servicios
-                    </p>
-                  </div>
-                </div>
-
-                {/* Subtle gradient line */}
-                <div className="hidden sm:block h-px w-24 bg-gradient-to-r from-secondary/40 to-transparent" aria-hidden="true" />
               </div>
-            </div>
+            )}
           </div>
         </div>
-
-        {/* Reflection effect below the video */}
-        {!reducedMotion && (
-          <div
-            className="relative mx-auto mt-2 max-w-[90%] h-16 rounded-b-3xl bg-gradient-to-b from-secondary/5 to-transparent blur-xl"
-            aria-hidden="true"
-          />
-        )}
-
-        {/* Bottom decorative dots */}
-        {!reducedMotion && (
-          <div className="flex items-center justify-center gap-2 mt-10" aria-hidden="true">
-            <div className="h-1 w-8 rounded-full bg-secondary/30" />
-            <div className="h-1 w-1 rounded-full bg-slate-600/40" />
-            <div className="h-1 w-1 rounded-full bg-slate-600/40" />
-          </div>
-        )}
       </div>
     </Section>
   )

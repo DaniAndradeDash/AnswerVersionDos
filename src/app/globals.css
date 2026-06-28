@@ -416,6 +416,35 @@ section[id] {
 }
 
 /* ============================================
+    Neon Effects for Vectors (Dark Mode)
+    ============================================ */
+[data-theme="dark"] .neon-circuit {
+  filter: drop-shadow(0 0 6px rgba(49, 191, 44, 0.5));
+}
+[data-theme="dark"] .neon-hex {
+  filter: drop-shadow(0 0 6px rgba(96, 165, 250, 0.4));
+}
+[data-theme="dark"] .neon-dots {
+  filter: drop-shadow(0 0 4px rgba(49, 191, 44, 0.3));
+}
+[data-theme="dark"] .neon-grid {
+  filter: drop-shadow(0 0 5px rgba(96, 165, 250, 0.3));
+}
+[data-theme="dark"] .neon-cyan {
+  filter: drop-shadow(0 0 6px rgba(34, 211, 238, 0.5));
+}
+[data-theme="dark"] .neon-green {
+  filter: drop-shadow(0 0 6px rgba(74, 222, 128, 0.4));
+}
+[data-theme="dark"] .neon-line,
+[data-theme="dark"] .neon-line-reverse {
+  filter: drop-shadow(0 0 8px rgba(49, 191, 44, 0.4));
+}
+[data-theme="dark"] .neon-glow {
+  background-color: rgba(49, 191, 44, 0.08);
+}
+
+/* ============================================
     Neon Effects for Icons (Dark Mode)
     ============================================ */
 .neon-red {
