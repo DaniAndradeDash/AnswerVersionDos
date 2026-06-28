@@ -26,112 +26,146 @@ import { useReducedMotion } from "@/hooks/useReducedMotion";
 gsap.registerPlugin(ScrollTrigger);
 
 // ============================================
-// Circuit Watermark SVGs — PCB-inspired designs
+// Circuit Watermark SVGs — Futuristic designs
+// Compatible with iOS Safari & Android Chrome
+// Uses explicit stroke/fill="currentColor"
 // ============================================
 
 const circuitDesigns = [
-  // Circuit 01 — PCB traces with nodes (green accent)
+  // Circuit 01 — Neural network with green accent
   () => (
     <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-      {/* Main trace lines */}
-      <path d="M40 260 L40 180 L80 140 L80 80 L140 20 L200 20 L200 60 L260 120 L260 200 L220 240 L160 240 L160 200" className="stroke-current" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M80 140 L140 140 L140 80 L200 80 L200 140 L260 200" className="stroke-current" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M140 20 L140 80 L80 80" className="stroke-current" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M200 60 L140 60 L140 140" className="stroke-current" strokeWidth="0.75" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M260 120 L200 120 L200 140" className="stroke-current" strokeWidth="0.75" strokeLinecap="round" strokeLinejoin="round" />
-      {/* Small branch traces */}
-      <path d="M40 220 L60 200 L60 160" className="stroke-current" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M220 240 L220 200 L240 180" className="stroke-current" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M100 100 L100 60 L120 40" className="stroke-current" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round" />
-      {/* Nodes / vias */}
-      <circle cx="40" cy="260" r="4" className="fill-current" />
-      <circle cx="80" cy="140" r="5" className="fill-current" />
-      <circle cx="140" cy="20" r="4" className="fill-current" />
-      <circle cx="200" cy="20" r="5" className="fill-current" />
-      <circle cx="260" cy="120" r="4" className="fill-current" />
-      <circle cx="220" cy="240" r="5" className="fill-current" />
-      <circle cx="160" cy="200" r="4" className="fill-current" />
-      <circle cx="200" cy="80" r="3" className="fill-current" />
-      <circle cx="140" cy="140" r="3" className="fill-current" />
-      <circle cx="60" cy="160" r="2.5" className="fill-current" />
-      <circle cx="240" cy="180" r="2.5" className="fill-current" />
-      <circle cx="120" cy="40" r="2.5" className="fill-current" />
-      {/* Decorative dots */}
-      <circle cx="100" cy="260" r="1.5" className="fill-current" opacity="0.4" />
-      <circle cx="280" cy="80" r="1.5" className="fill-current" opacity="0.4" />
-      <circle cx="20" cy="100" r="1.5" className="fill-current" opacity="0.4" />
+      {/* Main neural paths */}
+      <path d="M50 250 L50 200 L90 160 L90 100 L150 50 L210 50 L210 90 L250 130 L250 190 L210 230 L150 230 L150 190" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M90 160 L150 160 L150 110 L210 110 L210 160 L250 210" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M150 50 L150 110" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M210 90 L150 90 L150 110" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      {/* Secondary connections */}
+      <path d="M50 220 L70 200 L70 170 L110 140" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" opacity="0.6" />
+      <path d="M190 210 L190 180 L230 150 L250 130" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" opacity="0.6" />
+      <path d="M130 70 L130 110 L110 130" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" opacity="0.6" />
+      {/* Terminal nodes */}
+      <circle cx="50" cy="250" r="6" fill="currentColor" />
+      <circle cx="50" cy="250" r="3" fill="white" opacity="0.3" />
+      <circle cx="90" cy="160" r="7" fill="currentColor" />
+      <circle cx="90" cy="160" r="3.5" fill="white" opacity="0.3" />
+      <circle cx="150" cy="50" r="6" fill="currentColor" />
+      <circle cx="150" cy="50" r="3" fill="white" opacity="0.3" />
+      <circle cx="210" cy="50" r="7" fill="currentColor" />
+      <circle cx="210" cy="50" r="3.5" fill="white" opacity="0.3" />
+      <circle cx="250" cy="130" r="6" fill="currentColor" />
+      <circle cx="250" cy="130" r="3" fill="white" opacity="0.3" />
+      <circle cx="210" cy="230" r="7" fill="currentColor" />
+      <circle cx="210" cy="230" r="3.5" fill="white" opacity="0.3" />
+      <circle cx="150" cy="190" r="6" fill="currentColor" />
+      <circle cx="150" cy="190" r="3" fill="white" opacity="0.3" />
+      {/* Junction points */}
+      <circle cx="150" cy="110" r="4" fill="currentColor" opacity="0.7" />
+      <circle cx="210" cy="110" r="4" fill="currentColor" opacity="0.7" />
+      <circle cx="210" cy="160" r="4" fill="currentColor" opacity="0.7" />
+      <circle cx="110" cy="140" r="3" fill="currentColor" opacity="0.5" />
+      <circle cx="230" cy="150" r="3" fill="currentColor" opacity="0.5" />
+      {/* Floating data points */}
+      <circle cx="40" cy="140" r="2.5" fill="currentColor" opacity="0.3" />
+      <circle cx="270" cy="90" r="2.5" fill="currentColor" opacity="0.3" />
+      <circle cx="120" cy="260" r="2.5" fill="currentColor" opacity="0.3" />
+      <circle cx="260" cy="240" r="2" fill="currentColor" opacity="0.25" />
+      <circle cx="70" cy="80" r="2" fill="currentColor" opacity="0.25" />
     </svg>
   ),
-  // Circuit 02 — Network connections (blue accent)
+  // Circuit 02 — Data grid with blue accent
   () => (
     <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-      {/* Hexagonal-inspired traces */}
-      <path d="M60 240 L60 180 L100 140 L100 80 L160 40 L220 40 L220 80 L260 120 L260 180 L220 220 L160 220 L160 180 L100 180" className="stroke-current" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M100 140 L160 140 L160 100 L220 100 L220 140" className="stroke-current" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M160 40 L160 100" className="stroke-current" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M220 80 L160 80 L160 140" className="stroke-current" strokeWidth="0.75" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M260 120 L200 120 L200 160 L160 160" className="stroke-current" strokeWidth="0.75" strokeLinecap="round" strokeLinejoin="round" />
-      {/* Diagonal branches */}
-      <path d="M60 200 L80 180 L80 140" className="stroke-current" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M240 200 L240 160 L220 140" className="stroke-current" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M180 60 L180 100 L200 120" className="stroke-current" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M120 60 L120 100 L140 120" className="stroke-current" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round" />
-      {/* Connection nodes */}
-      <circle cx="60" cy="240" r="5" className="fill-current" />
-      <circle cx="100" cy="140" r="5" className="fill-current" />
-      <circle cx="160" cy="40" r="5" className="fill-current" />
-      <circle cx="220" cy="40" r="5" className="fill-current" />
-      <circle cx="260" cy="120" r="5" className="fill-current" />
-      <circle cx="220" cy="220" r="5" className="fill-current" />
-      <circle cx="160" cy="180" r="4" className="fill-current" />
-      <circle cx="160" cy="100" r="3" className="fill-current" />
-      <circle cx="200" cy="160" r="3" className="fill-current" />
-      <circle cx="80" cy="140" r="2.5" className="fill-current" />
-      <circle cx="240" cy="160" r="2.5" className="fill-current" />
-      <circle cx="200" cy="120" r="2.5" className="fill-current" />
-      {/* Data points */}
-      <circle cx="40" cy="120" r="1.5" className="fill-current" opacity="0.4" />
-      <circle cx="280" cy="200" r="1.5" className="fill-current" opacity="0.4" />
-      <circle cx="140" cy="260" r="1.5" className="fill-current" opacity="0.4" />
+      {/* Primary grid structure */}
+      <path d="M60 240 L60 180 L100 140 L100 80 L160 40 L220 40 L220 80 L260 120 L260 180 L220 220 L160 220 L160 180 L100 180" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M100 140 L160 140 L160 100 L220 100 L220 140" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M160 40 L160 100" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M220 80 L160 80 L160 100" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      {/* Diagonal data flows */}
+      <path d="M60 210 L80 190 L80 150 L120 120" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" opacity="0.6" />
+      <path d="M240 200 L240 160 L220 140 L200 120" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" opacity="0.6" />
+      <path d="M180 60 L180 100 L200 120" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" opacity="0.6" />
+      <path d="M120 60 L120 100 L140 120" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" opacity="0.6" />
+      {/* Hexagonal nodes */}
+      <circle cx="60" cy="240" r="7" fill="currentColor" />
+      <circle cx="60" cy="240" r="3.5" fill="white" opacity="0.3" />
+      <circle cx="100" cy="140" r="7" fill="currentColor" />
+      <circle cx="100" cy="140" r="3.5" fill="white" opacity="0.3" />
+      <circle cx="160" cy="40" r="7" fill="currentColor" />
+      <circle cx="160" cy="40" r="3.5" fill="white" opacity="0.3" />
+      <circle cx="220" cy="40" r="7" fill="currentColor" />
+      <circle cx="220" cy="40" r="3.5" fill="white" opacity="0.3" />
+      <circle cx="260" cy="120" r="7" fill="currentColor" />
+      <circle cx="260" cy="120" r="3.5" fill="white" opacity="0.3" />
+      <circle cx="220" cy="220" r="7" fill="currentColor" />
+      <circle cx="220" cy="220" r="3.5" fill="white" opacity="0.3" />
+      <circle cx="160" cy="180" r="6" fill="currentColor" />
+      <circle cx="160" cy="180" r="3" fill="white" opacity="0.3" />
+      {/* Junction nodes */}
+      <circle cx="160" cy="100" r="4" fill="currentColor" opacity="0.7" />
+      <circle cx="220" cy="100" r="4" fill="currentColor" opacity="0.7" />
+      <circle cx="220" cy="140" r="4" fill="currentColor" opacity="0.7" />
+      <circle cx="160" cy="140" r="4" fill="currentColor" opacity="0.7" />
+      {/* Secondary connection points */}
+      <circle cx="120" cy="120" r="3" fill="currentColor" opacity="0.5" />
+      <circle cx="240" cy="160" r="3" fill="currentColor" opacity="0.5" />
+      <circle cx="200" cy="120" r="3" fill="currentColor" opacity="0.5" />
+      <circle cx="140" cy="120" r="3" fill="currentColor" opacity="0.5" />
+      {/* Signal points */}
+      <circle cx="40" cy="120" r="2.5" fill="currentColor" opacity="0.3" />
+      <circle cx="280" cy="180" r="2.5" fill="currentColor" opacity="0.3" />
+      <circle cx="140" cy="260" r="2.5" fill="currentColor" opacity="0.3" />
+      <circle cx="250" cy="60" r="2" fill="currentColor" opacity="0.25" />
     </svg>
   ),
-  // Circuit 03 — PCB board pattern (green accent)
+  // Circuit 03 — Quantum pathways with green accent
   () => (
     <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-      {/* Grid-like PCB traces */}
-      <path d="M50 250 L50 200 L80 170 L80 110 L120 70 L120 50 L180 50 L180 90 L220 130 L220 190 L180 230 L120 230 L120 190 L80 190" className="stroke-current" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M80 170 L140 170 L140 130 L180 130 L180 170 L220 210" className="stroke-current" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M120 70 L120 130 L80 130 L80 110" className="stroke-current" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M180 90 L140 90 L140 130" className="stroke-current" strokeWidth="0.75" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M220 130 L180 130" className="stroke-current" strokeWidth="0.75" strokeLinecap="round" strokeLinejoin="round" />
-      {/* Complex branches */}
-      <path d="M50 220 L70 200 L70 160 L90 140" className="stroke-current" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M200 210 L200 170 L220 150 L220 130" className="stroke-current" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M160 70 L160 110 L140 130" className="stroke-current" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M100 90 L100 130 L120 150" className="stroke-current" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M250 150 L230 150 L230 190" className="stroke-current" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round" />
-      {/* IC-style rectangular nodes */}
-      <rect x="72" y="162" width="16" height="16" rx="2" className="fill-current" />
-      <rect x="172" y="122" width="16" height="16" rx="2" className="fill-current" />
-      <rect x="112" y="62" width="16" height="16" rx="2" className="fill-current" />
-      {/* Circular vias */}
-      <circle cx="50" cy="250" r="4" className="fill-current" />
-      <circle cx="120" cy="230" r="5" className="fill-current" />
-      <circle cx="180" cy="230" r="4" className="fill-current" />
-      <circle cx="220" cy="190" r="5" className="fill-current" />
-      <circle cx="220" cy="130" r="4" className="fill-current" />
-      <circle cx="180" cy="50" r="5" className="fill-current" />
-      <circle cx="140" cy="130" r="3" className="fill-current" />
-      <circle cx="80" cy="130" r="3" className="fill-current" />
-      <circle cx="180" cy="170" r="3" className="fill-current" />
-      <circle cx="90" cy="140" r="2.5" className="fill-current" />
-      <circle cx="220" cy="150" r="2.5" className="fill-current" />
-      <circle cx="120" cy="150" r="2.5" className="fill-current" />
-      {/* Test points */}
-      <circle cx="30" cy="180" r="1.5" className="fill-current" opacity="0.4" />
-      <circle cx="270" cy="100" r="1.5" className="fill-current" opacity="0.4" />
-      <circle cx="200" cy="270" r="1.5" className="fill-current" opacity="0.4" />
-      <circle cx="150" cy="270" r="1.5" className="fill-current" opacity="0.4" />
+      {/* Main quantum paths */}
+      <path d="M50 250 L50 200 L80 170 L80 110 L120 70 L120 50 L180 50 L180 90 L220 130 L220 190 L180 230 L120 230 L120 190 L80 190" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M80 170 L140 170 L140 130 L180 130 L180 170 L220 210" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M120 70 L120 130 L80 130 L80 110" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M180 90 L140 90 L140 130" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M220 130 L180 130" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      {/* Energy branches */}
+      <path d="M50 220 L70 200 L70 160 L90 140" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" opacity="0.6" />
+      <path d="M200 210 L200 170 L220 150 L220 130" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" opacity="0.6" />
+      <path d="M160 70 L160 110 L140 130" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" opacity="0.6" />
+      <path d="M100 90 L100 130 L120 150" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" opacity="0.6" />
+      {/* Diamond-shaped IC nodes */}
+      <rect x="72" y="162" width="16" height="16" rx="3" fill="currentColor" transform="rotate(45 80 170)" />
+      <rect x="172" y="122" width="16" height="16" rx="3" fill="currentColor" transform="rotate(45 180 130)" />
+      <rect x="112" y="62" width="16" height="16" rx="3" fill="currentColor" transform="rotate(45 120 70)" />
+      {/* Terminal circles */}
+      <circle cx="50" cy="250" r="7" fill="currentColor" />
+      <circle cx="50" cy="250" r="3.5" fill="white" opacity="0.3" />
+      <circle cx="120" cy="230" r="7" fill="currentColor" />
+      <circle cx="120" cy="230" r="3.5" fill="white" opacity="0.3" />
+      <circle cx="180" cy="230" r="6" fill="currentColor" />
+      <circle cx="180" cy="230" r="3" fill="white" opacity="0.3" />
+      <circle cx="220" cy="190" r="7" fill="currentColor" />
+      <circle cx="220" cy="190" r="3.5" fill="white" opacity="0.3" />
+      <circle cx="220" cy="130" r="6" fill="currentColor" />
+      <circle cx="220" cy="130" r="3" fill="white" opacity="0.3" />
+      <circle cx="180" cy="50" r="7" fill="currentColor" />
+      <circle cx="180" cy="50" r="3.5" fill="white" opacity="0.3" />
+      {/* Junction nodes */}
+      <circle cx="140" cy="130" r="4" fill="currentColor" opacity="0.7" />
+      <circle cx="80" cy="130" r="4" fill="currentColor" opacity="0.7" />
+      <circle cx="180" cy="170" r="4" fill="currentColor" opacity="0.7" />
+      <circle cx="140" cy="170" r="4" fill="currentColor" opacity="0.7" />
+      {/* Secondary nodes */}
+      <circle cx="90" cy="140" r="3" fill="currentColor" opacity="0.5" />
+      <circle cx="220" cy="150" r="3" fill="currentColor" opacity="0.5" />
+      <circle cx="120" cy="150" r="3" fill="currentColor" opacity="0.5" />
+      <circle cx="160" cy="110" r="3" fill="currentColor" opacity="0.5" />
+      {/* Quantum dots */}
+      <circle cx="30" cy="180" r="2.5" fill="currentColor" opacity="0.3" />
+      <circle cx="270" cy="100" r="2.5" fill="currentColor" opacity="0.3" />
+      <circle cx="200" cy="270" r="2.5" fill="currentColor" opacity="0.3" />
+      <circle cx="150" cy="270" r="2.5" fill="currentColor" opacity="0.3" />
+      <circle cx="240" cy="70" r="2" fill="currentColor" opacity="0.25" />
+      <circle cx="60" cy="100" r="2" fill="currentColor" opacity="0.25" />
     </svg>
   ),
 ];
@@ -332,12 +366,21 @@ function ServiceCard({
         <div className={`absolute bottom-0 right-0 w-12 h-[2px] ${accent.bg} opacity-50 dark:opacity-70`} aria-hidden="true" />
         <div className={`absolute bottom-0 right-0 w-[2px] h-12 ${accent.bg} opacity-50 dark:opacity-70`} aria-hidden="true" />
 
-        {/* Circuit watermark — PCB-inspired background decoration */}
+        {/* Circuit watermark — Futuristic background decoration */}
         <div
-          className="absolute -bottom-8 -right-8 w-[280px] h-[280px] sm:w-[340px] sm:h-[340px] select-none pointer-events-none opacity-[0.06] text-slate-400 dark:text-cyan-400/60 dark:opacity-[0.08] circuit-glow transition-all duration-500 group-hover:opacity-[0.1]"
+          className="absolute -bottom-12 -right-12 w-[260px] h-[260px] sm:w-[320px] sm:h-[320px] md:w-[340px] md:h-[340px] select-none pointer-events-none circuit-watermark transition-all duration-500 group-hover:opacity-[0.12]"
           aria-hidden="true"
+          style={{
+            color: 'rgba(100, 116, 139, 0.08)',
+            opacity: 1,
+          }}
         >
-          {circuitDesigns[index % circuitDesigns.length]()}
+          <div className="dark:hidden" style={{ color: 'rgba(100, 116, 139, 0.08)' }}>
+            {circuitDesigns[index % circuitDesigns.length]()}
+          </div>
+          <div className="hidden dark:block" style={{ color: index === 1 ? 'rgba(96, 165, 250, 0.5)' : 'rgba(74, 222, 128, 0.5)', filter: 'drop-shadow(0 0 8px rgba(74, 222, 128, 0.15))' }}>
+            {circuitDesigns[index % circuitDesigns.length]()}
+          </div>
         </div>
 
         {/* Subtle gradient overlay */}
@@ -504,12 +547,17 @@ export default function Servicios() {
 
       {/* Section header — BREAKS the centered pattern */}
       <div ref={headerRef} className="relative z-10 mb-16">
-        {/* Circuit watermark — section-level PCB decoration */}
+        {/* Circuit watermark — Section-level futuristic decoration */}
         <div
-          className="absolute -top-16 -left-16 w-[400px] h-[400px] sm:w-[500px] sm:h-[500px] select-none pointer-events-none opacity-[0.04] text-slate-400 dark:text-cyan-400/50 dark:opacity-[0.06] circuit-glow transition-colors duration-500"
+          className="absolute -top-20 -left-20 w-[380px] h-[380px] sm:w-[480px] sm:h-[480px] select-none pointer-events-none transition-all duration-500"
           aria-hidden="true"
         >
-          {circuitDesigns[0]()}
+          <div className="dark:hidden" style={{ color: 'rgba(100, 116, 139, 0.06)' }}>
+            {circuitDesigns[0]()}
+          </div>
+          <div className="hidden dark:block" style={{ color: 'rgba(96, 165, 250, 0.4)', filter: 'drop-shadow(0 0 10px rgba(96, 165, 250, 0.1))' }}>
+            {circuitDesigns[0]()}
+          </div>
         </div>
 
         {/* Horizontal decorative line */}
