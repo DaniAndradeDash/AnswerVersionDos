@@ -6,6 +6,72 @@ El formato está basado en [Keep a Changelog](https://keepachangelog.com/).
 
 ---
 
+## [1.2.0] — 2026-06-27
+
+### Optimización de rendimiento
+
+Reducción significativa del bundle, eliminación de código muerto y optimización de recursos.
+
+#### Bundle JavaScript
+- **Eliminada dependencia `framer-motion`** (~150 KB gzipped) — todas las animaciones migradas a CSS puro
+  - Header: transiciones de iconos (theme toggle, menu) con CSS keyframes
+  - Distintivo: CTA Facebook con CSS hover animations (pulse, wiggle, bounce)
+  - Contacto: stagger animations, form/success transitions con CSS
+- **`next.config.ts`** — Agregado `experimental.optimizePackageImports` para tree-shaking agresivo de GSAP y lucide-react
+- **Resultado:** First Load JS de 259 kB → **218 kB** (-41 kB, -15.8%)
+
+#### Imágenes
+- **Eliminadas 14 imágenes muertas** (~13.4 MB):
+  - `financiera_img.png`, `Legal_img_gray.png`, `Empresarial_img_red.png`
+  - `salud_img.png`, `salud_img_celeste.png`, `mediacion_conflictos.png`
+  - `Medio_ambiente_img.png`, `logo_answer.png`, `fondo_servicios.png`
+  - `infonagreen.png`, `infonagreen_tres.jpeg`
+  - `Icono_Face.png`, `icono_whats.png`, `icono_correo.png`
+
+#### Código muerto eliminado
+- `src/lib/gsap-scroll.ts` (1.9 KB)
+- `src/lib/lenis.ts` (1.6 KB)
+- `src/hooks/useLenis.ts` (1.6 KB)
+- `src/components/motion/ParallaxSection.tsx` (1.2 KB)
+- `src/components/motion/ScrollReveal.tsx` (2.7 KB)
+- `src/components/VideoPlayer.tsx` (1.7 KB)
+- `src/components/ui/Badge.tsx` (1.3 KB)
+- `src/styles/tokens.ts` (4.8 KB)
+- `deprequeted/compromiso.tsx` (17.8 KB)
+- Tipo `VideoItem` de `src/types/index.ts`
+- Campos `icon` y `color` de `SocialLink` (no usados en UI)
+
+#### Video
+- **Videos.tsx** — Cambiado `preload="metadata"` → `preload="none"` para evitar descarga de 7 MB antes de la interacción
+
+---
+
+## [1.1.0] — 2026-06-27
+
+### Preparación para producción
+
+Correcciones de seguridad e infraestructura para despliegue en Neubox/Hostinger.
+
+#### Infraestructura
+- **`.htaccess`** — Creado con configuración completa para producción:
+  - Rewrite de `/api/contact` → `phpmailer/sendmail.php` (formulario funciona sin cambiar código frontend)
+  - Redirección forzada HTTP → HTTPS
+  - Security headers (X-Content-Type-Options, X-Frame-Options, CSP, Referrer-Policy, Permissions-Policy)
+  - Bloqueo de acceso a `.env` y archivos sensibles
+  - Caching optimizado para assets estáticos (imágenes, CSS, JS con content hashing)
+  - Compresión Gzip
+  - Prevención de listing de directorios
+
+#### Seguridad
+- **Eliminados archivos de debug:** `debug-sendmail.php` y `test-php.php` removidos del proyecto
+- **Dependencias actualizadas:** `npm audit fix` aplicado, reducidas de 8 a 3 vulnerabilidades
+
+#### Documentación
+- `DEPLOYMENT.md` actualizado con instrucciones de `.htaccess`
+- Checklist de deploy actualizado
+
+---
+
 ## [1.0.0] — 2026-06-26
 
 ### Lanzamiento inicial

@@ -15,8 +15,19 @@ Esto genera los archivos estáticos en el directorio `out/`.
 ### Archivos del build (`out/`)
 Sube **todo el contenido** de `out/` al `public_html` (o equivalente) de tu hosting.
 
-### Scripts PHP (raíz del proyecto)
-Sube estos archivos al mismo nivel que `public_html`:
+### `.htaccess` (raíz del proyecto)
+Sube el archivo `.htaccess` al mismo nivel que `index.html` dentro de `public_html`.
+
+**Funciones del `.htaccess`:**
+- Reescribe `/api/contact` → `phpmailer/sendmail.php` (el formulario funciona sin cambiar código frontend)
+- Fuerza redirección HTTP → HTTPS
+- Agrega security headers (X-Content-Type-Options, X-Frame-Options, CSP, etc.)
+- Configura caching para assets estáticos (imágenes, CSS, JS)
+- Bloquea acceso a `.env` y archivos sensibles
+- Previene listing de directorios
+
+### Scripts PHP (mismo nivel que `public_html`)
+Sube estos archivos **fuera** de `public_html`, al mismo nivel del directorio:
 
 | Archivo | Propósito |
 |---------|-----------|
@@ -26,11 +37,10 @@ Sube estos archivos al mismo nivel que `public_html`:
 | `phpmailer/Exception.php` | Librería Exception |
 | `sendmail-simple.php` | Fallback con `mail()` nativo de PHP |
 
-### Archivos de debug (solo desarrollo)
-**Eliminar antes de producción:**
-
-- `debug-sendmail.php`
-- `test-php.php`
+### ⚠️ Archivos eliminados del proyecto
+Los siguientes archivos de debugging fueron eliminados y **NO deben estar en producción**:
+- ~~`debug-sendmail.php`~~ (eliminado)
+- ~~`test-php.php`~~ (eliminado)
 
 ---
 
@@ -63,7 +73,10 @@ ALLOWED_ORIGIN=https://answerst.com
 
 ## 4. Configuración de HTTPS Forzado
 
-### Opción A: Panel de Neubox/Hostinger
+> **Nota:** El archivo `.htaccess` ya incluye la regla de redirección HTTP → HTTPS.
+> Solo necesitas activar el certificado SSL en el panel de tu hosting.
+
+### Paso 1: Activar SSL en Neubox/Hostinger
 
 1. Entra al panel de tu hosting.
 2. Ve a **SSL/TLS** o **Certificados SSL**.
@@ -71,20 +84,14 @@ ALLOWED_ORIGIN=https://answerst.com
 4. Espera a que el certificado se provisione (puede tardar 5-30 min).
 5. Activa **Forzar HTTPS** o **Redirigir HTTP a HTTPS**.
 
-### Opción B: `.htaccess` (si el panel no tiene opción)
+### Paso 2: Verificar `.htaccess`
 
-Crea o edita el archivo `.htaccess` en `public_html`:
+El archivo `.htaccess` incluido en el proyecto ya contiene:
 
 ```apache
-RewriteEngine On
-
 # Forzar HTTPS
 RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
-# Forzar www (opcional, quita si no usas www)
-# RewriteCond %{HTTP_HOST} !^www\. [NC]
-# RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/$1 [L,R=301]
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{1} [L,R=301]
 
 # Security headers
 Header always set X-Content-Type-Options "nosniff"
@@ -93,6 +100,12 @@ Header always set X-XSS-Protection "1; mode=block"
 Header always set Referrer-Policy "strict-origin-when-cross-origin"
 Header always set Content-Security-Policy "upgrade-insecure-requests"
 ```
+
+**No necesitas modificarlo** a menos que quieras:
+- Forzar `www`: descomentar las líneas de "Forzar www"
+- Agregar reglas adicionales de seguridad
+
+### Paso 3: Si el panel no tiene opción de SSL
 
 ### Verificación
 
@@ -122,13 +135,15 @@ verification: {
 
 - [ ] Build generado sin errores (`npm run build`)
 - [ ] Archivos de `out/` subidos al hosting
+- [ ] `.htaccess` subido a `public_html` (junto a `index.html`)
 - [ ] Scripts PHP subidos al nivel correcto
 - [ ] `.env` creado en el servidor con credenciales reales
 - [ ] Permisos del `.env`: `chmod 600`
+- [ ] Certificado SSL activado en el panel de hosting
 - [ ] HTTPS activo y forzando redirección
 - [ ] CORS configurado con `ALLOWED_ORIGIN=https://answerst.com`
-- [ ] Archivos de debug eliminados (`debug-sendmail.php`, `test-php.php`)
-- [ ] Formulario de contacto probado (envío real de correo)
+- [ ] Archivos de debug eliminados (ya removidos del proyecto: `debug-sendmail.php`, `test-php.php`)
+- [ ] Formulario de contacto probado (envío real de correo — verifica que `/api/contact` reescribe a `sendmail.php`)
 - [ ] Google Search Console verificado
 - [ ] Open Graph preview probado con [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/sharing/)
 - [ ] `og-image.png` accesible en `https://answerst.com/og-image.png`

@@ -60,11 +60,14 @@
 
 ## A implementar en despliegue
 
-- [ ] **HTTPS forzado** — Configurar en Neubox/Hostinger (redirección 301 HTTP → HTTPS)
-- [ ] **CORS restrictivo** — Cambiar `ALLOWED_ORIGIN` de `*` a `https://www.answerst.com`
+- [x] **HTTPS forzado** — `.htaccess` incluido con regla de redirección HTTP → HTTPS (solo activar SSL en panel de hosting)
+- [x] **Security headers** — `.htaccess` incluye X-Content-Type-Options, X-Frame-Options, CSP, Referrer-Policy, Permissions-Policy
+- [ ] **CORS restrictivo** — Cambiar `ALLOWED_ORIGIN` de `*` a `https://www.answerst.com` en `phpmailer/sendmail.php`
 - [ ] **Variables de entorno** — Configurar `.env` en producción con credenciales reales
+- [x] **Archivos debug eliminados** — `debug-sendmail.php` y `test-php.php` removidos del proyecto
+- [x] **Protección de `.env`** — `.htaccess` bloquea acceso a archivos que comienzan con `.`
 - [ ] **SMTP autenticado** — Nunca usar `mail()` en producción; siempre PHPMailer + SMTP
-- [ ] **Permisos de archivos** — `phpmailer/` legible, `.env` no accesible vía web
+- [ ] **Permisos de archivos** — `phpmailer/` legible, `.env` no accesible vía web (`chmod 600`)
 - [ ] **Monitoreo de logs** — Revisar logs de error periódicamente
 
 ## Arquitectura de seguridad
@@ -81,7 +84,8 @@
 │         ┌─────────────────────────────────┐      │
 │         │      POST /api/contact           │      │
 │         │  (dev: Next.js API route)        │      │
-│         │  (prod: fetch → sendmail.php)    │      │
+│         │  (prod: .htaccess rewrite →      │      │
+│         │   phpmailer/sendmail.php)        │      │
 │         └─────────────────────────────────┘      │
 └─────────────────────┬───────────────────────────┘
                       │
@@ -121,7 +125,7 @@
 
 ### Producción
 1. Usuario llena formulario → Zod valida en cliente
-2. POST → `phpmailer/sendmail.php` (fetch directo)
+2. POST → `/api/contact` → `.htaccess` reescribe a `phpmailer/sendmail.php`
 3. Rate limiting check (IP hash)
 4. CSRF token validation (si se envía)
 5. Honeypot check

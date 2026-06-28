@@ -209,7 +209,7 @@ export default function Videos() {
               src="/answerst.mp4"
               className="w-full h-full object-cover"
               controls
-              preload="metadata"
+              preload="none"
               playsInline
               aria-label="Video institucional de Answer ST"
               onPlay={() => setIsPlaying(true)}

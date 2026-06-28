@@ -43,21 +43,12 @@ export interface SliderImage {
 export interface SocialLink {
   name: string
   href: string
-  icon: string
-  color: string
 }
 
 export interface ContactInfo {
   email: string
   phone: string
   location: string
-}
-
-export interface VideoItem {
-  id: number
-  src: string
-  title: string
-  subtitle: string
 }
 
 export interface SiteConfig {

@@ -5,7 +5,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Menu, X, Sun, Moon } from 'lucide-react'
 import { useTheme } from 'next-themes'
-import { motion, AnimatePresence } from 'framer-motion'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
 import { navItems } from '@/constants/navigation'
 
@@ -15,12 +14,12 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState('#hero')
   const [themeToggled, setThemeToggled] = useState(false)
+  const [iconTransition, setIconTransition] = useState(false)
   const lastScrollYRef = useRef(0)
   const { theme, setTheme } = useTheme()
   const prefersReducedMotion = useReducedMotion()
   const [mounted, setMounted] = useState(false)
 
-  //Asegurar que cambie a true solo en el cliente
   useEffect(() => {
     setMounted(true)
   }, [])
@@ -30,16 +29,13 @@ export default function Header() {
     const handleScroll = () => {
       const currentScrollY = window.scrollY
 
-      // Auto-hide on scroll down
       if (currentScrollY > lastScrollYRef.current && currentScrollY > 100) {
         setVisible(false)
       } else {
         setVisible(true)
       }
 
-      // Scrolled state for enhanced styling
       setScrolled(currentScrollY > 50)
-
       lastScrollYRef.current = currentScrollY
     }
 
@@ -102,9 +98,19 @@ export default function Header() {
 
   const toggleTheme = useCallback(() => {
     setThemeToggled(true)
+    setIconTransition(true)
     setTheme(theme === 'dark' ? 'light' : 'dark')
-    setTimeout(() => setThemeToggled(false), 600)
+    setTimeout(() => {
+      setThemeToggled(false)
+      setIconTransition(false)
+    }, 600)
   }, [theme, setTheme])
+
+  const toggleMenu = useCallback(() => {
+    setMenuOpen((prev) => !prev)
+    setIconTransition(true)
+    setTimeout(() => setIconTransition(false), 300)
+  }, [])
 
   const isNavItemActive = (href: string) => activeSection === href
 
@@ -129,7 +135,6 @@ export default function Header() {
           {/* Logo */}
           <Link href="#hero" className="flex items-center gap-2 group relative" aria-label="Answer ST — Ir al inicio">
             <div className="relative h-9 w-9 sm:h-10 sm:w-10 flex-shrink-0">
-              {/* Glow effect on hover */}
               <div
                 className="absolute inset-0 rounded-full bg-secondary/20 blur-lg opacity-0 transition-opacity duration-500 group-hover:opacity-100"
                 aria-hidden="true"
@@ -144,18 +149,7 @@ export default function Header() {
                   aria-hidden="true"
                 />
               ) : (
-                <motion.div
-                  className="relative z-10 w-full h-full"
-                  animate={{
-                    scale: [1, 1.03, 1],
-                    opacity: [1, 0.9, 1],
-                  }}
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                  }}
-                >
+                <div className="relative z-10 w-full h-full logo-pulse">
                   <Image
                     src="/Logo_letra.png"
                     alt=""
@@ -164,7 +158,7 @@ export default function Header() {
                     priority
                     aria-hidden="true"
                   />
-                </motion.div>
+                </div>
               )}
             </div>
             <span className="font-bold text-base sm:text-lg lg:text-xl text-foreground whitespace-nowrap relative">
@@ -190,7 +184,6 @@ export default function Header() {
                     }
                   `}
                 >
-                  {/* Hover pill background */}
                   <span
                     className={`
                       absolute inset-0 rounded-lg transition-all duration-300 ease-out
@@ -199,7 +192,6 @@ export default function Header() {
                     aria-hidden="true"
                   />
 
-                  {/* Active indicator dot */}
                   <span
                     className={`
                       absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-secondary
@@ -229,22 +221,17 @@ export default function Header() {
                 `}
                 aria-label={theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
               >
-                <AnimatePresence mode="wait">
-                  <motion.span
-                    key={theme}
-                    initial={{ rotate: -90, opacity: 0, scale: 0.5 }}
-                    animate={{ rotate: 0, opacity: 1, scale: 1 }}
-                    exit={{ rotate: 90, opacity: 0, scale: 0.5 }}
-                    transition={{ duration: 0.4, ease: 'easeInOut' }}
-                    className="flex items-center justify-center"
-                  >
-                    {theme === 'dark' ? (
-                      <Sun className="h-5 w-5" aria-hidden="true" />
-                    ) : (
-                      <Moon className="h-5 w-5" aria-hidden="true" />
-                    )}
-                  </motion.span>
-                </AnimatePresence>
+                <span
+                  className={`theme-icon flex items-center justify-center transition-all duration-400 ease-in-out ${
+                    iconTransition ? 'icon-exit' : 'icon-enter'
+                  }`}
+                >
+                  {theme === 'dark' ? (
+                    <Sun className="h-5 w-5" aria-hidden="true" />
+                  ) : (
+                    <Moon className="h-5 w-5" aria-hidden="true" />
+                  )}
+                </span>
               </button>
             )}
           </nav>
@@ -263,49 +250,39 @@ export default function Header() {
                 `}
                 aria-label={theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
               >
-                <AnimatePresence mode="wait">
-                  <motion.span
-                    key={theme}
-                    initial={{ rotate: -90, opacity: 0, scale: 0.5 }}
-                    animate={{ rotate: 0, opacity: 1, scale: 1 }}
-                    exit={{ rotate: 90, opacity: 0, scale: 0.5 }}
-                    transition={{ duration: 0.4, ease: 'easeInOut' }}
-                    className="flex items-center justify-center"
-                  >
-                    {theme === 'dark' ? (
-                      <Sun className="h-5 w-5" aria-hidden="true" />
-                    ) : (
-                      <Moon className="h-5 w-5" aria-hidden="true" />
-                    )}
-                  </motion.span>
-                </AnimatePresence>
+                <span
+                  className={`theme-icon flex items-center justify-center transition-all duration-400 ease-in-out ${
+                    iconTransition ? 'icon-exit' : 'icon-enter'
+                  }`}
+                >
+                  {theme === 'dark' ? (
+                    <Sun className="h-5 w-5" aria-hidden="true" />
+                  ) : (
+                    <Moon className="h-5 w-5" aria-hidden="true" />
+                  )}
+                </span>
               </button>
             )}
 
             {/* Menu Toggle */}
             <button
-              onClick={() => setMenuOpen(!menuOpen)}
+              onClick={toggleMenu}
               className="p-2.5 rounded-full hover:bg-foreground/5 transition-colors duration-200 text-foreground/70 hover:text-foreground min-w-[44px] min-h-[44px] flex items-center justify-center"
               aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
             >
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.span
-                  key={menuOpen ? 'close' : 'menu'}
-                  initial={{ rotate: -90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 90, opacity: 0 }}
-                  transition={{ duration: 0.2, ease: 'easeInOut' }}
-                  className="flex items-center justify-center"
-                >
-                  {menuOpen ? (
-                    <X className="h-6 w-6" aria-hidden="true" />
-                  ) : (
-                    <Menu className="h-6 w-6" aria-hidden="true" />
-                  )}
-                </motion.span>
-              </AnimatePresence>
+              <span
+                className={`theme-icon flex items-center justify-center transition-all duration-200 ease-in-out ${
+                  iconTransition ? 'icon-exit' : 'icon-enter'
+                }`}
+              >
+                {menuOpen ? (
+                  <X className="h-6 w-6" aria-hidden="true" />
+                ) : (
+                  <Menu className="h-6 w-6" aria-hidden="true" />
+                )}
+              </span>
             </button>
           </div>
         </div>
@@ -338,7 +315,6 @@ export default function Header() {
                     }
                   `}
                 >
-                  {/* Active indicator line */}
                   {isActive && (
                     <span
                       className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 rounded-full bg-secondary"

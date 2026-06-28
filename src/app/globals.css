@@ -1641,6 +1641,134 @@ section[id] {
 }
 
 /* ============================================
+    Framer-motion replacement animations
+    ============================================ */
+
+/* ── Header: logo pulse ── */
+@keyframes logo-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.03); opacity: 0.9; }
+}
+.logo-pulse {
+  animation: logo-pulse 4s ease-in-out infinite;
+}
+
+/* ── Header: theme/menu icon transitions ── */
+.theme-icon {
+  display: inline-flex;
+}
+.theme-icon.icon-enter {
+  animation: icon-enter 0.4s ease-in-out forwards;
+}
+.theme-icon.icon-exit {
+  animation: icon-exit 0.4s ease-in-out forwards;
+}
+@keyframes icon-enter {
+  0% { transform: rotate(90deg) scale(0.5); opacity: 0; }
+  100% { transform: rotate(0deg) scale(1); opacity: 1; }
+}
+@keyframes icon-exit {
+  0% { transform: rotate(-90deg) scale(1); opacity: 1; }
+  100% { transform: rotate(0deg) scale(0.5); opacity: 0; }
+}
+
+/* ── Contacto: stagger fade-slide-in ── */
+.fade-slide-in {
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: fadeSlideIn 0.5s ease forwards;
+}
+@keyframes fadeSlideIn {
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* ── Contacto: stagger fade-scale-in ── */
+.fade-scale-in {
+  opacity: 0;
+  transform: scale(0.9) translateY(8px);
+  animation: fadeScaleIn 0.4s ease forwards;
+}
+@keyframes fadeScaleIn {
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* ── Contacto: fade-up-in (success state text) ── */
+.fade-up-in {
+  opacity: 0;
+  transform: translateY(12px);
+  animation: fadeUpIn 0.4s ease forwards;
+}
+@keyframes fadeUpIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Contacto: success checkmark pop ── */
+.success-checkmark {
+  animation: checkPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+@keyframes checkPop {
+  0% { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* ── Contacto: form/success panel transition (replaces AnimatePresence) ── */
+.contact-form-container {
+  position: relative;
+  min-height: 200px;
+}
+.contact-form-panel {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.contact-form-panel.panel-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.contact-form-panel.panel-hidden {
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+}
+
+/* ── Distintivo: CTA Facebook pulse ring ── */
+.cta-fb-pulse {
+  position: relative;
+}
+@keyframes cta-fb-scale {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+.cta-fb-btn:hover {
+  animation: cta-fb-scale 0.3s ease forwards;
+}
+@keyframes cta-fb-ring-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.4; }
+  50% { transform: scale(1.15); opacity: 0; }
+}
+.cta-fb-ring {
+  animation: cta-fb-ring-pulse 2.5s ease-in-out infinite;
+}
+@keyframes cta-fb-icon-wiggle {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(-8deg); }
+  50% { transform: rotate(8deg); }
+  75% { transform: rotate(-8deg); }
+  100% { transform: rotate(0deg); }
+}
+.cta-fb-btn:hover .cta-fb-icon {
+  animation: cta-fb-icon-wiggle 0.5s ease;
+}
+@keyframes cta-fb-arrow-bounce {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(3px); }
+}
+.cta-fb-btn:hover .cta-fb-arrow {
+  animation: cta-fb-arrow-bounce 0.6s ease infinite;
+}
+
+/* ============================================
     Reduced Motion
     ============================================ */
 @media (prefers-reduced-motion: reduce) {

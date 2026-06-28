@@ -1,9 +1,8 @@
 'use client'
 
-import { useCallback, useState, useEffect, useRef } from 'react'
+import { useCallback, useState, useEffect } from 'react'
 import Image from 'next/image'
 import { Leaf, Lightbulb, ShieldCheck, Eye, ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react'
-import { motion } from 'framer-motion'
 import { Section } from '@/components/ui/Section'
 import { AnimatedSection } from '@/components/motion/AnimatedSection'
 import { Float } from '@/components/motion/Float'
@@ -34,23 +33,18 @@ const iconColors = [
   { bg: 'bg-cyan-400/10', text: 'text-cyan-400', neon: 'neon-cyan' },
 ]
 
-/* ── Facebook CTA with pulse + shine animation ── */
+/* ── Facebook CTA with pulse + shine (CSS-only, no framer-motion) ── */
 function CTAFacebook() {
-  const btnRef = useRef<HTMLAnchorElement>(null)
-  const [isHovered, setIsHovered] = useState(false)
   const reducedMotion = useReducedMotion()
 
   return (
-    <motion.a
-      ref={btnRef}
+    <a
       href={siteConfig.facebook}
       target="_blank"
       rel="noopener noreferrer"
-      className="relative group inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 bg-gradient-to-r from-blue-600 to-blue-700 text-white text-sm sm:text-base font-semibold rounded-full overflow-hidden shadow-lg shadow-blue-600/25 hover:shadow-xl hover:shadow-blue-600/40 transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0"
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
-      whileHover={reducedMotion ? {} : { scale: 1.03 }}
-      whileTap={reducedMotion ? {} : { scale: 0.97 }}
+      className={`cta-fb-btn relative group inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 bg-gradient-to-r from-blue-600 to-blue-700 text-white text-sm sm:text-base font-semibold rounded-full overflow-hidden shadow-lg shadow-blue-600/25 hover:shadow-xl hover:shadow-blue-600/40 transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 ${
+        !reducedMotion ? 'cta-fb-pulse' : ''
+      }`}
     >
       {/* Shimmer sweep */}
       <span
@@ -61,44 +55,27 @@ function CTAFacebook() {
         aria-hidden="true"
       />
 
-      {/* Pulsing glow ring (behind button) */}
+      {/* Pulsing glow ring */}
       {!reducedMotion && (
-        <motion.span
-          className="absolute -inset-1 rounded-full border-2 border-blue-400/40"
-          animate={{
-            scale: [1, 1.15, 1],
-            opacity: [0.4, 0, 0.4],
-          }}
-          transition={{
-            duration: 2.5,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
+        <span
+          className="cta-fb-ring absolute -inset-1 rounded-full border-2 border-blue-400/40"
           aria-hidden="true"
         />
       )}
 
       {/* Facebook icon */}
-      <motion.span
-        animate={isHovered && !reducedMotion ? { rotate: [0, -8, 8, -8, 0] } : {}}
-        transition={{ duration: 0.5 }}
-        className="relative z-10"
-      >
+      <span className="relative z-10 cta-fb-icon">
         <FacebookIcon className="h-5 w-5" />
-      </motion.span>
+      </span>
 
       {/* Text */}
       <span className="relative z-10">Visítanos en Facebook</span>
 
       {/* External link arrow */}
-      <motion.span
-        animate={isHovered && !reducedMotion ? { x: [0, 3, 0] } : {}}
-        transition={{ duration: 0.6, repeat: isHovered ? Infinity : 0 }}
-        className="relative z-10"
-      >
+      <span className="relative z-10 cta-fb-arrow">
         <ExternalLink className="h-4 w-4" aria-hidden="true" />
-      </motion.span>
-    </motion.a>
+      </span>
+    </a>
   )
 }
 
@@ -159,7 +136,6 @@ export default function Distintivo() {
             </div>
           </AnimatedSection>
 
-          {/* Feature items - stable, no re-render on slide change */}
           <div className="space-y-4">
             {distintivoItems.map((item, index) => {
               const Icon = iconMap[item.icon] ?? Leaf
@@ -181,7 +157,6 @@ export default function Distintivo() {
             })}
           </div>
 
-          {/* CTA */}
           <AnimatedSection animation="fade-up" delay={0.3} duration={0.6}>
             <div className="flex justify-center lg:justify-start">
               <CTAFacebook />
@@ -191,7 +166,6 @@ export default function Distintivo() {
 
         {/* Right: Slider + Video */}
         <div className="space-y-8">
-          {/* Image Slider */}
           <AnimatedSection animation="fade-left" duration={0.6}>
             <div>
               <h3 id="distintivo-gallery-heading" className="text-lg font-semibold text-foreground mb-4">Galería</h3>
@@ -204,7 +178,6 @@ export default function Distintivo() {
                 tabIndex={0}
                 onKeyDown={handleKeyDown}
               >
-                {/* Current image */}
                 <Image
                   key={currentSlide}
                   src={sliderImages[currentSlide].src}
@@ -213,7 +186,6 @@ export default function Distintivo() {
                   className="object-cover transition-opacity duration-500"
                 />
 
-                {/* Prev button */}
                 <button
                   type="button"
                   className={`absolute left-4 top-1/2 -translate-y-1/2 z-10 w-11 h-11 flex items-center justify-center rounded-full bg-slate-900/40 backdrop-blur-sm border border-white/10 text-white transition-all duration-300
@@ -229,7 +201,6 @@ export default function Distintivo() {
                   <ChevronLeft className="h-5 w-5" aria-hidden="true" />
                 </button>
 
-                {/* Next button */}
                 <button
                   type="button"
                   className={`absolute right-4 top-1/2 -translate-y-1/2 z-10 w-11 h-11 flex items-center justify-center rounded-full bg-slate-900/40 backdrop-blur-sm border border-white/10 text-white transition-all duration-300
@@ -246,7 +217,6 @@ export default function Distintivo() {
                 </button>
               </div>
 
-              {/* Slide indicators */}
               <div className="flex items-center justify-center gap-2 mt-5" role="tablist" aria-label="Indicadores de diapositiva">
                 {sliderImages.map((_, index) => (
                   <button
@@ -268,7 +238,6 @@ export default function Distintivo() {
             </div>
           </AnimatedSection>
 
-          {/* Video */}
           <AnimatedSection animation="fade-left" delay={0.2} duration={0.6}>
             <div>
               <h3 id="distintivo-video-heading" className="text-lg font-semibold text-foreground mb-4">Video Infonagreen</h3>

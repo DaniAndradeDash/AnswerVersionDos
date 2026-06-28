@@ -64,6 +64,7 @@ EMAILJS_USER=contacto@answerst.com
 ### Estructura
 
 ```
+├── .htaccess                   # Apache config (producción: rewrite + HTTPS + caching)
 ├── src/
 │   ├── app/                    # Next.js App Router
 │   │   ├── layout.tsx          # Root layout + metadata + providers
@@ -157,27 +158,30 @@ Diseñado mobile-first. Breakpoints validados:
 
 1. `npm run build` → genera `out/`
 2. Subir contenido de `out/` a Hostinger/Neubox
-3. Subir `phpmailer/` al mismo directorio
-4. Configurar `.env` en producción con credenciales SMTP
-5. Configurar HTTPS forzado
-6. Cambiar CORS de `*` a `https://answerst.com`
+3. Subir `.htaccess` a `public_html` — configura rewrite del formulario + HTTPS + security headers + caching
+4. Subir `phpmailer/` al mismo directorio
+5. Configurar `.env` en producción con credenciales SMTP
+6. Activar certificado SSL en el panel de hosting
+7. Cambiar CORS de `*` a `https://answerst.com`
 
 ### Checklist Pre-Deploy
 
+- [ ] `.htaccess` subido a `public_html`
 - [ ] Variables de entorno configuradas
 - [ ] SMTP autenticado (no `mail()`)
-- [ ] HTTPS activo
+- [ ] Certificado SSL activado
 - [ ] CORS restrictivo
 - [ ] `og-image.png` creada (1200x630) en `public/`
 - [ ] Google Search Console verification code agregado
 - [ ] Permisos de `.env` restringidos
+- [ ] Archivos debug eliminados (ya removidos del proyecto)
 
 ---
 
 ## Librerías
 
 ### Permitidas
-- Framer Motion, GSAP, Lenis
+- GSAP, Lenis
 - React Hook Form, Zod
 - Lucide React
 - clsx, class-variance-authority
@@ -185,6 +189,7 @@ Diseñado mobile-first. Breakpoints validados:
 
 ### Prohibidas
 - Bootstrap, jQuery
+- Framer Motion (reemplazada por CSS puro en v1.2.0)
 - PHPMailer en desarrollo (solo producción)
 - CSS frameworks adicionales
 

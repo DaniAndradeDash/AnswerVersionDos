@@ -3,7 +3,6 @@
 import { useState, useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { motion, AnimatePresence } from 'framer-motion'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
 import { Mail, Phone, MapPin, MessageSquare, Send, CheckCircle, AlertCircle, RefreshCw, ArrowUpRight, Loader2 } from 'lucide-react'
 import { Section } from '@/components/ui/Section'
@@ -30,69 +29,6 @@ const MAX_RETRIES = 1
 type FormFields = Omit<ContactFormData, 'honeypot'> & { honeypot: string }
 
 /* ------------------------------------------------------------------ */
-/*  Motion variants                                                    */
-/* ------------------------------------------------------------------ */
-
-const contactItemVariants = {
-  hidden: { opacity: 0, x: -20 },
-  visible: (i: number) => ({
-    opacity: 1,
-    x: 0,
-    transition: {
-      delay: i * 0.12,
-      duration: 0.5,
-      ease: [0.22, 1, 0.36, 1] as const,
-    },
-  }),
-}
-
-const socialItemVariants = {
-  hidden: { opacity: 0, scale: 0.9, y: 8 },
-  visible: (i: number) => ({
-    opacity: 1,
-    scale: 1,
-    y: 0,
-    transition: {
-      delay: 0.4 + i * 0.08,
-      duration: 0.4,
-      ease: [0.22, 1, 0.36, 1] as const,
-    },
-  }),
-}
-
-const checkmarkVariants = {
-  hidden: { scale: 0, opacity: 0 },
-  visible: {
-    scale: 1,
-    opacity: 1,
-    transition: {
-      type: 'spring' as const,
-      stiffness: 200,
-      damping: 15,
-      delay: 0.1,
-    },
-  },
-}
-
-const successTextVariants = {
-  hidden: { opacity: 0, y: 12 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { delay: 0.35, duration: 0.4, ease: 'easeOut' as const },
-  },
-}
-
-const successButtonVariants = {
-  hidden: { opacity: 0, y: 8 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { delay: 0.55, duration: 0.35, ease: 'easeOut' as const },
-  },
-}
-
-/* ------------------------------------------------------------------ */
 /*  Sub-components                                                     */
 /* ------------------------------------------------------------------ */
 
@@ -112,16 +48,13 @@ function ContactItem({
   index: number
 }) {
   const prefersReducedMotion = useReducedMotion()
-
-  // Color variant based on icon type
   const iconColor = index === 0 ? 'icon-blue' : index === 1 ? 'icon-green' : 'icon-cyan'
+  const delayStyle = { animationDelay: `${index * 0.12}s` }
 
   const content = (
     <>
-      {/* Tech icon container */}
       <div className="relative flex-shrink-0">
         <div className={`contact-tech-icon ${iconColor}`}>
-          {/* Pulse rings */}
           {!prefersReducedMotion && (
             <>
               <span className="pulse-ring" />
@@ -129,25 +62,21 @@ function ContactItem({
               <span className="pulse-ring" />
             </>
           )}
-          {/* Corner tech dots */}
           {!prefersReducedMotion && (
             <>
               <span className="tech-dot top-right" />
               <span className="tech-dot bottom-left" />
             </>
           )}
-          {/* Icon */}
           <Icon className="h-5 w-5 icon-svg" style={{ color: `var(--icon-color)` }} aria-hidden="true" />
         </div>
       </div>
-      {/* Text */}
       <div className="flex flex-col">
         <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
           {label}
         </span>
         <span className="text-foreground font-medium mt-0.5">{value}</span>
       </div>
-      {/* Arrow (links only) */}
       {isLink && (
         <div className="ml-auto flex-shrink-0 relative">
           <ArrowUpRight
@@ -163,34 +92,42 @@ function ContactItem({
   const baseClasses =
     'group relative flex items-center gap-4 p-4 rounded-2xl transition-all duration-300 hover:bg-surface/80 dark:hover:bg-surface/50'
 
+  if (prefersReducedMotion) {
+    if (isLink && href) {
+      return (
+        <a
+          href={href}
+          className={baseClasses}
+          aria-label={`${label}: ${value}`}
+        >
+          {content}
+        </a>
+      )
+    }
+    return (
+      <div className={baseClasses}>
+        {content}
+      </div>
+    )
+  }
+
   if (isLink && href) {
     return (
-      <motion.a
+      <a
         href={href}
-        custom={index}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: '-40px' }}
-        variants={!prefersReducedMotion ? contactItemVariants : undefined}
-        className={baseClasses}
+        className={`${baseClasses} fade-slide-in`}
+        style={delayStyle}
         aria-label={`${label}: ${value}`}
       >
         {content}
-      </motion.a>
+      </a>
     )
   }
 
   return (
-    <motion.div
-      custom={index}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: '-40px' }}
-      variants={!prefersReducedMotion ? contactItemVariants : undefined}
-      className={baseClasses}
-    >
+    <div className={`${baseClasses} fade-slide-in`} style={delayStyle}>
       {content}
-    </motion.div>
+    </div>
   )
 }
 
@@ -204,6 +141,7 @@ function SocialButton({
   index: number
 }) {
   const prefersReducedMotion = useReducedMotion()
+  const delayStyle = { animationDelay: `${0.4 + index * 0.08}s` }
 
   const brandClasses: Record<string, string> = {
     Facebook: 'social-facebook',
@@ -220,21 +158,15 @@ function SocialButton({
   }
 
   return (
-    <motion.a
-      key={name}
+    <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      custom={index}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: '-40px' }}
-      variants={!prefersReducedMotion ? socialItemVariants : undefined}
-      className={`social-neon-btn ${socialClass}`}
+      className={`social-neon-btn ${socialClass} ${prefersReducedMotion ? '' : 'fade-scale-in'}`}
+      style={prefersReducedMotion ? {} : delayStyle}
       aria-label={`Visitar ${name} de Answer ST`}
       role="listitem"
     >
-      {/* Particle dots */}
       {!prefersReducedMotion && (
         <>
           <span className="particle" />
@@ -242,13 +174,11 @@ function SocialButton({
           <span className="particle" />
         </>
       )}
-      {/* Icon */}
       <span className="social-icon">
         {renderIcon()}
       </span>
-      {/* Label */}
       <span className="social-label">{name}</span>
-    </motion.a>
+    </a>
   )
 }
 
@@ -256,40 +186,34 @@ function FormSuccessState({ onReset }: { onReset: () => void }) {
   const prefersReducedMotion = useReducedMotion()
 
   return (
-    <motion.div
-      className="text-center py-14 space-y-5"
-      initial="hidden"
-      animate="visible"
-    >
+    <div className="text-center py-14 space-y-5">
       {/* Animated checkmark */}
-      <motion.div
-        className="relative mx-auto w-20 h-20"
-        variants={!prefersReducedMotion ? checkmarkVariants : undefined}
-      >
-        <div className="absolute inset-0 rounded-full bg-secondary/10 animate-pulse" />
+      <div className="relative mx-auto w-20 h-20">
+        {!prefersReducedMotion && (
+          <div className="absolute inset-0 rounded-full bg-secondary/10 animate-pulse" />
+        )}
         <div className="absolute inset-0 rounded-full bg-gradient-to-br from-secondary/20 to-primary/20" />
         <div className="relative flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-secondary/10 to-primary/10 border-2 border-secondary/30">
-          <CheckCircle className="h-10 w-10 text-secondary" aria-hidden="true" />
+          {!prefersReducedMotion ? (
+            <CheckCircle className="h-10 w-10 text-secondary success-checkmark" aria-hidden="true" />
+          ) : (
+            <CheckCircle className="h-10 w-10 text-secondary" aria-hidden="true" />
+          )}
         </div>
-      </motion.div>
+      </div>
 
-      <motion.h3
-        className="text-2xl font-bold text-foreground"
-        variants={!prefersReducedMotion ? successTextVariants : undefined}
-      >
+      <h3 className={`text-2xl font-bold text-foreground ${prefersReducedMotion ? '' : 'fade-up-in'}`} style={{ animationDelay: '0.15s' }}>
         ¡Mensaje enviado!
-      </motion.h3>
+      </h3>
 
-      <motion.p
-        className="text-muted-foreground max-w-xs mx-auto"
-        initial={{ opacity: 0, y: 12 }}
-        animate={!prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-        transition={{ delay: 0.4, duration: 0.4, ease: 'easeOut' as const }}
+      <p
+        className={`text-muted-foreground max-w-xs mx-auto ${prefersReducedMotion ? '' : 'fade-up-in'}`}
+        style={{ animationDelay: '0.25s' }}
       >
         Gracias por contactarnos. Te responderemos lo antes posible.
-      </motion.p>
+      </p>
 
-      <motion.div variants={!prefersReducedMotion ? successButtonVariants : undefined}>
+      <div className={prefersReducedMotion ? '' : 'fade-up-in'} style={{ animationDelay: '0.4s' }}>
         <Button
           variant="outline"
           onClick={onReset}
@@ -297,8 +221,8 @@ function FormSuccessState({ onReset }: { onReset: () => void }) {
         >
           Enviar otro mensaje
         </Button>
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   )
 }
 
@@ -311,6 +235,7 @@ export default function Contacto() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [errorMessage, setErrorMessage] = useState('')
   const [retryCount, setRetryCount] = useState(0)
+  const [isTransitioning, setIsTransitioning] = useState(false)
 
   const {
     register,
@@ -358,9 +283,13 @@ export default function Contacto() {
       const result = await response.json()
 
       if (result.success) {
-        setStatus('success')
-        setRetryCount(0)
-        reset()
+        setIsTransitioning(true)
+        setTimeout(() => {
+          setStatus('success')
+          setRetryCount(0)
+          reset()
+          setIsTransitioning(false)
+        }, 200)
       } else {
         const isRateLimited = response.status === 429
         const message = isRateLimited
@@ -438,9 +367,7 @@ export default function Contacto() {
         {/* ============================================================ */}
         <AnimatedSection animation="fade-right" duration={0.7}>
           <div className="space-y-10 lg:pr-4">
-            {/* ---- Premium header (breaks the badge→h2→p pattern) ---- */}
             <div className="relative">
-              {/* Large display text */}
               <div className="flex items-baseline gap-3 flex-wrap">
                 <h2
                   id="contacto-heading"
@@ -453,7 +380,6 @@ export default function Contacto() {
                 </span>
               </div>
 
-              {/* Decorative gradient line */}
               <div className="mt-5 h-1 w-24 rounded-full bg-gradient-to-r from-primary to-secondary" />
 
               <p className="mt-5 text-muted-foreground text-base sm:text-lg leading-relaxed max-w-md">
@@ -463,9 +389,7 @@ export default function Contacto() {
               </p>
             </div>
 
-            {/* ---- Contact info with timeline connector ---- */}
             <div className="relative pl-1">
-              {/* Timeline vertical line */}
               <div
                 className="absolute left-[2.35rem] top-4 bottom-4 w-px bg-gradient-to-b from-primary/30 via-secondary/30 to-transparent dark:from-primary/20 dark:via-secondary/20"
                 aria-hidden="true"
@@ -498,7 +422,6 @@ export default function Contacto() {
               </div>
             </div>
 
-            {/* ---- Social links ---- */}
             <div>
               <h3 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-4">
                 Conecta con nosotros
@@ -522,153 +445,141 @@ export default function Contacto() {
         {/* ============================================================ */}
         <AnimatedSection animation="fade-left" duration={0.7}>
           <div className="relative">
-            {/* Gradient top accent line */}
             <div className="absolute -top-px left-8 right-8 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent dark:via-primary/40" aria-hidden="true" />
 
             <Card variant="glass" className="relative p-6 sm:p-8 lg:p-10 border-border/60 dark:border-border/40">
-              {/* Subtle gradient overlay behind form */}
               <div
                 className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/[0.02] via-transparent to-secondary/[0.02] dark:from-primary/[0.03] dark:to-secondary/[0.03] pointer-events-none"
                 aria-hidden="true"
               />
 
               <div className="relative">
-                <AnimatePresence mode="wait">
-                  {status === 'success' ? (
-                    <motion.div
-                      key="success"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <FormSuccessState onReset={handleReset} />
-                    </motion.div>
-                  ) : (
-                    <motion.form
-                      key="form"
-                      onSubmit={handleSubmit(onSubmit)}
-                      noValidate
-                      className="space-y-5"
-                      aria-label="Formulario de contacto"
-                      initial={{ opacity: 1 }}
-                    >
-                      {/* Honeypot — invisible to humans, catches bots */}
-                      <input
-                        type="text"
-                        aria-hidden="true"
-                        tabIndex={-1}
-                        autoComplete="off"
-                        className="absolute left-[-9999px] opacity-0 pointer-events-none"
-                        {...register('honeypot')}
+                {/* CSS-based transition between form and success (replaces AnimatePresence) */}
+                <div className="contact-form-container">
+                  {/* Success state */}
+                  <div
+                    className={`contact-form-panel ${status === 'success' && !isTransitioning ? 'panel-visible' : 'panel-hidden'}`}
+                    aria-hidden={status !== 'success'}
+                  >
+                    <FormSuccessState onReset={handleReset} />
+                  </div>
+
+                  {/* Form state */}
+                  <form
+                    className={`contact-form-panel ${status !== 'success' || isTransitioning ? 'panel-visible' : 'panel-hidden'}`}
+                    onSubmit={handleSubmit(onSubmit)}
+                    noValidate
+                    aria-label="Formulario de contacto"
+                    aria-hidden={status === 'success' && !isTransitioning}
+                  >
+                    {/* Honeypot — invisible to humans, catches bots */}
+                    <input
+                      type="text"
+                      aria-hidden="true"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      className="absolute left-[-9999px] opacity-0 pointer-events-none"
+                      {...register('honeypot')}
+                    />
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <Input
+                        label="Nombre"
+                        placeholder="Tu nombre"
+                        error={errors.nombre?.message}
+                        {...register('nombre')}
                       />
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <Input
-                          label="Nombre"
-                          placeholder="Tu nombre"
-                          error={errors.nombre?.message}
-                          {...register('nombre')}
-                        />
-                        <Input
-                          label="Email"
-                          type="email"
-                          placeholder="tu@email.com"
-                          error={errors.email?.message}
-                          {...register('email')}
-                        />
-                      </div>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <Input
-                          label="Teléfono"
-                          type="tel"
-                          placeholder="(81) 1234 5678"
-                          error={errors.telefono?.message}
-                          {...register('telefono')}
-                        />
-                        <Input
-                          label="Empresa"
-                          placeholder="Nombre de tu empresa (opcional)"
-                          error={errors.empresa?.message}
-                          {...register('empresa')}
-                        />
-                      </div>
-
-                      <Textarea
-                        label="Mensaje"
-                        placeholder="¿En qué podemos ayudarte?"
-                        rows={4}
-                        error={errors.mensaje?.message}
-                        {...register('mensaje')}
+                      <Input
+                        label="Email"
+                        type="email"
+                        placeholder="tu@email.com"
+                        error={errors.email?.message}
+                        {...register('email')}
                       />
+                    </div>
 
-                      {/* Error message */}
-                      {status === 'error' && (
-                        <motion.div
-                          className="flex items-start gap-2.5 p-4 rounded-xl bg-red-50/80 dark:bg-red-950/40 text-red-600 dark:text-red-400 text-sm border border-red-200/50 dark:border-red-800/30"
-                          role="alert"
-                          aria-live="polite"
-                          initial={{ opacity: 0, y: -8 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          <AlertCircle className="h-5 w-5 flex-shrink-0 mt-px" aria-hidden="true" />
-                          <div className="flex-1">
-                            <p className="font-medium">{errorMessage}</p>
-                            {retryCount >= MAX_RETRIES && (
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  setStatus('idle')
-                                  setErrorMessage('')
-                                  setRetryCount(0)
-                                }}
-                                className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold underline underline-offset-2 hover:no-underline transition-all"
-                              >
-                                <RefreshCw className="h-3 w-3" aria-hidden="true" />
-                                Reintentar
-                              </button>
-                            )}
-                          </div>
-                        </motion.div>
-                      )}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <Input
+                        label="Teléfono"
+                        type="tel"
+                        placeholder="(81) 1234 5678"
+                        error={errors.telefono?.message}
+                        {...register('telefono')}
+                      />
+                      <Input
+                        label="Empresa"
+                        placeholder="Nombre de tu empresa (opcional)"
+                        error={errors.empresa?.message}
+                        {...register('empresa')}
+                      />
+                    </div>
 
-                      {/* Neon Submit Button */}
-                      <button
-                        type="submit"
-                        disabled={isSubmitting || status === 'loading'}
-                        className="neon-submit-btn"
+                    <Textarea
+                      label="Mensaje"
+                      placeholder="¿En qué podemos ayudarte?"
+                      rows={4}
+                      error={errors.mensaje?.message}
+                      {...register('mensaje')}
+                    />
+
+                    {/* Error message */}
+                    {status === 'error' && (
+                      <div
+                        className="flex items-start gap-2.5 p-4 rounded-xl bg-red-50/80 dark:bg-red-950/40 text-red-600 dark:text-red-400 text-sm border border-red-200/50 dark:border-red-800/30 fade-up-in"
+                        role="alert"
+                        aria-live="polite"
                       >
-                        {/* Glow pulse background */}
-                        {!prefersReducedMotion && <span className="glow-pulse" />}
-                        {/* Shimmer sweep */}
-                        <span className="shimmer" aria-hidden="true" />
-                        {/* Particle dots */}
-                        {!prefersReducedMotion && (
-                          <>
-                            <span className="particle" />
-                            <span className="particle" />
-                            <span className="particle" />
-                            <span className="particle" />
-                          </>
-                        )}
-                        {/* Content */}
-                        {isSubmitting || status === 'loading' ? (
-                          <>
-                            <Loader2 className="h-5 w-5 animate-spin relative z-10" aria-hidden="true" />
-                            <span className="relative z-10">Enviando...</span>
-                          </>
-                        ) : (
-                          <>
-                            <span className="relative z-10">Enviar mensaje</span>
-                            <Send className="h-5 w-5 send-icon relative z-10" aria-hidden="true" />
-                          </>
-                        )}
-                      </button>
-                    </motion.form>
-                  )}
-                </AnimatePresence>
+                        <AlertCircle className="h-5 w-5 flex-shrink-0 mt-px" aria-hidden="true" />
+                        <div className="flex-1">
+                          <p className="font-medium">{errorMessage}</p>
+                          {retryCount >= MAX_RETRIES && (
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setStatus('idle')
+                                setErrorMessage('')
+                                setRetryCount(0)
+                              }}
+                              className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold underline underline-offset-2 hover:no-underline transition-all"
+                            >
+                              <RefreshCw className="h-3 w-3" aria-hidden="true" />
+                              Reintentar
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Neon Submit Button */}
+                    <button
+                      type="submit"
+                      disabled={isSubmitting || status === 'loading'}
+                      className="neon-submit-btn"
+                    >
+                      {!prefersReducedMotion && <span className="glow-pulse" />}
+                      <span className="shimmer" aria-hidden="true" />
+                      {!prefersReducedMotion && (
+                        <>
+                          <span className="particle" />
+                          <span className="particle" />
+                          <span className="particle" />
+                          <span className="particle" />
+                        </>
+                      )}
+                      {isSubmitting || status === 'loading' ? (
+                        <>
+                          <Loader2 className="h-5 w-5 animate-spin relative z-10" aria-hidden="true" />
+                          <span className="relative z-10">Enviando...</span>
+                        </>
+                      ) : (
+                        <>
+                          <span className="relative z-10">Enviar mensaje</span>
+                          <Send className="h-5 w-5 send-icon relative z-10" aria-hidden="true" />
+                        </>
+                      )}
+                    </button>
+                  </form>
+                </div>
               </div>
             </Card>
           </div>
