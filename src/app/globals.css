@@ -476,6 +476,71 @@ section[id] {
 }
 
 /* ============================================
+    Circuit Watermark Glow (Dark Mode)
+    ============================================ */
+[data-theme="dark"] .circuit-glow {
+  filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.15));
+}
+
+/* ============================================
+    Service Card Neon Effects (Dark Mode)
+    ============================================ */
+
+/* Neon card — secondary (green) accent */
+[data-theme="dark"] .neon-card-secondary {
+  border-color: rgba(74, 222, 128, 0.25) !important;
+  box-shadow:
+    0 0 0 1px rgba(74, 222, 128, 0.1),
+    0 4px 24px rgba(0, 0, 0, 0.4),
+    inset 0 0 60px rgba(74, 222, 128, 0.02);
+  transition: all 0.5s ease;
+}
+[data-theme="dark"] .neon-card-secondary:hover {
+  border-color: rgba(74, 222, 128, 0.4) !important;
+  box-shadow:
+    0 0 0 1px rgba(74, 222, 128, 0.2),
+    0 0 30px rgba(74, 222, 128, 0.1),
+    0 8px 40px rgba(0, 0, 0, 0.5),
+    inset 0 0 80px rgba(74, 222, 128, 0.03);
+}
+
+/* Neon card — primary (blue) accent */
+[data-theme="dark"] .neon-card-primary {
+  border-color: rgba(96, 165, 250, 0.25) !important;
+  box-shadow:
+    0 0 0 1px rgba(96, 165, 250, 0.1),
+    0 4px 24px rgba(0, 0, 0, 0.4),
+    inset 0 0 60px rgba(96, 165, 250, 0.02);
+  transition: all 0.5s ease;
+}
+[data-theme="dark"] .neon-card-primary:hover {
+  border-color: rgba(96, 165, 250, 0.4) !important;
+  box-shadow:
+    0 0 0 1px rgba(96, 165, 250, 0.2),
+    0 0 30px rgba(96, 165, 250, 0.1),
+    0 8px 40px rgba(0, 0, 0, 0.5),
+    inset 0 0 80px rgba(96, 165, 250, 0.03);
+}
+
+/* Neon icon container — adapts via CSS variables set inline */
+[data-theme="dark"] .neon-icon-container {
+  background-color: var(--icon-bg-dark, rgba(74, 222, 128, 0.08)) !important;
+  border-color: var(--icon-border-dark, rgba(74, 222, 128, 0.3)) !important;
+  box-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.4),
+    0 0 0 1px var(--icon-border-dark, rgba(74, 222, 128, 0.3)),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+  transition: all 0.5s ease;
+}
+[data-theme="dark"] .neon-icon-container:hover {
+  border-color: var(--icon-border-dark-hover, rgba(74, 222, 128, 0.5)) !important;
+  box-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.4),
+    0 0 20px var(--icon-glow-color, rgba(74, 222, 128, 0.2)),
+    0 0 0 1px var(--icon-border-dark-hover, rgba(74, 222, 128, 0.5)) !important;
+}
+
+/* ============================================
     Reduced Motion
     ============================================ */
 @media (prefers-reduced-motion: reduce) {

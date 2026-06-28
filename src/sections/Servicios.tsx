@@ -16,7 +16,6 @@ import {
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Section } from "@/components/ui/Section";
-import { Button } from "@/components/ui/Button";
 import { TiltCard } from "@/components/motion/TiltCard";
 import { AnimatedSection } from "@/components/motion/AnimatedSection";
 import { StaggerContainer } from "@/components/motion/StaggerContainer";
@@ -25,6 +24,117 @@ import { services } from "@/constants/services";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 gsap.registerPlugin(ScrollTrigger);
+
+// ============================================
+// Circuit Watermark SVGs — PCB-inspired designs
+// ============================================
+
+const circuitDesigns = [
+  // Circuit 01 — PCB traces with nodes (green accent)
+  () => (
+    <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+      {/* Main trace lines */}
+      <path d="M40 260 L40 180 L80 140 L80 80 L140 20 L200 20 L200 60 L260 120 L260 200 L220 240 L160 240 L160 200" className="stroke-current" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M80 140 L140 140 L140 80 L200 80 L200 140 L260 200" className="stroke-current" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M140 20 L140 80 L80 80" className="stroke-current" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M200 60 L140 60 L140 140" className="stroke-current" strokeWidth="0.75" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M260 120 L200 120 L200 140" className="stroke-current" strokeWidth="0.75" strokeLinecap="round" strokeLinejoin="round" />
+      {/* Small branch traces */}
+      <path d="M40 220 L60 200 L60 160" className="stroke-current" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M220 240 L220 200 L240 180" className="stroke-current" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M100 100 L100 60 L120 40" className="stroke-current" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round" />
+      {/* Nodes / vias */}
+      <circle cx="40" cy="260" r="4" className="fill-current" />
+      <circle cx="80" cy="140" r="5" className="fill-current" />
+      <circle cx="140" cy="20" r="4" className="fill-current" />
+      <circle cx="200" cy="20" r="5" className="fill-current" />
+      <circle cx="260" cy="120" r="4" className="fill-current" />
+      <circle cx="220" cy="240" r="5" className="fill-current" />
+      <circle cx="160" cy="200" r="4" className="fill-current" />
+      <circle cx="200" cy="80" r="3" className="fill-current" />
+      <circle cx="140" cy="140" r="3" className="fill-current" />
+      <circle cx="60" cy="160" r="2.5" className="fill-current" />
+      <circle cx="240" cy="180" r="2.5" className="fill-current" />
+      <circle cx="120" cy="40" r="2.5" className="fill-current" />
+      {/* Decorative dots */}
+      <circle cx="100" cy="260" r="1.5" className="fill-current" opacity="0.4" />
+      <circle cx="280" cy="80" r="1.5" className="fill-current" opacity="0.4" />
+      <circle cx="20" cy="100" r="1.5" className="fill-current" opacity="0.4" />
+    </svg>
+  ),
+  // Circuit 02 — Network connections (blue accent)
+  () => (
+    <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+      {/* Hexagonal-inspired traces */}
+      <path d="M60 240 L60 180 L100 140 L100 80 L160 40 L220 40 L220 80 L260 120 L260 180 L220 220 L160 220 L160 180 L100 180" className="stroke-current" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M100 140 L160 140 L160 100 L220 100 L220 140" className="stroke-current" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M160 40 L160 100" className="stroke-current" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M220 80 L160 80 L160 140" className="stroke-current" strokeWidth="0.75" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M260 120 L200 120 L200 160 L160 160" className="stroke-current" strokeWidth="0.75" strokeLinecap="round" strokeLinejoin="round" />
+      {/* Diagonal branches */}
+      <path d="M60 200 L80 180 L80 140" className="stroke-current" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M240 200 L240 160 L220 140" className="stroke-current" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M180 60 L180 100 L200 120" className="stroke-current" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M120 60 L120 100 L140 120" className="stroke-current" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round" />
+      {/* Connection nodes */}
+      <circle cx="60" cy="240" r="5" className="fill-current" />
+      <circle cx="100" cy="140" r="5" className="fill-current" />
+      <circle cx="160" cy="40" r="5" className="fill-current" />
+      <circle cx="220" cy="40" r="5" className="fill-current" />
+      <circle cx="260" cy="120" r="5" className="fill-current" />
+      <circle cx="220" cy="220" r="5" className="fill-current" />
+      <circle cx="160" cy="180" r="4" className="fill-current" />
+      <circle cx="160" cy="100" r="3" className="fill-current" />
+      <circle cx="200" cy="160" r="3" className="fill-current" />
+      <circle cx="80" cy="140" r="2.5" className="fill-current" />
+      <circle cx="240" cy="160" r="2.5" className="fill-current" />
+      <circle cx="200" cy="120" r="2.5" className="fill-current" />
+      {/* Data points */}
+      <circle cx="40" cy="120" r="1.5" className="fill-current" opacity="0.4" />
+      <circle cx="280" cy="200" r="1.5" className="fill-current" opacity="0.4" />
+      <circle cx="140" cy="260" r="1.5" className="fill-current" opacity="0.4" />
+    </svg>
+  ),
+  // Circuit 03 — PCB board pattern (green accent)
+  () => (
+    <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+      {/* Grid-like PCB traces */}
+      <path d="M50 250 L50 200 L80 170 L80 110 L120 70 L120 50 L180 50 L180 90 L220 130 L220 190 L180 230 L120 230 L120 190 L80 190" className="stroke-current" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M80 170 L140 170 L140 130 L180 130 L180 170 L220 210" className="stroke-current" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M120 70 L120 130 L80 130 L80 110" className="stroke-current" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M180 90 L140 90 L140 130" className="stroke-current" strokeWidth="0.75" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M220 130 L180 130" className="stroke-current" strokeWidth="0.75" strokeLinecap="round" strokeLinejoin="round" />
+      {/* Complex branches */}
+      <path d="M50 220 L70 200 L70 160 L90 140" className="stroke-current" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M200 210 L200 170 L220 150 L220 130" className="stroke-current" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M160 70 L160 110 L140 130" className="stroke-current" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M100 90 L100 130 L120 150" className="stroke-current" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M250 150 L230 150 L230 190" className="stroke-current" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round" />
+      {/* IC-style rectangular nodes */}
+      <rect x="72" y="162" width="16" height="16" rx="2" className="fill-current" />
+      <rect x="172" y="122" width="16" height="16" rx="2" className="fill-current" />
+      <rect x="112" y="62" width="16" height="16" rx="2" className="fill-current" />
+      {/* Circular vias */}
+      <circle cx="50" cy="250" r="4" className="fill-current" />
+      <circle cx="120" cy="230" r="5" className="fill-current" />
+      <circle cx="180" cy="230" r="4" className="fill-current" />
+      <circle cx="220" cy="190" r="5" className="fill-current" />
+      <circle cx="220" cy="130" r="4" className="fill-current" />
+      <circle cx="180" cy="50" r="5" className="fill-current" />
+      <circle cx="140" cy="130" r="3" className="fill-current" />
+      <circle cx="80" cy="130" r="3" className="fill-current" />
+      <circle cx="180" cy="170" r="3" className="fill-current" />
+      <circle cx="90" cy="140" r="2.5" className="fill-current" />
+      <circle cx="220" cy="150" r="2.5" className="fill-current" />
+      <circle cx="120" cy="150" r="2.5" className="fill-current" />
+      {/* Test points */}
+      <circle cx="30" cy="180" r="1.5" className="fill-current" opacity="0.4" />
+      <circle cx="270" cy="100" r="1.5" className="fill-current" opacity="0.4" />
+      <circle cx="200" cy="270" r="1.5" className="fill-current" opacity="0.4" />
+      <circle cx="150" cy="270" r="1.5" className="fill-current" opacity="0.4" />
+    </svg>
+  ),
+];
 
 const iconMap: Record<string, React.ElementType> = {
   Users,
@@ -41,6 +151,17 @@ const accentColors = [
     glow: "shadow-secondary/20",
     from: "from-secondary",
     gradient: "from-secondary/20",
+    neonCard: "neon-card-secondary",
+    neonGridColor: "rgba(49,191,44,0.3)",
+    neonGridDark: "rgba(74,222,128,0.4)",
+    neonBorderLight: "rgba(49,191,44,0.15)",
+    neonBorderDark: "rgba(74,222,128,0.25)",
+    neonBorderDarkHover: "rgba(74,222,128,0.4)",
+    neonIconBg: "rgba(49,191,44,0.06)",
+    neonIconBgDark: "rgba(74,222,128,0.08)",
+    neonIconBorderLight: "rgba(49,191,44,0.2)",
+    neonIconBorderDark: "rgba(74,222,128,0.3)",
+    neonIconBorderDarkHover: "rgba(74,222,128,0.5)",
   },
   {
     border: "border-primary",
@@ -50,6 +171,17 @@ const accentColors = [
     glow: "shadow-primary/20",
     from: "from-primary",
     gradient: "from-primary/20",
+    neonCard: "neon-card-primary",
+    neonGridColor: "rgba(4,38,140,0.3)",
+    neonGridDark: "rgba(96,165,250,0.4)",
+    neonBorderLight: "rgba(4,38,140,0.15)",
+    neonBorderDark: "rgba(96,165,250,0.25)",
+    neonBorderDarkHover: "rgba(96,165,250,0.4)",
+    neonIconBg: "rgba(4,38,140,0.06)",
+    neonIconBgDark: "rgba(96,165,250,0.08)",
+    neonIconBorderLight: "rgba(4,38,140,0.2)",
+    neonIconBorderDark: "rgba(96,165,250,0.3)",
+    neonIconBorderDarkHover: "rgba(96,165,250,0.5)",
   },
   {
     border: "border-secondary",
@@ -59,6 +191,17 @@ const accentColors = [
     glow: "shadow-secondary/20",
     from: "from-secondary",
     gradient: "from-secondary/20",
+    neonCard: "neon-card-secondary",
+    neonGridColor: "rgba(49,191,44,0.3)",
+    neonGridDark: "rgba(74,222,128,0.4)",
+    neonBorderLight: "rgba(49,191,44,0.15)",
+    neonBorderDark: "rgba(74,222,128,0.25)",
+    neonBorderDarkHover: "rgba(74,222,128,0.4)",
+    neonIconBg: "rgba(49,191,44,0.06)",
+    neonIconBgDark: "rgba(74,222,128,0.08)",
+    neonIconBorderLight: "rgba(49,191,44,0.2)",
+    neonIconBorderDark: "rgba(74,222,128,0.3)",
+    neonIconBorderDarkHover: "rgba(74,222,128,0.5)",
   },
 ];
 
@@ -80,7 +223,6 @@ function ServiceCard({
   const reducedMotion = useReducedMotion();
   const Icon = iconMap[service.icon] ?? Users;
   const accent = accentColors[index % accentColors.length];
-  const cardNumber = String(index + 1).padStart(2, "0");
 
   // Accent bar animation on hover
   useEffect(() => {
@@ -137,41 +279,65 @@ function ServiceCard({
     });
   }
 
-  function handleAccentLeave() {
-    if (!accentRef.current || reducedMotion) return;
-    gsap.to(accentRef.current, {
-      scaleX: 0,
-      duration: 0.2,
-      ease: "power2.in",
-    });
-  }
-
   return (
     <TiltCard maxTilt={4} perspective={1200} scale={1.01} className="h-full">
       <div
         ref={cardRef}
-        className="relative h-full min-h-[380px] rounded-2xl border border-border/50 bg-card/80 backdrop-blur-sm overflow-hidden group cursor-pointer transition-shadow duration-500 hover:shadow-xl hover:shadow-secondary/5"
+        className={`relative h-full min-h-[380px] rounded-2xl overflow-hidden group cursor-pointer transition-all duration-500
+          /* Light mode — Pure white glass card */
+          bg-white
+          hover:shadow-2xl ${accent.borderHover}
+          /* Dark mode — Neon glow */
+          dark:bg-slate-900/80 dark:backdrop-blur-md ${accent.neonCard}`}
+        style={{
+          border: `1px solid ${accent.neonBorderLight}`,
+        }}
         onClick={onToggle}
         role="button"
         tabIndex={0}
         aria-expanded={isSelected}
         onKeyDown={(e) => e.key === "Enter" && onToggle()}
         onMouseEnter={handleAccentEnter}
-        onMouseLeave={handleAccentLeave}
       >
-        {/* Top accent bar */}
+        {/* Light mode — Subtle glass border glow & elevation shadow */}
         <div
-          ref={accentRef}
-          className={`absolute top-0 left-0 right-0 h-1 ${accent.bg}`}
+          className="absolute inset-0 rounded-2xl pointer-events-none dark:hidden"
+          style={{
+            boxShadow: `0 1px 3px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,1)`,
+          }}
           aria-hidden="true"
         />
 
-        {/* Large background number watermark */}
+        {/* Tech pattern overlay — circuit grid traces */}
         <div
-          className="absolute -bottom-4 -right-2 text-[8rem] sm:text-[10rem] font-black leading-none select-none pointer-events-none opacity-[0.03] text-foreground"
+          className="absolute inset-0 opacity-[0.025] dark:opacity-[0.06] pointer-events-none transition-opacity duration-500 group-hover:opacity-[0.04] dark:group-hover:opacity-[0.1]"
+          style={{
+            backgroundImage: `linear-gradient(${accent.neonGridColor} 1px, transparent 1px),
+              linear-gradient(90deg, ${accent.neonGridColor} 1px, transparent 1px)`,
+            backgroundSize: '32px 32px',
+          }}
+          aria-hidden="true"
+        />
+
+        {/* Top accent bar — animated */}
+        <div
+          ref={accentRef}
+          className={`absolute top-0 left-0 right-0 h-[2px] ${accent.bg} dark:shadow-[0_0_12px_currentColor]`}
+          aria-hidden="true"
+        />
+
+        {/* Corner accent lines — tech frame */}
+        <div className={`absolute top-0 left-0 w-12 h-[2px] ${accent.bg} opacity-50 dark:opacity-70`} aria-hidden="true" />
+        <div className={`absolute top-0 left-0 w-[2px] h-12 ${accent.bg} opacity-50 dark:opacity-70`} aria-hidden="true" />
+        <div className={`absolute bottom-0 right-0 w-12 h-[2px] ${accent.bg} opacity-50 dark:opacity-70`} aria-hidden="true" />
+        <div className={`absolute bottom-0 right-0 w-[2px] h-12 ${accent.bg} opacity-50 dark:opacity-70`} aria-hidden="true" />
+
+        {/* Circuit watermark — PCB-inspired background decoration */}
+        <div
+          className="absolute -bottom-8 -right-8 w-[280px] h-[280px] sm:w-[340px] sm:h-[340px] select-none pointer-events-none opacity-[0.06] text-slate-400 dark:text-cyan-400/60 dark:opacity-[0.08] circuit-glow transition-all duration-500 group-hover:opacity-[0.1]"
           aria-hidden="true"
         >
-          {cardNumber}
+          {circuitDesigns[index % circuitDesigns.length]()}
         </div>
 
         {/* Subtle gradient overlay */}
@@ -181,15 +347,26 @@ function ServiceCard({
         />
 
         <div className="relative z-10 flex flex-col h-full p-8">
-          {/* Icon */}
+          {/* Icon — Glass container with neon glow in dark mode */}
           <div
             ref={iconRef}
-            className={`relative mb-8 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${accent.gradient} to-transparent border border-border/30 ${accent.borderHover} transition-colors duration-300`}
+            className={`relative mb-8 inline-flex h-16 w-16 items-center justify-center rounded-2xl border transition-all duration-500
+              ${accent.borderHover}
+              neon-icon-container`}
+            style={{
+              backgroundColor: accent.neonIconBg,
+              borderColor: accent.neonIconBorderLight,
+              boxShadow: '0 2px 12px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.6)',
+              '--icon-bg-dark': accent.neonIconBgDark,
+              '--icon-border-dark': accent.neonIconBorderDark,
+              '--icon-border-dark-hover': accent.neonIconBorderDarkHover,
+              '--icon-glow-color': index === 1 ? 'rgba(96,165,250,0.2)' : 'rgba(74,222,128,0.2)',
+            } as React.CSSProperties}
           >
-            <Icon className={`h-7 w-7 ${accent.text}`} aria-hidden="true" />
+            <Icon className={`h-7 w-7 ${accent.text} dark:drop-shadow-[0_0_8px_currentColor]`} aria-hidden="true" />
             {/* Icon glow ring */}
             <div
-              className={`absolute inset-0 rounded-2xl ${accent.bg} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}
+              className={`absolute inset-0 rounded-2xl ${accent.bg} opacity-0 group-hover:opacity-[0.08] transition-opacity duration-300`}
               aria-hidden="true"
             />
           </div>
@@ -212,7 +389,11 @@ function ServiceCard({
               {isSelected ? "Cerrar detalles" : "Ver detalles"}
             </span>
             <div
-              className={`flex h-8 w-8 items-center justify-center rounded-full ${isSelected ? `${accent.bg} text-white` : "bg-muted/50 text-muted-foreground"} transition-colors duration-300`}
+              className={`flex h-8 w-8 items-center justify-center rounded-full transition-all duration-300 ${
+                isSelected
+                  ? `${accent.bg} text-white shadow-lg dark:shadow-[0_0_16px_rgba(74,222,128,0.4)]`
+                  : "bg-muted/50 text-muted-foreground hover:bg-muted/70"
+              }`}
             >
               {isSelected ? (
                 <ChevronUp className="h-4 w-4" aria-hidden="true" />
@@ -323,12 +504,12 @@ export default function Servicios() {
 
       {/* Section header — BREAKS the centered pattern */}
       <div ref={headerRef} className="relative z-10 mb-16">
-        {/* Background watermark number */}
+        {/* Circuit watermark — section-level PCB decoration */}
         <div
-          className="absolute -top-8 left-0 text-[10rem] sm:text-[14rem] font-black leading-none select-none pointer-events-none text-foreground opacity-[0.02]"
+          className="absolute -top-16 -left-16 w-[400px] h-[400px] sm:w-[500px] sm:h-[500px] select-none pointer-events-none opacity-[0.04] text-slate-400 dark:text-cyan-400/50 dark:opacity-[0.06] circuit-glow transition-colors duration-500"
           aria-hidden="true"
         >
-          01
+          {circuitDesigns[0]()}
         </div>
 
         {/* Horizontal decorative line */}
