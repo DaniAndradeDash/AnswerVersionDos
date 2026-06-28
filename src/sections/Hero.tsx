@@ -181,7 +181,7 @@ export default function Hero() {
           <h1
             id="hero-heading"
             ref={titleRef}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.08] tracking-tight"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-[1.08] tracking-tight break-words"
           >
             <span className="title-line block text-gradient">¡Tus busquedas merecen</span>
             <span className="title-line block text-foreground">mejores</span>
@@ -191,7 +191,7 @@ export default function Hero() {
           {/* Subtitle — word reveal */}
           <div className="mt-6 max-w-xl mx-auto lg:mx-0">
             <TextReveal
-              className="text-muted-foreground text-base sm:text-lg leading-relaxed"
+              className="text-muted-foreground text-sm sm:text-base md:text-lg leading-relaxed"
               splitBy="words"
               delay={0.3}
               duration={0.7}

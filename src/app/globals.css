@@ -545,6 +545,1096 @@ section[id] {
 }
 
 /* ============================================
+    Asesorias Neon Cards — Dark Mode
+    ============================================ */
+
+[data-theme="dark"] .asesoria-neon-card {
+  position: relative;
+  border: 1px solid rgba(96, 165, 250, 0.12) !important;
+  background: rgba(15, 23, 42, 0.6) !important;
+  backdrop-filter: blur(12px);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+/* Animated gradient border */
+[data-theme="dark"] .asesoria-neon-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    var(--card-border-angle, 0deg),
+    rgba(96, 165, 250, 0.4),
+    rgba(74, 222, 128, 0.1),
+    rgba(34, 211, 238, 0.3),
+    rgba(96, 165, 250, 0.05),
+    rgba(96, 165, 250, 0.4)
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+[data-theme="dark"] .asesoria-neon-card:hover::before {
+  opacity: 1;
+  animation: border-spin 3s linear infinite;
+}
+
+/* Circuit trace decoration */
+[data-theme="dark"] .asesoria-neon-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--card-accent-color, rgba(74, 222, 128, 0.6)) 30%,
+    var(--card-accent-color, rgba(74, 222, 128, 0.8)) 70%,
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  box-shadow: 0 0 8px var(--card-accent-color, rgba(74, 222, 128, 0.3));
+}
+
+[data-theme="dark"] .asesoria-neon-card:hover::after {
+  opacity: 1;
+}
+
+[data-theme="dark"] .asesoria-neon-card:hover {
+  border-color: transparent !important;
+  box-shadow:
+    0 0 30px rgba(96, 165, 250, 0.06),
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 0 60px rgba(96, 165, 250, 0.02);
+  transform: translateY(-2px);
+}
+
+/* Inner grid pattern */
+[data-theme="dark"] .asesoria-neon-card .card-grid-pattern {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(96, 165, 250, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(96, 165, 250, 0.03) 1px, transparent 1px);
+  background-size: 24px 24px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+[data-theme="dark"] .asesoria-neon-card:hover .card-grid-pattern {
+  opacity: 1;
+}
+
+@keyframes border-spin {
+  0% { --card-border-angle: 0deg; }
+  100% { --card-border-angle: 360deg; }
+}
+
+@property --card-border-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* ============================================
+    Futuristic Development Badge
+    ============================================ */
+
+.dev-badge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--muted-foreground);
+  letter-spacing: 0.025em;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: default;
+}
+
+/* Animated gradient sweep on hover */
+.dev-badge::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(49, 191, 44, 0.06) 50%,
+    transparent 100%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.dev-badge:hover::before {
+  transform: translateX(100%);
+}
+
+/* Animated border on hover */
+.dev-badge::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--secondary),
+    var(--primary),
+    transparent
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.dev-badge:hover::after {
+  opacity: 1;
+  animation: badge-border-glow 2s linear infinite;
+}
+
+.dev-badge:hover {
+  border-color: transparent;
+  color: var(--foreground);
+  box-shadow: 0 0 20px rgba(49, 191, 44, 0.1);
+}
+
+/* Pulse dot */
+.dev-badge .badge-dot {
+  position: relative;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--secondary);
+  flex-shrink: 0;
+}
+
+.dev-badge .badge-dot::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 1px solid var(--secondary);
+  animation: badge-pulse-ring 2s ease-out infinite;
+}
+
+@keyframes badge-pulse-ring {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+@keyframes badge-border-glow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* Dark mode dev badge */
+[data-theme="dark"] .dev-badge {
+  background: rgba(15, 23, 42, 0.8);
+  border-color: rgba(96, 165, 250, 0.15);
+  backdrop-filter: blur(8px);
+}
+
+[data-theme="dark"] .dev-badge::before {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(74, 222, 128, 0.08) 50%,
+    transparent 100%
+  );
+}
+
+[data-theme="dark"] .dev-badge:hover {
+  border-color: rgba(96, 165, 250, 0.3);
+  box-shadow:
+    0 0 20px rgba(74, 222, 128, 0.08),
+    0 0 40px rgba(96, 165, 250, 0.05);
+}
+
+[data-theme="dark"] .dev-badge .badge-dot {
+  box-shadow: 0 0 8px rgba(74, 222, 128, 0.6);
+}
+
+/* ============================================
+    Neon CTA Button
+    ============================================ */
+
+.neon-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 32px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: linear-gradient(135deg, var(--secondary) 0%, #2aa626 50%, var(--secondary) 100%);
+  background-size: 200% 200%;
+  color: var(--secondary-foreground);
+  box-shadow:
+    0 4px 16px rgba(49, 191, 44, 0.25),
+    0 0 0 0 rgba(49, 191, 44, 0);
+}
+
+/* Shine sweep */
+.neon-cta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.25),
+    transparent
+  );
+  transition: left 0.6s ease;
+}
+
+.neon-cta:hover::before {
+  left: 100%;
+}
+
+/* Neon glow border */
+.neon-cta::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(
+    var(--cta-border-angle, 0deg),
+    var(--secondary),
+    rgba(74, 222, 128, 0.6),
+    var(--primary),
+    var(--secondary)
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background-size: 300% 300%;
+}
+
+.neon-cta:hover::after {
+  opacity: 1;
+  animation: cta-border-spin 3s linear infinite;
+}
+
+.neon-cta:hover {
+  background-position: 100% 100%;
+  box-shadow:
+    0 6px 24px rgba(49, 191, 44, 0.35),
+    0 0 40px rgba(49, 191, 44, 0.15),
+    0 0 80px rgba(49, 191, 44, 0.05);
+  transform: translateY(-2px);
+}
+
+.neon-cta:active {
+  transform: translateY(0);
+  box-shadow:
+    0 2px 8px rgba(49, 191, 44, 0.3);
+}
+
+/* Arrow icon animation */
+.neon-cta .cta-arrow {
+  transition: transform 0.3s ease;
+}
+
+.neon-cta:hover .cta-arrow {
+  transform: translateX(4px);
+}
+
+@keyframes cta-border-spin {
+  0% { --cta-border-angle: 0deg; }
+  100% { --cta-border-angle: 360deg; }
+}
+
+@property --cta-border-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* Dark mode neon CTA */
+[data-theme="dark"] .neon-cta {
+  background: linear-gradient(135deg, rgba(74, 222, 128, 0.15) 0%, rgba(15, 23, 42, 0.8) 50%, rgba(74, 222, 128, 0.15) 100%);
+  border: 1px solid rgba(74, 222, 128, 0.4);
+  color: #4ade80;
+  box-shadow:
+    0 0 20px rgba(74, 222, 128, 0.1),
+    0 0 40px rgba(74, 222, 128, 0.05),
+    inset 0 0 20px rgba(74, 222, 128, 0.03);
+  backdrop-filter: blur(8px);
+}
+
+[data-theme="dark"] .neon-cta:hover {
+  border-color: rgba(74, 222, 128, 0.7);
+  background: linear-gradient(135deg, rgba(74, 222, 128, 0.2) 0%, rgba(15, 23, 42, 0.9) 50%, rgba(74, 222, 128, 0.2) 100%);
+  box-shadow:
+    0 0 30px rgba(74, 222, 128, 0.2),
+    0 0 60px rgba(74, 222, 128, 0.1),
+    0 0 100px rgba(74, 222, 128, 0.05),
+    inset 0 0 30px rgba(74, 222, 128, 0.05);
+}
+
+[data-theme="dark"] .neon-cta:active {
+  box-shadow:
+    0 0 15px rgba(74, 222, 128, 0.15);
+}
+
+/* ============================================
+    Compromiso Light Mode — Statement Card
+    ============================================ */
+
+@keyframes border-sweep {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ============================================
+    Compromiso — Pillar Cards (Futuristic)
+    ============================================ */
+
+/* Light mode pillar card */
+.pillar-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2rem 1.5rem;
+  border-radius: 1rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+/* Subtle top accent line */
+.pillar-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+  opacity: 0.4;
+  transition: all 0.4s ease;
+}
+
+.pillar-card:hover::before {
+  width: 80px;
+  opacity: 0.8;
+}
+
+/* Hover gradient overlay */
+.pillar-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at top center, rgba(49, 191, 44, 0.04) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.pillar-card:hover::after {
+  opacity: 1;
+}
+
+.pillar-card:hover {
+  border-color: rgba(49, 191, 44, 0.3);
+  box-shadow:
+    0 8px 32px rgba(49, 191, 44, 0.08),
+    0 2px 8px rgba(0, 0, 0, 0.04);
+  transform: translateY(-3px);
+}
+
+/* Dark mode pillar card */
+[data-theme="dark"] .pillar-card {
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(96, 165, 250, 0.1);
+  backdrop-filter: blur(8px);
+}
+
+[data-theme="dark"] .pillar-card::before {
+  background: linear-gradient(90deg, transparent, rgba(74, 222, 128, 0.6), transparent);
+  opacity: 0;
+  height: 1px;
+}
+
+[data-theme="dark"] .pillar-card:hover::before {
+  width: 100%;
+  opacity: 1;
+  box-shadow: 0 0 12px rgba(74, 222, 128, 0.4);
+}
+
+[data-theme="dark"] .pillar-card:hover {
+  border-color: rgba(74, 222, 128, 0.25);
+  box-shadow:
+    0 0 30px rgba(74, 222, 128, 0.06),
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 0 40px rgba(74, 222, 128, 0.02);
+}
+
+/* Circuit node decorations */
+.circuit-node {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  margin-bottom: 1.25rem;
+  transition: all 0.4s ease;
+}
+
+.circuit-node::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: inherit;
+  border: 1px solid rgba(49, 191, 44, 0.15);
+  transition: all 0.4s ease;
+}
+
+.circuit-node::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 16px;
+  border: 1px dashed rgba(49, 191, 44, 0.08);
+  transition: all 0.4s ease;
+}
+
+.circuit-node .node-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--secondary);
+  position: absolute;
+}
+
+.circuit-node .node-dot.top { top: -8px; left: 50%; transform: translateX(-50%); }
+.circuit-node .node-dot.right { right: -8px; top: 50%; transform: translateY(-50%); }
+.circuit-node .node-dot.bottom { bottom: -8px; left: 50%; transform: translateX(-50%); }
+.circuit-node .node-dot.left { left: -8px; top: 50%; transform: translateY(-50%); }
+
+.circuit-node .node-dot::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  border: 1px solid var(--secondary);
+  animation: node-pulse 2s ease-out infinite;
+  opacity: 0;
+}
+
+.circuit-node .node-dot:nth-child(2)::after { animation-delay: 0.5s; }
+.circuit-node .node-dot:nth-child(3)::after { animation-delay: 1s; }
+.circuit-node .node-dot:nth-child(4)::after { animation-delay: 1.5s; }
+
+@keyframes node-pulse {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(3); opacity: 0; }
+}
+
+/* Circuit trace lines */
+.circuit-traces {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.15;
+  transition: opacity 0.4s ease;
+}
+
+.pillar-card:hover .circuit-traces {
+  opacity: 0.35;
+}
+
+[data-theme="dark"] .circuit-traces {
+  opacity: 0.1;
+}
+
+[data-theme="dark"] .pillar-card:hover .circuit-traces {
+  opacity: 0.3;
+}
+
+/* Dark mode circuit node */
+[data-theme="dark"] .circuit-node {
+  background: rgba(74, 222, 128, 0.06);
+}
+
+[data-theme="dark"] .circuit-node::before {
+  border-color: rgba(74, 222, 128, 0.2);
+}
+
+[data-theme="dark"] .circuit-node::after {
+  border-color: rgba(74, 222, 128, 0.1);
+}
+
+[data-theme="dark"] .pillar-card:hover .circuit-node {
+  box-shadow: 0 0 20px rgba(74, 222, 128, 0.15);
+}
+
+[data-theme="dark"] .pillar-card:hover .circuit-node::before {
+  border-color: rgba(74, 222, 128, 0.4);
+  box-shadow: 0 0 8px rgba(74, 222, 128, 0.2);
+}
+
+/* Animated circuit data flow */
+.circuit-flow-line {
+  stroke-dasharray: 4 8;
+  animation: circuit-flow 1.5s linear infinite;
+}
+
+@keyframes circuit-flow {
+  0% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -12; }
+}
+
+/* ============================================
+    Contacto — Tech Icon Containers
+    ============================================ */
+
+.contact-tech-icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  overflow: visible;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Outer hexagonal frame */
+.contact-tech-icon::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: inherit;
+  border: 1.5px solid transparent;
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+/* Inner glow ring */
+.contact-tech-icon::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 20px;
+  border: 1px dashed transparent;
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+/* Pulse ring animation */
+.contact-tech-icon .pulse-ring {
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  border: 2px solid var(--icon-color, #31bf2c);
+  opacity: 0;
+  animation: tech-pulse-ring 3s ease-out infinite;
+}
+
+.contact-tech-icon .pulse-ring:nth-child(2) {
+  animation-delay: 1s;
+}
+
+.contact-tech-icon .pulse-ring:nth-child(3) {
+  animation-delay: 2s;
+}
+
+/* Corner tech dots */
+.contact-tech-icon .tech-dot {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--icon-color, #31bf2c);
+  opacity: 0.6;
+}
+
+.contact-tech-icon .tech-dot::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  border: 1px solid var(--icon-color, #31bf2c);
+  animation: tech-dot-pulse 2s ease-out infinite;
+  opacity: 0;
+}
+
+.contact-tech-icon .tech-dot.top-right { top: -6px; right: -6px; }
+.contact-tech-icon .tech-dot.bottom-left { bottom: -6px; left: -6px; }
+
+/* Color variants */
+.contact-tech-icon.icon-blue {
+  --icon-color: #3b82f6;
+  --icon-bg: rgba(59, 130, 246, 0.08);
+  --icon-bg-hover: rgba(59, 130, 246, 0.12);
+  --icon-border: rgba(59, 130, 246, 0.2);
+  --icon-glow: rgba(59, 130, 246, 0.3);
+  background: var(--icon-bg);
+  border: 1px solid var(--icon-border);
+}
+
+.contact-tech-icon.icon-green {
+  --icon-color: #31bf2c;
+  --icon-bg: rgba(49, 191, 44, 0.08);
+  --icon-bg-hover: rgba(49, 191, 44, 0.12);
+  --icon-border: rgba(49, 191, 44, 0.2);
+  --icon-glow: rgba(49, 191, 44, 0.3);
+  background: var(--icon-bg);
+  border: 1px solid var(--icon-border);
+}
+
+.contact-tech-icon.icon-cyan {
+  --icon-color: #22d3ee;
+  --icon-bg: rgba(34, 211, 238, 0.08);
+  --icon-bg-hover: rgba(34, 211, 238, 0.12);
+  --icon-border: rgba(34, 211, 238, 0.2);
+  --icon-glow: rgba(34, 211, 238, 0.3);
+  background: var(--icon-bg);
+  border: 1px solid var(--icon-border);
+}
+
+.contact-tech-icon .icon-svg {
+  position: relative;
+  z-index: 2;
+  transition: all 0.4s ease;
+}
+
+.contact-tech-icon:hover {
+  background: var(--icon-bg-hover);
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 16px var(--icon-glow),
+    0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.contact-tech-icon:hover::before {
+  opacity: 1;
+  border-color: var(--icon-border);
+  box-shadow: 0 0 8px var(--icon-glow);
+}
+
+.contact-tech-icon:hover::after {
+  opacity: 0.5;
+  border-color: var(--icon-color);
+}
+
+.contact-tech-icon:hover .icon-svg {
+  filter: drop-shadow(0 0 6px var(--icon-glow));
+  transform: scale(1.05);
+}
+
+/* Dark mode */
+[data-theme="dark"] .contact-tech-icon {
+  background: var(--icon-bg);
+  border-color: var(--icon-border);
+}
+
+[data-theme="dark"] .contact-tech-icon::before {
+  border-color: transparent;
+}
+
+[data-theme="dark"] .contact-tech-icon:hover {
+  background: var(--icon-bg-hover);
+  box-shadow:
+    0 0 24px var(--icon-glow),
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 0 20px var(--icon-bg);
+}
+
+[data-theme="dark"] .contact-tech-icon:hover::before {
+  border-color: var(--icon-color);
+  box-shadow: 0 0 12px var(--icon-glow);
+}
+
+/* ============================================
+    Contacto — Social Neon Buttons
+    ============================================ */
+
+.social-neon-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--foreground);
+  backdrop-filter: blur(8px);
+}
+
+/* Animated gradient border overlay */
+.social-neon-btn::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    var(--social-border-angle, 0deg),
+    var(--social-accent, rgba(49, 191, 44, 0.6)),
+    var(--social-accent-alt, rgba(59, 130, 246, 0.3)),
+    transparent,
+    var(--social-accent, rgba(49, 191, 44, 0.6))
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background-size: 300% 300%;
+}
+
+.social-neon-btn:hover::before {
+  opacity: 1;
+  animation: social-border-spin 3s linear infinite;
+}
+
+/* Inner gradient glow on hover */
+.social-neon-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    ellipse at center,
+    var(--social-accent, rgba(49, 191, 44, 0.06)) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.social-neon-btn:hover::after {
+  opacity: 1;
+}
+
+.social-neon-btn:hover {
+  border-color: transparent;
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 20px var(--social-glow, rgba(49, 191, 44, 0.1)),
+    0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.social-neon-btn .social-icon {
+  position: relative;
+  z-index: 2;
+  transition: all 0.4s ease;
+}
+
+.social-neon-btn:hover .social-icon {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 4px var(--social-glow, rgba(49, 191, 44, 0.4)));
+}
+
+.social-neon-btn .social-label {
+  position: relative;
+  z-index: 2;
+}
+
+/* Brand color variants */
+.social-neon-btn.social-facebook {
+  --social-accent: rgba(24, 119, 242, 0.6);
+  --social-accent-alt: rgba(24, 119, 242, 0.2);
+  --social-glow: rgba(24, 119, 242, 0.15);
+}
+
+.social-neon-btn.social-whatsapp {
+  --social-accent: rgba(37, 211, 102, 0.6);
+  --social-accent-alt: rgba(37, 211, 102, 0.2);
+  --social-glow: rgba(37, 211, 102, 0.15);
+}
+
+.social-neon-btn.social-email {
+  --social-accent: rgba(234, 67, 53, 0.6);
+  --social-accent-alt: rgba(234, 67, 53, 0.2);
+  --social-glow: rgba(234, 67, 53, 0.15);
+}
+
+[data-theme="dark"] .social-neon-btn {
+  border-color: rgba(96, 165, 250, 0.1);
+  background: rgba(15, 23, 42, 0.6);
+}
+
+[data-theme="dark"] .social-neon-btn:hover {
+  border-color: transparent;
+  box-shadow:
+    0 0 30px var(--social-glow, rgba(49, 191, 44, 0.12)),
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 0 30px var(--social-accent, rgba(49, 191, 44, 0.02));
+}
+
+@keyframes social-border-spin {
+  0% { --social-border-angle: 0deg; }
+  100% { --social-border-angle: 360deg; }
+}
+
+@property --social-border-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* ============================================
+    Contacto — Neon Submit Button
+    ============================================ */
+
+.neon-submit-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 40px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: linear-gradient(135deg, var(--secondary) 0%, #2aa626 50%, var(--secondary) 100%);
+  background-size: 200% 200%;
+  color: #ffffff;
+  box-shadow:
+    0 4px 20px rgba(49, 191, 44, 0.3),
+    0 0 0 0 rgba(49, 191, 44, 0);
+  width: 100%;
+}
+
+/* Animated gradient border */
+.neon-submit-btn::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(
+    var(--neon-border-angle, 0deg),
+    var(--secondary),
+    rgba(59, 130, 246, 0.6),
+    rgba(34, 211, 238, 0.4),
+    var(--secondary)
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background-size: 300% 300%;
+}
+
+.neon-submit-btn:hover::before {
+  opacity: 1;
+  animation: neon-border-spin 3s linear infinite;
+}
+
+/* Shimmer sweep */
+.neon-submit-btn .shimmer {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.25),
+    transparent
+  );
+  transition: left 0.7s ease;
+  pointer-events: none;
+}
+
+.neon-submit-btn:hover .shimmer {
+  left: 100%;
+}
+
+/* Glow pulse behind button */
+.neon-submit-btn .glow-pulse {
+  position: absolute;
+  inset: -8px;
+  border-radius: inherit;
+  background: var(--secondary);
+  opacity: 0;
+  filter: blur(20px);
+  animation: submit-glow-pulse 2.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Send icon animation */
+.neon-submit-btn .send-icon {
+  transition: all 0.3s ease;
+}
+
+.neon-submit-btn:hover .send-icon {
+  transform: translateX(4px) scale(1.1);
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.5));
+}
+
+/* Particle dots */
+.neon-submit-btn .particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  pointer-events: none;
+  animation: particle-float 2s ease-in-out infinite;
+}
+
+.neon-submit-btn .particle:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+.neon-submit-btn .particle:nth-child(2) { top: 60%; left: 25%; animation-delay: 0.4s; }
+.neon-submit-btn .particle:nth-child(3) { top: 30%; right: 15%; animation-delay: 0.8s; }
+.neon-submit-btn .particle:nth-child(4) { top: 70%; right: 10%; animation-delay: 1.2s; }
+
+.neon-submit-btn:hover {
+  background-position: 100% 100%;
+  box-shadow:
+    0 6px 28px rgba(49, 191, 44, 0.4),
+    0 0 50px rgba(49, 191, 44, 0.15),
+    0 0 100px rgba(49, 191, 44, 0.05);
+  transform: translateY(-2px);
+}
+
+.neon-submit-btn:active {
+  transform: translateY(0);
+  box-shadow:
+    0 2px 10px rgba(49, 191, 44, 0.3);
+}
+
+.neon-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: 0 4px 20px rgba(49, 191, 44, 0.2) !important;
+}
+
+.neon-submit-btn:disabled .shimmer,
+.neon-submit-btn:disabled .glow-pulse,
+.neon-submit-btn:disabled .particle {
+  animation: none;
+  opacity: 0;
+}
+
+[data-theme="dark"] .neon-submit-btn {
+  background: linear-gradient(135deg, rgba(74, 222, 128, 0.15) 0%, rgba(15, 23, 42, 0.8) 50%, rgba(74, 222, 128, 0.15) 100%);
+  border: 1px solid rgba(74, 222, 128, 0.4);
+  color: #4ade80;
+  box-shadow:
+    0 0 20px rgba(74, 222, 128, 0.1),
+    0 0 40px rgba(74, 222, 128, 0.05),
+    inset 0 0 20px rgba(74, 222, 128, 0.03);
+  backdrop-filter: blur(8px);
+}
+
+[data-theme="dark"] .neon-submit-btn:hover {
+  border-color: rgba(74, 222, 128, 0.7);
+  background: linear-gradient(135deg, rgba(74, 222, 128, 0.2) 0%, rgba(15, 23, 42, 0.9) 50%, rgba(74, 222, 128, 0.2) 100%);
+  box-shadow:
+    0 0 30px rgba(74, 222, 128, 0.2),
+    0 0 60px rgba(74, 222, 128, 0.1),
+    0 0 100px rgba(74, 222, 128, 0.05),
+    inset 0 0 30px rgba(74, 222, 128, 0.05);
+}
+
+[data-theme="dark"] .neon-submit-btn:disabled {
+  box-shadow: 0 0 15px rgba(74, 222, 128, 0.1) !important;
+}
+
+@keyframes neon-border-spin {
+  0% { --neon-border-angle: 0deg; }
+  100% { --neon-border-angle: 360deg; }
+}
+
+@property --neon-border-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes tech-pulse-ring {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+@keyframes tech-dot-pulse {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+@keyframes submit-glow-pulse {
+  0%, 100% { opacity: 0; transform: scale(0.95); }
+  50% { opacity: 0.15; transform: scale(1.05); }
+}
+
+@keyframes particle-float {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.4; }
+  50% { transform: translateY(-6px) scale(1.5); opacity: 0.8; }
+}
+
+/* ============================================
     Reduced Motion
     ============================================ */
 @media (prefers-reduced-motion: reduce) {

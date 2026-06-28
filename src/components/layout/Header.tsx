@@ -84,6 +84,18 @@ export default function Header() {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [menuOpen])
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [menuOpen])
+
   const handleNavClick = useCallback(() => {
     setMenuOpen(false)
   }, [])
@@ -113,10 +125,10 @@ export default function Header() {
           }
         `}
       >
-        <div className="mx-auto max-w-7xl flex items-center justify-between px-4 sm:px-6 py-3 min-h-[80px]">
+        <div className="mx-auto max-w-7xl flex items-center justify-between px-4 sm:px-6 py-2.5 sm:py-3 min-h-[64px] sm:min-h-[80px]">
           {/* Logo */}
           <Link href="#hero" className="flex items-center gap-2 group relative" aria-label="Answer ST — Ir al inicio">
-            <div className="relative h-10 w-10 flex-shrink-0">
+            <div className="relative h-9 w-9 sm:h-10 sm:w-10 flex-shrink-0">
               {/* Glow effect on hover */}
               <div
                 className="absolute inset-0 rounded-full bg-secondary/20 blur-lg opacity-0 transition-opacity duration-500 group-hover:opacity-100"
@@ -155,7 +167,7 @@ export default function Header() {
                 </motion.div>
               )}
             </div>
-            <span className="font-bold text-lg sm:text-xl text-foreground whitespace-nowrap relative">
+            <span className="font-bold text-base sm:text-lg lg:text-xl text-foreground whitespace-nowrap relative">
               NSWER<span className="text-secondary">.st</span>
             </span>
           </Link>
@@ -238,15 +250,15 @@ export default function Header() {
           </nav>
 
           {/* Mobile Controls */}
-          <div className="flex items-center gap-2 md:hidden">
+          <div className="flex items-center gap-1 md:hidden">
             {/* Theme Toggle Mobile */}
             {mounted && (
               <button
                 type="button"
                 onClick={toggleTheme}
                 className={`
-                  p-2 rounded-full transition-all duration-300 ease-out
-                  hover:bg-foreground/5
+                  p-2.5 rounded-full transition-all duration-300 ease-out
+                  hover:bg-foreground/5 min-w-[44px] min-h-[44px] flex items-center justify-center
                   ${themeToggled ? 'text-secondary' : 'text-foreground/70 hover:text-foreground'}
                 `}
                 aria-label={theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
@@ -273,7 +285,7 @@ export default function Header() {
             {/* Menu Toggle */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="p-2 rounded-full hover:bg-foreground/5 transition-colors duration-200 text-foreground/70 hover:text-foreground"
+              className="p-2.5 rounded-full hover:bg-foreground/5 transition-colors duration-200 text-foreground/70 hover:text-foreground min-w-[44px] min-h-[44px] flex items-center justify-center"
               aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
@@ -302,12 +314,12 @@ export default function Header() {
         <div
           id="mobile-menu"
           className={`md:hidden overflow-hidden transition-all duration-500 ease-in-out ${
-            menuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+            menuOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
           }`}
           aria-hidden={!menuOpen}
         >
           <nav
-            className="px-6 py-4 space-y-1 bg-background/95 backdrop-blur-xl border-t border-border/70"
+            className="px-4 sm:px-6 py-4 space-y-1 bg-background/98 backdrop-blur-xl border-t border-border/70 shadow-xl shadow-black/5 dark:shadow-black/20"
             aria-label="Navegación móvil"
           >
             {navItems.map((item) => {
@@ -318,7 +330,7 @@ export default function Header() {
                   href={item.href}
                   onClick={handleNavClick}
                   className={`
-                    relative flex items-center gap-3 px-4 py-3 rounded-lg text-base font-medium transition-all duration-300 ease-out
+                    relative flex items-center gap-3 px-4 py-3.5 rounded-lg text-base font-medium transition-all duration-300 ease-out min-h-[48px]
                     ${
                       isActive
                         ? 'text-secondary bg-secondary/10'

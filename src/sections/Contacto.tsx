@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
-import { Mail, Phone, MapPin, MessageSquare, Send, CheckCircle, AlertCircle, RefreshCw, ArrowUpRight } from 'lucide-react'
+import { Mail, Phone, MapPin, MessageSquare, Send, CheckCircle, AlertCircle, RefreshCw, ArrowUpRight, Loader2 } from 'lucide-react'
 import { Section } from '@/components/ui/Section'
 import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
@@ -113,13 +113,31 @@ function ContactItem({
 }) {
   const prefersReducedMotion = useReducedMotion()
 
+  // Color variant based on icon type
+  const iconColor = index === 0 ? 'icon-blue' : index === 1 ? 'icon-green' : 'icon-cyan'
+
   const content = (
     <>
-      {/* Icon circle */}
+      {/* Tech icon container */}
       <div className="relative flex-shrink-0">
-        <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 dark:from-primary/10 dark:to-secondary/10 blur-sm group-hover:blur-md transition-all duration-500" />
-        <div className="relative flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-primary/10 to-secondary/10 dark:from-primary/5 dark:to-secondary/5 border border-primary/20 dark:border-primary/10 text-primary dark:text-primary-light group-hover:border-secondary/40 dark:group-hover:border-secondary/30 transition-all duration-300">
-          <Icon className="h-5 w-5" aria-hidden="true" />
+        <div className={`contact-tech-icon ${iconColor}`}>
+          {/* Pulse rings */}
+          {!prefersReducedMotion && (
+            <>
+              <span className="pulse-ring" />
+              <span className="pulse-ring" />
+              <span className="pulse-ring" />
+            </>
+          )}
+          {/* Corner tech dots */}
+          {!prefersReducedMotion && (
+            <>
+              <span className="tech-dot top-right" />
+              <span className="tech-dot bottom-left" />
+            </>
+          )}
+          {/* Icon */}
+          <Icon className="h-5 w-5 icon-svg" style={{ color: `var(--icon-color)` }} aria-hidden="true" />
         </div>
       </div>
       {/* Text */}
@@ -131,7 +149,13 @@ function ContactItem({
       </div>
       {/* Arrow (links only) */}
       {isLink && (
-        <ArrowUpRight className="h-4 w-4 ml-auto text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:text-secondary transition-all duration-300 flex-shrink-0" aria-hidden="true" />
+        <div className="ml-auto flex-shrink-0 relative">
+          <ArrowUpRight
+            className="h-4 w-4 text-muted-foreground opacity-0 -translate-x-1 translate-y-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-300"
+            style={{ color: `var(--icon-color, #31bf2c)` }}
+            aria-hidden="true"
+          />
+        </div>
       )}
     </>
   )
@@ -181,22 +205,13 @@ function SocialButton({
 }) {
   const prefersReducedMotion = useReducedMotion()
 
-  const brandColors: Record<string, { hover: string; icon: string }> = {
-    Facebook: {
-      hover: 'hover:bg-[#1877f2] hover:border-[#1877f2] hover:text-white',
-      icon: 'group-hover:scale-110',
-    },
-    WhatsApp: {
-      hover: 'hover:bg-[#25d366] hover:border-[#25d366] hover:text-white',
-      icon: 'group-hover:scale-110',
-    },
-    Correo: {
-      hover: 'hover:bg-[#ea4335] hover:border-[#ea4335] hover:text-white',
-      icon: 'group-hover:scale-110',
-    },
+  const brandClasses: Record<string, string> = {
+    Facebook: 'social-facebook',
+    WhatsApp: 'social-whatsapp',
+    Correo: 'social-email',
   }
 
-  const brand = brandColors[name] ?? { hover: 'hover:border-secondary hover:text-secondary', icon: '' }
+  const socialClass = brandClasses[name] ?? ''
 
   const renderIcon = () => {
     if (name === 'Facebook') return <FacebookIcon className="h-5 w-5" />
@@ -215,14 +230,24 @@ function SocialButton({
       whileInView="visible"
       viewport={{ once: true, margin: '-40px' }}
       variants={!prefersReducedMotion ? socialItemVariants : undefined}
-      className={`group inline-flex items-center gap-2.5 px-5 py-3 rounded-full border border-border bg-card text-foreground font-medium text-sm transition-all duration-300 ${brand.hover} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2`}
+      className={`social-neon-btn ${socialClass}`}
       aria-label={`Visitar ${name} de Answer ST`}
       role="listitem"
     >
-      <span className={`transition-transform duration-300 ${brand.icon}`}>
+      {/* Particle dots */}
+      {!prefersReducedMotion && (
+        <>
+          <span className="particle" />
+          <span className="particle" />
+          <span className="particle" />
+        </>
+      )}
+      {/* Icon */}
+      <span className="social-icon">
         {renderIcon()}
       </span>
-      <span>{name}</span>
+      {/* Label */}
+      <span className="social-label">{name}</span>
     </motion.a>
   )
 }
@@ -282,6 +307,7 @@ function FormSuccessState({ onReset }: { onReset: () => void }) {
 /* ------------------------------------------------------------------ */
 
 export default function Contacto() {
+  const prefersReducedMotion = useReducedMotion()
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [errorMessage, setErrorMessage] = useState('')
   const [retryCount, setRetryCount] = useState(0)
@@ -608,19 +634,38 @@ export default function Contacto() {
                         </motion.div>
                       )}
 
-                      <Button
+                      {/* Neon Submit Button */}
+                      <button
                         type="submit"
-                        variant="secondary"
-                        size="lg"
-                        fullWidth
-                        loading={isSubmitting}
-                        iconRight={!isSubmitting ? <Send className="h-5 w-5" aria-hidden="true" /> : undefined}
-                        className="relative overflow-hidden group"
+                        disabled={isSubmitting || status === 'loading'}
+                        className="neon-submit-btn"
                       >
-                        {/* Subtle shimmer on hover */}
-                        <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" aria-hidden="true" />
-                        <span className="relative">Enviar mensaje</span>
-                      </Button>
+                        {/* Glow pulse background */}
+                        {!prefersReducedMotion && <span className="glow-pulse" />}
+                        {/* Shimmer sweep */}
+                        <span className="shimmer" aria-hidden="true" />
+                        {/* Particle dots */}
+                        {!prefersReducedMotion && (
+                          <>
+                            <span className="particle" />
+                            <span className="particle" />
+                            <span className="particle" />
+                            <span className="particle" />
+                          </>
+                        )}
+                        {/* Content */}
+                        {isSubmitting || status === 'loading' ? (
+                          <>
+                            <Loader2 className="h-5 w-5 animate-spin relative z-10" aria-hidden="true" />
+                            <span className="relative z-10">Enviando...</span>
+                          </>
+                        ) : (
+                          <>
+                            <span className="relative z-10">Enviar mensaje</span>
+                            <Send className="h-5 w-5 send-icon relative z-10" aria-hidden="true" />
+                          </>
+                        )}
+                      </button>
                     </motion.form>
                   )}
                 </AnimatePresence>

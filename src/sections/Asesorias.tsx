@@ -18,7 +18,6 @@ import {
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Section } from '@/components/ui/Section'
-import { Button } from '@/components/ui/Button'
 import { AnimatedSection } from '@/components/motion/AnimatedSection'
 import { StaggerContainer } from '@/components/motion/StaggerContainer'
 import { AnimatedCounter } from '@/components/motion/AnimatedCounter'
@@ -41,6 +40,8 @@ const statIcons = [Target, Users, Briefcase, TrendingUp]
 
 /* ──────────────────────────────────────────────
    Advisory Card — horizontal layout, colored bar
+   Light mode = original styles
+   Dark mode = futuristic neon styles
    ────────────────────────────────────────────── */
 function AsesoriaCard({
   item,
@@ -80,7 +81,7 @@ function AsesoriaCard({
   return (
     <div
       ref={cardRef}
-      className="group relative rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-1 hover:shadow-xl"
+      className="asesoria-neon-card group relative rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-1 hover:shadow-xl"
       style={{
         boxShadow: `0 0 0px ${item.color}00`,
       }}
@@ -101,20 +102,45 @@ function AsesoriaCard({
         })
       }}
     >
-      {/* Left colored bar */}
+      {/* Light mode left colored bar (hidden in dark mode via CSS) */}
       <div
-        className="absolute left-0 top-0 bottom-0 w-1 z-10 transition-all duration-500 group-hover:w-1.5"
+        className="absolute left-0 top-0 bottom-0 w-1 z-10 transition-all duration-500 group-hover:w-1.5 dark:hidden"
         style={{ backgroundColor: item.color }}
         aria-hidden="true"
       />
 
+      {/* Dark mode corner accents */}
+      <div
+        className="hidden dark:block absolute top-3 right-3 w-4 h-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+        aria-hidden="true"
+      >
+        <svg viewBox="0 0 16 16" className="w-full h-full" fill="none">
+          <path d="M16 0L16 16" stroke={item.color} strokeWidth="0.5" opacity="0.4" />
+          <path d="M0 0L16 0" stroke={item.color} strokeWidth="0.5" opacity="0.4" />
+          <circle cx="14" cy="2" r="1" fill={item.color} opacity="0.6" />
+          <circle cx="2" cy="14" r="1" fill={item.color} opacity="0.3" />
+        </svg>
+      </div>
+
+      {/* Card grid pattern (dark mode) */}
+      <div className="card-grid-pattern" aria-hidden="true" />
+
       {/* Card body */}
-      <div className="relative h-full p-6 pl-8 rounded-2xl border border-border/50 bg-card/60 backdrop-blur-sm">
+      <div className="relative h-full p-6 pl-8 rounded-2xl border border-border/50 bg-card/60 backdrop-blur-sm dark:border-none dark:bg-transparent dark:backdrop-blur-0">
         {/* Subtle background gradient */}
         <div
           className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
           style={{
             background: `linear-gradient(135deg, ${item.color}06 0%, transparent 60%)`,
+          }}
+          aria-hidden="true"
+        />
+
+        {/* Dark mode inner glow */}
+        <div
+          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl dark:block hidden"
+          style={{
+            background: `radial-gradient(ellipse at top left, ${item.color}08 0%, transparent 70%)`,
           }}
           aria-hidden="true"
         />
@@ -135,7 +161,6 @@ function AsesoriaCard({
           {/* Content */}
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-3 mb-2">
-              
               <h3 className="font-bold text-base text-foreground truncate">
                 {item.title}
               </h3>
@@ -148,7 +173,7 @@ function AsesoriaCard({
 
         {/* Bottom accent */}
         <div
-          className="absolute bottom-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          className="absolute bottom-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-500 dark:hidden"
           style={{
             background: `linear-gradient(90deg, ${item.color}80, transparent)`,
           }}
@@ -200,16 +225,6 @@ export default function Asesorias() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           {/* Left column: number + title */}
           <div className="lg:col-span-7">
-            {/* Section number — decorative */}
-            <AnimatedSection animation="fade-right" duration={0.5}>
-              <div
-                className="text-[8rem] sm:text-[10rem] lg:text-[12rem] font-black leading-none select-none pointer-events-none opacity-[0.04] text-gradient -mt-8 -mb-12 lg:-mt-10 lg:-mb-14"
-                aria-hidden="true"
-              >
-                03
-              </div>
-            </AnimatedSection>
-
             <AnimatedSection animation="fade-up" duration={0.6} delay={0.1}>
               <h2
                 id="asesorias-heading"
@@ -237,7 +252,7 @@ export default function Asesorias() {
               <div className="mt-6 flex items-center gap-3">
                 <div className="h-px flex-1 bg-gradient-to-r from-border to-transparent" />
                 <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                  6 áreas de especialización
+                  áreas de especialización
                 </span>
               </div>
             </AnimatedSection>
@@ -335,28 +350,24 @@ export default function Asesorias() {
       {/* ─── FOOTER NOTE + CTA ─── */}
       <div className="mt-14 relative z-10">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
-          {/* Subtle note */}
+          {/* Futuristic development badge */}
           <AnimatedSection animation="fade-right" delay={0.2} duration={0.5}>
-            <div className="flex items-center gap-2.5 text-muted-foreground text-sm">
-              <div className="relative flex-shrink-0">
-                <div className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
-                <div className="absolute inset-0 w-2 h-2 rounded-full bg-secondary animate-ping opacity-75" />
-              </div>
+            <div className="dev-badge">
+              <span className="badge-dot" />
               <span>Más áreas de asesoría en desarrollo</span>
             </div>
           </AnimatedSection>
 
-          {/* CTA */}
+          {/* Neon CTA Button */}
           <AnimatedSection animation="fade-left" delay={0.3} duration={0.5}>
             <Link href="#contacto">
-              <Button
-                variant="secondary"
-                size="lg"
-                iconRight={<ArrowRight className="h-5 w-5" aria-hidden="true" />}
-                className="group"
+              <button
+                className="neon-cta group"
+                aria-label="Solicita tu asesoría"
               >
                 Solicita tu asesoría
-              </Button>
+                <ArrowRight className="h-5 w-5 cta-arrow" aria-hidden="true" />
+              </button>
             </Link>
           </AnimatedSection>
         </div>
