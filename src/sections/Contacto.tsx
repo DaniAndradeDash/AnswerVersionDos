@@ -432,7 +432,7 @@ export default function Contacto() {
         />
       </div>
 
-      <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 xl:gap-20">
+      <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 xl:gap-16">
         {/* ============================================================ */}
         {/*  LEFT COLUMN — Visual header + contact info + social          */}
         {/* ============================================================ */}
@@ -444,11 +444,11 @@ export default function Contacto() {
               <div className="flex items-baseline gap-3 flex-wrap">
                 <h2
                   id="contacto-heading"
-                  className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight text-gradient leading-[1.1]"
+                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-gradient leading-[1.1]"
                 >
                   Hablemos
                 </h2>
-                <span className="text-2xl sm:text-3xl font-light text-muted-foreground">
+                <span className="text-xl sm:text-2xl md:text-3xl font-light text-muted-foreground">
                   de tu proyecto
                 </span>
               </div>
@@ -503,7 +503,7 @@ export default function Contacto() {
               <h3 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-4">
                 Conecta con nosotros
               </h3>
-              <div className="flex flex-wrap gap-3" role="list" aria-label="Redes sociales de Answer ST">
+              <div className="flex flex-wrap gap-2 sm:gap-3" role="list" aria-label="Redes sociales de Answer ST">
                 {socialLinks.map((link, i) => (
                   <SocialButton
                     key={link.name}

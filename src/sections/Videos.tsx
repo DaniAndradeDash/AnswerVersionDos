@@ -129,7 +129,7 @@ export default function Videos() {
       )}
 
       {/* ── Vector Effects ── */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+      <div className="absolute inset-0 pointer-events-none overflow-hidden hidden lg:block" aria-hidden="true">
         {/* Left side: circuit lines */}
         <CircuitLines className="absolute top-8 left-4 w-64 h-64 text-secondary neon-circuit opacity-60" />
 
@@ -154,7 +154,7 @@ export default function Videos() {
       </div>
 
       {/* ── Section Header ── */}
-      <div className="relative z-10 mb-10 lg:mb-14 text-center">
+      <div className="relative z-10 mb-8 sm:mb-10 lg:mb-14 text-center">
         <AnimatedSection animation="fade-up" duration={0.6}>
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-secondary/10 ring-1 ring-secondary/20">
@@ -169,7 +169,7 @@ export default function Videos() {
         <AnimatedSection animation="fade-up" delay={0.1} duration={0.6}>
           <h2
             id="videos-heading"
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight leading-tight"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground tracking-tight leading-tight"
           >
             Conoce{' '}
             <span className="text-gradient">Answer </span>
@@ -202,7 +202,7 @@ export default function Videos() {
           {/* Main video wrapper */}
           <div
             ref={videoWrapperRef}
-            className="relative aspect-[9/16] w-72 sm:w-80 md:w-96 rounded-3xl overflow-hidden bg-slate-900 shadow-2xl border border-border/50"
+            className="relative aspect-[9/16] w-[280px] max-w-[85vw] sm:w-72 md:w-80 lg:w-96 rounded-3xl overflow-hidden bg-slate-900 shadow-2xl border border-border/50"
           >
             {/* Video */}
             <video

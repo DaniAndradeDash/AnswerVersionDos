@@ -54,7 +54,13 @@
   --shadow-glow-blue: 0 0 20px rgba(4, 38, 140, 0.3);
 
   /* Header */
-  --header-height: 80px;
+  --header-height: 64px;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --header-height: 80px;
+  }
 }
 
 /* ============================================

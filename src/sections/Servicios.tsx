@@ -317,8 +317,8 @@ function ServiceCard({
     <TiltCard maxTilt={4} perspective={1200} scale={1.01} className="h-full">
       <div
         ref={cardRef}
-        className={`relative h-full min-h-[380px] rounded-2xl overflow-hidden group cursor-pointer transition-all duration-500
-          bg-white border border-emerald-500/10
+        className={`relative h-full min-h-[340px] sm:min-h-[380px] rounded-2xl overflow-hidden group cursor-pointer transition-all duration-500
+          bg-card border border-border/50
           hover:border-emerald-400/40 hover:shadow-[0_0_30px_rgba(49,191,44,0.15)] hover:shadow-emerald-400/10
           dark:bg-slate-900 dark:border-0 ${accent.neonCard}`}
         onClick={onToggle}
@@ -343,7 +343,7 @@ function ServiceCard({
 
         {/* Circuit watermark */}
         <div
-          className="absolute -bottom-12 -right-12 w-[260px] h-[260px] sm:w-[320px] sm:h-[320px] md:w-[340px] md:h-[340px] select-none pointer-events-none transition-all duration-500 group-hover:opacity-[0.1]"
+          className="absolute -bottom-12 -right-12 w-[180px] h-[180px] sm:w-[260px] sm:h-[260px] md:w-[320px] md:h-[320px] select-none pointer-events-none transition-all duration-500 group-hover:opacity-[0.1]"
           aria-hidden="true"
           style={{ opacity: 0.06 }}
         >
@@ -365,8 +365,8 @@ function ServiceCard({
           {/* Icon container — neon glow on hover */}
           <div
             ref={iconRef}
-            className={`relative mb-8 inline-flex h-16 w-16 items-center justify-center rounded-2xl border transition-all duration-500
-              bg-white border-emerald-500/20 group-hover:shadow-lg
+            className={`relative mb-6 sm:mb-8 inline-flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-2xl border transition-all duration-500
+              bg-card border-border/50 group-hover:shadow-lg
               dark:bg-slate-800 dark:border-slate-700/50 neon-icon-container`}
             style={{
               boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
@@ -377,7 +377,7 @@ function ServiceCard({
               '--icon-glow-color': index === 1 ? 'rgba(96,165,250,0.2)' : 'rgba(74,222,128,0.2)',
             } as React.CSSProperties}
           >
-            <Icon className={`h-7 w-7 ${index === 0 ? 'text-green-500' : index === 1 ? 'text-blue-500' : 'text-emerald-500'}`} aria-hidden="true" />
+            <Icon className={`h-6 w-6 sm:h-7 sm:w-7 ${index === 0 ? 'text-green-500' : index === 1 ? 'text-blue-500' : 'text-emerald-500'}`} aria-hidden="true" />
             {/* Icon glow ring on hover */}
             <div
               className={`absolute inset-0 rounded-2xl ${accent.bg} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}
@@ -386,17 +386,17 @@ function ServiceCard({
           </div>
 
           {/* Title */}
-          <h3 className="font-bold text-xl text-white tracking-tight dark:text-foreground">
+          <h3 className="font-bold text-lg text-white sm:text-xl text-foreground tracking-tight">
             {service.title}
           </h3>
 
           {/* Short description */}
-          <p className="text-sm text-slate-600 leading-relaxed line-clamp-2 mb-auto">
+          <p className="text-sm text-white text-muted-foreground leading-relaxed line-clamp-2 mb-auto">
             {service.description.slice(0, 120)}...
           </p>
 
           {/* Divider + Toggle */}
-          <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+          <div className="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-border/50 flex items-center justify-between">
             <span
               className={`text-xs font-medium uppercase tracking-wider ${index === 0 ? 'text-green-600' : index === 1 ? 'text-blue-600' : 'text-emerald-600'}`}
             >
@@ -423,14 +423,14 @@ function ServiceCard({
             className="overflow-hidden"
             style={{ height: 0, opacity: 0 }}
           >
-            <div className="pt-5 mt-2 border-t border-slate-100 space-y-4">
-              <p className="text-sm text-slate-600 leading-relaxed">
+            <div className="pt-4 sm:pt-5 mt-2 border-t border-border/50 space-y-4">
+              <p className="text-sm text-white text-muted-foreground leading-relaxed">
                 {service.description}
               </p>
 
               {/* Service image */}
               {service.image && (
-                <div className="relative w-full h-[600px] rounded-xl overflow-hidden border border-slate-200">
+                <div className="relative w-full h-[250px] sm:h-[350px] md:h-[450px] lg:h-[500px] rounded-xl overflow-hidden border border-border/50">
                   <Image
                     src={service.image}
                     alt={service.title}
@@ -438,7 +438,7 @@ function ServiceCard({
                     className="object-contain transition-transform duration-500 group-hover:scale-105"
                   />
                   <div
-                    className="absolute inset-0 bg-gradient-to-t from-white/40 to-transparent"
+                    className="absolute inset-0 bg-gradient-to-t from-card/40 to-transparent"
                     aria-hidden="true"
                   />
                 </div>
@@ -516,10 +516,10 @@ export default function Servicios() {
       )}
 
       {/* Section header — BREAKS the centered pattern */}
-      <div ref={headerRef} className="relative z-10 mb-16">
+      <div ref={headerRef} className="relative z-10 mb-10 sm:mb-14 lg:mb-16">
         {/* Circuit watermark — Section-level futuristic decoration */}
         <div
-          className="absolute -top-20 -left-20 w-[380px] h-[380px] sm:w-[480px] sm:h-[480px] select-none pointer-events-none transition-all duration-500"
+          className="absolute -top-20 -left-20 w-[280px] h-[280px] sm:w-[380px] sm:h-[380px] md:w-[480px] md:h-[480px] select-none pointer-events-none transition-all duration-500"
           aria-hidden="true"
         >
           <div className="dark:hidden" style={{ color: 'rgba(100, 116, 139, 0.06)' }}>
@@ -545,7 +545,7 @@ export default function Servicios() {
             <AnimatedSection animation="fade-right" duration={0.6}>
               <h2
                 id="servicios-heading"
-                className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-foreground tracking-tight leading-[1.1]"
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-foreground tracking-tight leading-[1.1]"
               >
                 Nuestros <span className="text-gradient">Servicios</span>
               </h2>

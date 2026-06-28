@@ -221,17 +221,16 @@ export default function Asesorias() {
       )}
 
       {/* ─── HEADER — Left-aligned, breaks pattern ─── */}
-      <div className="relative z-10 mb-16">
+      <div className="relative z-10 mb-10 sm:mb-14 lg:mb-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           {/* Left column: number + title */}
           <div className="lg:col-span-7">
             <AnimatedSection animation="fade-up" duration={0.6} delay={0.1}>
               <h2
                 id="asesorias-heading"
-                className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-foreground leading-tight"
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-foreground leading-tight"
               >
-                Portafolio de
-                <br />
+                Portafolio de{' '}
                 <span className="text-gradient">Asesorías</span>
               </h2>
             </AnimatedSection>
@@ -292,8 +291,8 @@ export default function Asesorias() {
             />
           )}
 
-          <div className="relative z-10 px-6 py-10 sm:px-8 sm:py-12 lg:px-12 lg:py-14">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+          <div className="relative z-10 px-4 py-8 sm:px-8 sm:py-12 lg:px-12 lg:py-14">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
               {[
                 { label: 'Áreas de práctica', value: 6, suffix: '+' },
                 { label: 'Clientes atendidos', value: 150, suffix: '+' },
@@ -301,14 +300,11 @@ export default function Asesorias() {
                 { label: 'Años de experiencia', value: 10, suffix: '' },
               ].map((stat, i) => {
                 const StatIcon = statIcons[i] ?? Target
-                const isFirst = i === 0
 
                 return (
                   <div
                     key={i}
-                    className={`flex flex-col items-center text-center ${
-                      isFirst ? 'col-span-2 sm:col-span-1' : ''
-                    }`}
+                    className={`flex flex-col items-center text-center`}
                   >
                     {/* Icon circle */}
                     <div className="mb-3 p-2.5 rounded-full bg-white/10 backdrop-blur-sm">
@@ -316,7 +312,7 @@ export default function Asesorias() {
                     </div>
 
                     {/* Number */}
-                    <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white">
+                    <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white">
                       <AnimatedCounter
                         end={stat.value}
                         suffix={stat.suffix}

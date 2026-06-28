@@ -294,6 +294,7 @@ function PillarCard({
 // ---------------------------------------------------------------------------
 // Geometric pattern for the premium card
 // ---------------------------------------------------------------------------
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function GeometricPattern() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
@@ -404,7 +405,7 @@ export default function Compromiso() {
           {/* Right: confiabilidad_transparencia — larger, with glow */}
           <div
             ref={floatingRightRef}
-            className="absolute top-4 right-4 md:right-8 lg:right-16 hidden md:block z-0"
+            className="absolute top-4 right-4 lg:right-16 hidden lg:block z-0"
           >
             <div className="relative">
               {/* Glow behind image */}
@@ -424,7 +425,7 @@ export default function Compromiso() {
           {/* Left: mira_futurista — larger, with glow */}
           <div
             ref={floatingLeftRef}
-            className="absolute bottom-8 left-4 md:left-8 lg:left-16 hidden md:block z-0"
+            className="absolute bottom-8 left-4 lg:left-16 hidden lg:block z-0"
           >
             <div className="relative">
               {/* Glow behind image */}
@@ -444,7 +445,7 @@ export default function Compromiso() {
       )}
 
       {/* ── HEADER: Breaks the pattern — no badge, large statement ── */}
-      <div ref={headlineRef} className="relative z-10 mb-12 md:mb-16">
+      <div ref={headlineRef} className="relative z-10 mb-8 sm:mb-12 md:mb-16">
         {/* Decorative top line + label */}
         <div className="flex items-center gap-3 mb-6">
           <div className="h-px w-10 bg-gradient-to-r from-secondary to-transparent" aria-hidden="true" />
@@ -456,14 +457,14 @@ export default function Compromiso() {
         {/* Main headline — the commitment message IS the heading */}
         <h2
           id="compromiso-heading"
-          className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-foreground tracking-tight leading-[1.05] max-w-4xl"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-foreground tracking-tight leading-[1.05] max-w-4xl"
         >
           Confidencialidad{' '}
           <span className="text-gradient">y Transparencia</span>
         </h2>
 
         {/* Subtitle as secondary statement */}
-        <p className="mt-4 text-muted-foreground text-base sm:text-lg lg:text-xl leading-relaxed max-w-2xl">
+        <p className="mt-3 sm:mt-4 text-muted-foreground text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed max-w-2xl">
           Cada dato que nos confías está protegido con los más altos estándares de seguridad y ética profesional.
         </p>
       </div>

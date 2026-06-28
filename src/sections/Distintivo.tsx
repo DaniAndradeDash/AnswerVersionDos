@@ -1,8 +1,9 @@
 'use client'
 
-import { useCallback, useState, useEffect } from 'react'
+import { useCallback, useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { Leaf, Lightbulb, ShieldCheck, Eye, ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react'
+import { motion } from 'framer-motion'
 import { Section } from '@/components/ui/Section'
 import { AnimatedSection } from '@/components/motion/AnimatedSection'
 import { Float } from '@/components/motion/Float'
@@ -32,6 +33,74 @@ const iconColors = [
   { bg: 'bg-blue-500/10', text: 'text-blue-500', neon: 'neon-blue' },
   { bg: 'bg-cyan-400/10', text: 'text-cyan-400', neon: 'neon-cyan' },
 ]
+
+/* ── Facebook CTA with pulse + shine animation ── */
+function CTAFacebook() {
+  const btnRef = useRef<HTMLAnchorElement>(null)
+  const [isHovered, setIsHovered] = useState(false)
+  const reducedMotion = useReducedMotion()
+
+  return (
+    <motion.a
+      ref={btnRef}
+      href={siteConfig.facebook}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="relative group inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 bg-gradient-to-r from-blue-600 to-blue-700 text-white text-sm sm:text-base font-semibold rounded-full overflow-hidden shadow-lg shadow-blue-600/25 hover:shadow-xl hover:shadow-blue-600/40 transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0"
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+      whileHover={reducedMotion ? {} : { scale: 1.03 }}
+      whileTap={reducedMotion ? {} : { scale: 0.97 }}
+    >
+      {/* Shimmer sweep */}
+      <span
+        className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out"
+        style={{
+          background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent)',
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Pulsing glow ring (behind button) */}
+      {!reducedMotion && (
+        <motion.span
+          className="absolute -inset-1 rounded-full border-2 border-blue-400/40"
+          animate={{
+            scale: [1, 1.15, 1],
+            opacity: [0.4, 0, 0.4],
+          }}
+          transition={{
+            duration: 2.5,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+          aria-hidden="true"
+        />
+      )}
+
+      {/* Facebook icon */}
+      <motion.span
+        animate={isHovered && !reducedMotion ? { rotate: [0, -8, 8, -8, 0] } : {}}
+        transition={{ duration: 0.5 }}
+        className="relative z-10"
+      >
+        <FacebookIcon className="h-5 w-5" />
+      </motion.span>
+
+      {/* Text */}
+      <span className="relative z-10">Visítanos en Facebook</span>
+
+      {/* External link arrow */}
+      <motion.span
+        animate={isHovered && !reducedMotion ? { x: [0, 3, 0] } : {}}
+        transition={{ duration: 0.6, repeat: isHovered ? Infinity : 0 }}
+        className="relative z-10"
+      >
+        <ExternalLink className="h-4 w-4" aria-hidden="true" />
+      </motion.span>
+    </motion.a>
+  )
+}
 
 export default function Distintivo() {
   const reducedMotion = useReducedMotion()
@@ -69,7 +138,7 @@ export default function Distintivo() {
 
   return (
     <Section id="distintivo" variant="alt" headingId="distintivo-heading">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-start">
         {/* Left: INFONAGREEN */}
         <div className="space-y-8">
           <AnimatedSection animation="fade-right" duration={0.6}>
@@ -83,7 +152,7 @@ export default function Distintivo() {
                 />
               </div>
               <div>
-                <h2 id="distintivo-heading" className="text-2xl sm:text-3xl lg:text-6xl font-bold text-foreground text-green-700">
+                <h2 id="distintivo-heading" className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-foreground text-green-700">
                   Infonagreen
                 </h2>
               </div>
@@ -113,17 +182,10 @@ export default function Distintivo() {
           </div>
 
           {/* CTA */}
-          <AnimatedSection animation="fade-right" delay={0.3} duration={0.6}>
-            <a
-              href={siteConfig.facebook}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-full hover:bg-blue-700 transition-colors duration-200"
-            >
-              <FacebookIcon className="h-5 w-5" />
-              Visítanos en Facebook
-              <ExternalLink className="h-4 w-4" aria-hidden="true" />
-            </a>
+          <AnimatedSection animation="fade-up" delay={0.3} duration={0.6}>
+            <div className="flex justify-center lg:justify-start">
+              <CTAFacebook />
+            </div>
           </AnimatedSection>
         </div>
 
