@@ -172,8 +172,8 @@ export default function Videos() {
             className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground tracking-tight leading-tight"
           >
             Conoce{' '}
-            <span className="text-gradient">Answer </span>
-            <span className="text-green-500">ST</span>
+            <span className="text-gradient">ANSWER</span>
+            <span className="text-green-500">.st</span>
           </h2>
         </AnimatedSection>
 

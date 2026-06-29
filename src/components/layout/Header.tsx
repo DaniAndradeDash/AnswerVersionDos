@@ -162,7 +162,7 @@ export default function Header() {
               )}
             </div>
             <span className="font-bold text-base sm:text-lg lg:text-xl text-foreground whitespace-nowrap relative">
-              NSWER<span className="text-secondary">.st</span>
+              ANSWER<span className="text-secondary text-green-500">.st</span>
             </span>
           </Link>
 
