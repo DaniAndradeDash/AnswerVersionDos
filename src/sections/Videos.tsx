@@ -173,7 +173,10 @@ export default function Videos() {
           >
             Conoce{' '}
             <span className="text-gradient">ANSWER</span>
-            <span className="text-green-500">.st</span>
+            {/* Light mode — .st */}
+            <span className="text-green-500 dark:hidden">.st</span>
+            {/* Dark mode — st */}
+            <span className="hidden dark:inline text-green-400"> st</span>
           </h2>
         </AnimatedSection>
 

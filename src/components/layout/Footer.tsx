@@ -65,10 +65,16 @@ export default function Footer() {
         aria-hidden="true"
       >
         <span
-          className="text-[12rem] sm:text-[16rem] md:text-[20rem] lg:text-[24rem] font-black tracking-tighter opacity-[0.02] whitespace-nowrap"
+          className="text-[12rem] sm:text-[16rem] md:text-[20rem] lg:text-[24rem] font-black tracking-tighter opacity-[0.02] whitespace-nowrap dark:hidden"
           style={{ color: 'var(--foreground)' }}
         >
           ANSWER.st
+        </span>
+        <span
+          className="hidden dark:block text-[12rem] sm:text-[16rem] md:text-[20rem] lg:text-[24rem] font-black tracking-tighter opacity-[0.03] whitespace-nowrap"
+          style={{ color: 'var(--foreground)' }}
+        >
+          ANSWER<span style={{ color: '#22c55e' }}> st</span>
         </span>
       </div>
 
@@ -91,7 +97,14 @@ export default function Footer() {
               </div>
               <div>
                 <span className="block font-bold text-2xl text-foreground tracking-tight">
-                  ANSWER<span className="text-secondary">.st</span>
+                  {/* Light mode — ANSWER.st */}
+                  <span className="dark:hidden">
+                    ANSWER<span className="text-secondary">.st</span>
+                  </span>
+                  {/* Dark mode — ANSWER st */}
+                  <span className="hidden dark:inline">
+                    ANSWER<span className="text-green-500 dark:text-green-400"> st</span>
+                  </span>
                 </span>
                 <span className="block text-xs text-muted-foreground tracking-widest uppercase">
                   Consultoría Estratégica

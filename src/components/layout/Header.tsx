@@ -209,7 +209,14 @@ export default function Header() {
                 )}
               </div>
               <span className="font-bold text-[15px] sm:text-lg lg:text-xl text-foreground whitespace-nowrap relative tracking-tight">
-                ANSWER<span className="text-secondary">.st</span>
+                {/* Light mode — ANSWER.st */}
+                <span className="dark:hidden">
+                  ANSWER<span className="text-secondary">.st</span>
+                </span>
+                {/* Dark mode — ANSWER st */}
+                <span className="hidden dark:inline">
+                  ANSWER<span className="text-green-500 dark:text-green-400"> st</span>
+                </span>
               </span>
             </Link>
 
