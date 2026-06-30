@@ -489,6 +489,316 @@ section[id] {
 }
 
 /* ============================================
+    Service Card Neon V2 — Red, Green, Blue
+    Ultra Neon Dark Mode
+    ============================================ */
+
+/* ── Neon Icon V2 ── */
+.neon-icon-v2 {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+[data-theme="dark"] .neon-icon-v2 {
+  background-color: var(--v2-icon-bg-dark, rgba(74, 222, 128, 0.1)) !important;
+  border-color: var(--v2-icon-border-dark, rgba(74, 222, 128, 0.3)) !important;
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.3),
+    0 0 12px var(--v2-icon-glow, rgba(74, 222, 128, 0.15)) !important;
+}
+[data-theme="dark"] .neon-icon-v2:hover {
+  border-color: var(--v2-icon-border-dark-hover, rgba(74, 222, 128, 0.6)) !important;
+  box-shadow:
+    0 0 24px var(--v2-icon-glow, rgba(74, 222, 128, 0.3)),
+    0 0 48px var(--v2-icon-glow, rgba(74, 222, 128, 0.15)),
+    0 2px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* ═══════════════════════════════════════════════
+   Rotating Neon Border — Always Active
+   ═══════════════════════════════════════════════ */
+
+@keyframes service-border-spin {
+  0% { --service-border-angle: 0deg; }
+  100% { --service-border-angle: 360deg; }
+}
+
+@property --service-border-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* Neon pulse breathing animation */
+@keyframes neon-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes neon-pulse-slow {
+  0%, 100% { opacity: 0.15; filter: blur(2px); }
+  50% { opacity: 0.3; filter: blur(4px); }
+}
+
+@keyframes corner-dot-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.8); }
+}
+
+@keyframes scanline-sweep {
+  0% { top: -2px; opacity: 0; }
+  5% { opacity: 0.6; }
+  95% { opacity: 0.6; }
+  100% { top: 100%; opacity: 0; }
+}
+
+@keyframes energy-trace {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes icon-ring-pulse {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.15); }
+}
+
+@keyframes grid-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ── Neon Card: Red (Ultra Neon) ── */
+[data-theme="dark"] .neon-card-red {
+  border: 1px solid rgba(248, 113, 113, 0.3) !important;
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(248, 113, 113, 0.1),
+    0 0 20px rgba(239, 68, 68, 0.08),
+    inset 0 0 80px rgba(239, 68, 68, 0.03);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: neon-pulse 4s ease-in-out infinite;
+}
+[data-theme="dark"] .neon-card-red:hover {
+  border-color: rgba(248, 113, 113, 0.6) !important;
+  box-shadow:
+    0 8px 48px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(248, 113, 113, 0.25),
+    0 0 40px rgba(239, 68, 68, 0.2),
+    0 0 80px rgba(239, 68, 68, 0.1),
+    0 0 120px rgba(239, 68, 68, 0.05),
+    inset 0 0 100px rgba(239, 68, 68, 0.05);
+  animation: none;
+}
+[data-theme="dark"] .neon-border-red::before {
+  content: '';
+  position: absolute;
+  inset: -1.5px;
+  border-radius: inherit;
+  padding: 2px;
+  background: conic-gradient(
+    from var(--service-border-angle),
+    rgba(239, 68, 68, 0.8),
+    rgba(248, 113, 113, 0.3),
+    rgba(239, 68, 68, 0),
+    rgba(239, 68, 68, 0.15),
+    rgba(248, 113, 113, 0),
+    rgba(239, 68, 68, 0.3),
+    rgba(239, 68, 68, 0.8)
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: service-border-spin 3s linear infinite;
+  opacity: 0.5;
+  transition: opacity 0.5s ease;
+}
+[data-theme="dark"]:hover .neon-border-red::before {
+  opacity: 1;
+}
+
+/* Scanline for red */
+[data-theme="dark"] .neon-card-red .card-scanline {
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(239, 68, 68, 0.08),
+    rgba(239, 68, 68, 0.15),
+    rgba(239, 68, 68, 0.08),
+    transparent
+  );
+  animation: scanline-sweep 6s ease-in-out infinite;
+}
+
+/* Energy trace for red */
+[data-theme="dark"] .neon-card-red .card-energy-trace {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(239, 68, 68, 0),
+    rgba(248, 113, 113, 0.8),
+    rgba(239, 68, 68, 0.6),
+    rgba(239, 68, 68, 0),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: energy-trace 3s linear infinite;
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.4);
+}
+
+/* ── Neon Card: Green (Ultra Neon) ── */
+[data-theme="dark"] .neon-card-green {
+  border: 1px solid rgba(74, 222, 128, 0.3) !important;
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(74, 222, 128, 0.1),
+    0 0 20px rgba(34, 197, 94, 0.08),
+    inset 0 0 80px rgba(34, 197, 94, 0.03);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: neon-pulse 4s ease-in-out infinite;
+}
+[data-theme="dark"] .neon-card-green:hover {
+  border-color: rgba(74, 222, 128, 0.6) !important;
+  box-shadow:
+    0 8px 48px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(74, 222, 128, 0.25),
+    0 0 40px rgba(34, 197, 94, 0.2),
+    0 0 80px rgba(34, 197, 94, 0.1),
+    0 0 120px rgba(34, 197, 94, 0.05),
+    inset 0 0 100px rgba(34, 197, 94, 0.05);
+  animation: none;
+}
+[data-theme="dark"] .neon-border-green::before {
+  content: '';
+  position: absolute;
+  inset: -1.5px;
+  border-radius: inherit;
+  padding: 2px;
+  background: conic-gradient(
+    from var(--service-border-angle),
+    rgba(34, 197, 94, 0.8),
+    rgba(74, 222, 128, 0.3),
+    rgba(34, 197, 94, 0),
+    rgba(34, 197, 94, 0.15),
+    rgba(74, 222, 128, 0),
+    rgba(34, 197, 94, 0.3),
+    rgba(34, 197, 94, 0.8)
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: service-border-spin 3s linear infinite;
+  opacity: 0.5;
+  transition: opacity 0.5s ease;
+}
+[data-theme="dark"]:hover .neon-border-green::before {
+  opacity: 1;
+}
+
+[data-theme="dark"] .neon-card-green .card-scanline {
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(34, 197, 94, 0.08),
+    rgba(34, 197, 94, 0.15),
+    rgba(34, 197, 94, 0.08),
+    transparent
+  );
+  animation: scanline-sweep 6s ease-in-out infinite;
+}
+
+[data-theme="dark"] .neon-card-green .card-energy-trace {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(34, 197, 94, 0),
+    rgba(74, 222, 128, 0.8),
+    rgba(34, 197, 94, 0.6),
+    rgba(34, 197, 94, 0),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: energy-trace 3s linear infinite;
+  box-shadow: 0 0 12px rgba(34, 197, 94, 0.4);
+}
+
+/* ── Neon Card: Blue (Ultra Neon) ── */
+[data-theme="dark"] .neon-card-blue {
+  border: 1px solid rgba(96, 165, 250, 0.3) !important;
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(96, 165, 250, 0.1),
+    0 0 20px rgba(59, 130, 246, 0.08),
+    inset 0 0 80px rgba(59, 130, 246, 0.03);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: neon-pulse 4s ease-in-out infinite;
+}
+[data-theme="dark"] .neon-card-blue:hover {
+  border-color: rgba(96, 165, 250, 0.6) !important;
+  box-shadow:
+    0 8px 48px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(96, 165, 250, 0.25),
+    0 0 40px rgba(59, 130, 246, 0.2),
+    0 0 80px rgba(59, 130, 246, 0.1),
+    0 0 120px rgba(59, 130, 246, 0.05),
+    inset 0 0 100px rgba(59, 130, 246, 0.05);
+  animation: none;
+}
+[data-theme="dark"] .neon-border-blue::before {
+  content: '';
+  position: absolute;
+  inset: -1.5px;
+  border-radius: inherit;
+  padding: 2px;
+  background: conic-gradient(
+    from var(--service-border-angle),
+    rgba(59, 130, 246, 0.8),
+    rgba(96, 165, 250, 0.3),
+    rgba(59, 130, 246, 0),
+    rgba(59, 130, 246, 0.15),
+    rgba(96, 165, 250, 0),
+    rgba(59, 130, 246, 0.3),
+    rgba(59, 130, 246, 0.8)
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: service-border-spin 3s linear infinite;
+  opacity: 0.5;
+  transition: opacity 0.5s ease;
+}
+[data-theme="dark"]:hover .neon-border-blue::before {
+  opacity: 1;
+}
+
+[data-theme="dark"] .neon-card-blue .card-scanline {
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(59, 130, 246, 0.08),
+    rgba(59, 130, 246, 0.15),
+    rgba(59, 130, 246, 0.08),
+    transparent
+  );
+  animation: scanline-sweep 6s ease-in-out infinite;
+}
+
+[data-theme="dark"] .neon-card-blue .card-energy-trace {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(59, 130, 246, 0),
+    rgba(96, 165, 250, 0.8),
+    rgba(59, 130, 246, 0.6),
+    rgba(59, 130, 246, 0),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: energy-trace 3s linear infinite;
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
+}
+
+/* ============================================
     Service Card Neon Effects (Dark Mode)
     ============================================ */
 
@@ -1766,6 +2076,162 @@ section[id] {
 }
 .cta-fb-btn:hover .cta-fb-arrow {
   animation: cta-fb-arrow-bounce 0.6s ease infinite;
+}
+
+/* ============================================
+    Distintivo — Tech Tree Animation
+    ============================================ */
+
+/* Cycle: 8s total — 3s form/visible, 5s fade out */
+@keyframes tech-tree-appear {
+  0%   { opacity: 0; }
+  5%   { opacity: 0; }
+  30%  { opacity: 1; }
+  50%  { opacity: 1; }
+  60%  { opacity: 0.6; }
+  80%  { opacity: 0.1; }
+  100% { opacity: 0; }
+}
+
+@keyframes tree-trunk-draw {
+  0%   { stroke-dashoffset: 500; opacity: 0; }
+  5%   { opacity: 1; }
+  25%  { stroke-dashoffset: 0; opacity: 1; }
+  50%  { stroke-dashoffset: 0; opacity: 1; }
+  65%  { opacity: 0.5; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
+
+@keyframes tree-branch-draw {
+  0%   { stroke-dashoffset: 200; opacity: 0; }
+  15%  { opacity: 0; }
+  35%  { stroke-dashoffset: 0; opacity: 1; }
+  50%  { stroke-dashoffset: 0; opacity: 1; }
+  65%  { opacity: 0.5; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
+
+@keyframes tree-node-pop {
+  0%   { r: 0; opacity: 0; }
+  20%  { opacity: 0; }
+  35%  { r: 8; opacity: 1; }
+  50%  { r: 8; opacity: 1; }
+  65%  { r: 6; opacity: 0.5; }
+  100% { r: 0; opacity: 0; }
+}
+
+@keyframes tree-leaf-grow {
+  0%   { opacity: 0; transform: scale(0); }
+  25%  { opacity: 0; transform: scale(0); }
+  40%  { opacity: 1; transform: scale(1); }
+  50%  { opacity: 1; transform: scale(1); }
+  65%  { opacity: 0.4; transform: scale(0.8); }
+  100% { opacity: 0; transform: scale(0); }
+}
+
+@keyframes tree-pulse-glow {
+  0%, 100% { filter: drop-shadow(0 0 4px var(--tree-glow, rgba(34,197,94,0.4))); }
+  35% { filter: drop-shadow(0 0 8px var(--tree-glow, rgba(34,197,94,0.6))); }
+  50% { filter: drop-shadow(0 0 12px var(--tree-glow, rgba(34,197,94,0.8))); }
+  65% { filter: drop-shadow(0 0 4px var(--tree-glow, rgba(34,197,94,0.3))); }
+}
+
+@keyframes tree-data-flow {
+  0%   { offset-distance: 0%; opacity: 0; }
+  25%  { opacity: 0; }
+  30%  { opacity: 1; }
+  50%  { offset-distance: 100%; opacity: 1; }
+  55%  { opacity: 0; }
+  100% { offset-distance: 100%; opacity: 0; }
+}
+
+@keyframes tree-crown-expand {
+  0%   { r: 0; opacity: 0; }
+  30%  { opacity: 0; }
+  45%  { r: 35; opacity: 0.8; }
+  50%  { r: 38; opacity: 1; }
+  65%  { r: 30; opacity: 0.4; }
+  100% { r: 0; opacity: 0; }
+}
+
+@keyframes tree-root-spread {
+  0%   { stroke-dashoffset: 150; opacity: 0; }
+  10%  { opacity: 0; }
+  30%  { stroke-dashoffset: 0; opacity: 0.7; }
+  50%  { stroke-dashoffset: 0; opacity: 0.7; }
+  70%  { opacity: 0.2; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
+
+/* Tech tree container animation */
+.tech-tree-container {
+  animation: tech-tree-appear 8s ease-in-out infinite;
+}
+
+/* Dark mode neon glow for tech tree */
+[data-theme="dark"] .tech-tree-container {
+  animation: tech-tree-appear 8s ease-in-out infinite, tree-pulse-glow 8s ease-in-out infinite;
+}
+
+.tech-tree-trunk {
+  stroke-dasharray: 500;
+  animation: tree-trunk-draw 8s ease-in-out infinite;
+}
+
+.tech-tree-branch {
+  stroke-dasharray: 200;
+}
+
+.tech-tree-branch-1 { animation: tree-branch-draw 8s ease-in-out 0.3s infinite; }
+.tech-tree-branch-2 { animation: tree-branch-draw 8s ease-in-out 0.6s infinite; }
+.tech-tree-branch-3 { animation: tree-branch-draw 8s ease-in-out 0.9s infinite; }
+.tech-tree-branch-4 { animation: tree-branch-draw 8s ease-in-out 1.2s infinite; }
+.tech-tree-branch-5 { animation: tree-branch-draw 8s ease-in-out 1.5s infinite; }
+.tech-tree-branch-6 { animation: tree-branch-draw 8s ease-in-out 1.8s infinite; }
+
+.tech-tree-node {
+  animation: tree-node-pop 8s ease-in-out infinite;
+}
+.tech-tree-node-1 { animation-delay: 0.5s; }
+.tech-tree-node-2 { animation-delay: 0.8s; }
+.tech-tree-node-3 { animation-delay: 1.1s; }
+.tech-tree-node-4 { animation-delay: 1.4s; }
+.tech-tree-node-5 { animation-delay: 1.7s; }
+.tech-tree-node-6 { animation-delay: 2.0s; }
+
+.tech-tree-leaf {
+  transform-origin: center;
+  animation: tree-leaf-grow 8s ease-in-out infinite;
+}
+.tech-tree-leaf-1 { animation-delay: 0.7s; }
+.tech-tree-leaf-2 { animation-delay: 1.0s; }
+.tech-tree-leaf-3 { animation-delay: 1.3s; }
+.tech-tree-leaf-4 { animation-delay: 1.6s; }
+.tech-tree-leaf-5 { animation-delay: 1.9s; }
+.tech-tree-leaf-6 { animation-delay: 2.2s; }
+
+.tech-tree-crown {
+  animation: tree-crown-expand 8s ease-in-out 2s infinite;
+}
+
+.tech-tree-root {
+  stroke-dasharray: 150;
+  animation: tree-root-spread 8s ease-in-out 0.2s infinite;
+}
+
+.tech-tree-data-dot {
+  offset-path: path('M90 480 L90 120');
+  animation: tree-data-flow 8s ease-in-out 2.5s infinite;
+}
+
+.tech-tree-data-dot-2 {
+  offset-path: path('M90 480 L90 120');
+  animation: tree-data-flow 8s ease-in-out 3.2s infinite;
+}
+
+.tech-tree-data-dot-3 {
+  offset-path: path('M90 480 L90 120');
+  animation: tree-data-flow 8s ease-in-out 3.9s infinite;
 }
 
 /* ============================================

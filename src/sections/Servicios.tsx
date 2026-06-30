@@ -177,65 +177,131 @@ const iconMap: Record<string, React.ElementType> = {
 };
 
 const accentColors = [
+  // Card 0 — Red
   {
-    border: "border-secondary",
-    borderHover: "group-hover:border-secondary/50",
-    bg: "bg-secondary",
-    text: "text-secondary",
-    glow: "shadow-secondary/20",
-    from: "from-secondary",
-    gradient: "from-secondary/20",
-    neonCard: "neon-card-secondary",
-    neonGridColor: "rgba(49,191,44,0.3)",
-    neonGridDark: "rgba(74,222,128,0.4)",
-    neonBorderLight: "rgba(49,191,44,0.15)",
-    neonBorderDark: "rgba(74,222,128,0.25)",
-    neonBorderDarkHover: "rgba(74,222,128,0.4)",
-    neonIconBg: "rgba(49,191,44,0.06)",
-    neonIconBgDark: "rgba(74,222,128,0.08)",
-    neonIconBorderLight: "rgba(49,191,44,0.2)",
-    neonIconBorderDark: "rgba(74,222,128,0.3)",
-    neonIconBorderDarkHover: "rgba(74,222,128,0.5)",
+    name: "red",
+    border: "border-red-500",
+    borderHover: "group-hover:border-red-500/50",
+    bg: "bg-red-500",
+    bgLight: "bg-red-50",
+    bgLightDark: "dark:bg-red-500/10",
+    text: "text-red-500",
+    textLight: "text-red-600",
+    textLightDark: "dark:text-red-400",
+    glow: "shadow-red-500/20",
+    from: "from-red-500",
+    gradient: "from-red-500/10",
+    neonCard: "neon-card-red",
+    neonBorderSpin: "neon-border-red",
+    neonGlowHover: "shadow-[0_0_40px_rgba(239,68,68,0.15)]",
+    neonBorderLight: "rgba(239,68,68,0.15)",
+    neonBorderDark: "rgba(239,68,68,0.3)",
+    neonBorderDarkHover: "rgba(239,68,68,0.6)",
+    neonIconBg: "rgba(239,68,68,0.06)",
+    neonIconBgDark: "rgba(239,68,68,0.1)",
+    neonIconBorderLight: "rgba(239,68,68,0.15)",
+    neonIconBorderDark: "rgba(239,68,68,0.3)",
+    neonIconBorderDarkHover: "rgba(239,68,68,0.5)",
+    lightCardBg: "bg-white",
+    lightCardBorder: "border-gray-200/80",
+    lightCardHoverBorder: "hover:border-red-300/60",
+    lightCardHoverShadow: "hover:shadow-[0_8px_32px_rgba(239,68,68,0.08)]",
+    lightTitleText: "text-gray-900",
+    lightDescText: "text-gray-500",
+    lightDividerBorder: "border-gray-100",
+    lightToggleBg: "bg-gray-100",
+    lightToggleText: "text-gray-400",
+    lightToggleHoverBg: "hover:bg-gray-200",
+    lightExpandedBorder: "border-gray-100",
+    lightExpandedText: "text-gray-600",
+    lightImageBorder: "border-gray-200/60",
+    circuitLightColor: "rgb(200,200,200)",
+    circuitDarkColor: "rgb(239,68,68)",
+    circuitDarkOpacity: 0.5,
   },
+  // Card 1 — Green
   {
-    border: "border-primary",
-    borderHover: "group-hover:border-primary/50",
-    bg: "bg-primary",
-    text: "text-primary",
-    glow: "shadow-primary/20",
-    from: "from-primary",
-    gradient: "from-primary/20",
-    neonCard: "neon-card-primary",
-    neonGridColor: "rgba(4,38,140,0.3)",
-    neonGridDark: "rgba(96,165,250,0.4)",
-    neonBorderLight: "rgba(4,38,140,0.15)",
-    neonBorderDark: "rgba(96,165,250,0.25)",
-    neonBorderDarkHover: "rgba(96,165,250,0.4)",
-    neonIconBg: "rgba(4,38,140,0.06)",
-    neonIconBgDark: "rgba(96,165,250,0.08)",
-    neonIconBorderLight: "rgba(4,38,140,0.2)",
-    neonIconBorderDark: "rgba(96,165,250,0.3)",
-    neonIconBorderDarkHover: "rgba(96,165,250,0.5)",
+    name: "green",
+    border: "border-green-500",
+    borderHover: "group-hover:border-green-500/50",
+    bg: "bg-green-500",
+    bgLight: "bg-green-50",
+    bgLightDark: "dark:bg-green-500/10",
+    text: "text-green-500",
+    textLight: "text-green-600",
+    textLightDark: "dark:text-green-400",
+    glow: "shadow-green-500/20",
+    from: "from-green-500",
+    gradient: "from-green-500/10",
+    neonCard: "neon-card-green",
+    neonBorderSpin: "neon-border-green",
+    neonGlowHover: "shadow-[0_0_40px_rgba(34,197,94,0.15)]",
+    neonBorderLight: "rgba(34,197,94,0.15)",
+    neonBorderDark: "rgba(34,197,94,0.3)",
+    neonBorderDarkHover: "rgba(34,197,94,0.6)",
+    neonIconBg: "rgba(34,197,94,0.06)",
+    neonIconBgDark: "rgba(34,197,94,0.1)",
+    neonIconBorderLight: "rgba(34,197,94,0.15)",
+    neonIconBorderDark: "rgba(34,197,94,0.3)",
+    neonIconBorderDarkHover: "rgba(34,197,94,0.5)",
+    lightCardBg: "bg-white",
+    lightCardBorder: "border-gray-200/80",
+    lightCardHoverBorder: "hover:border-green-300/60",
+    lightCardHoverShadow: "hover:shadow-[0_8px_32px_rgba(34,197,94,0.08)]",
+    lightTitleText: "text-gray-900",
+    lightDescText: "text-gray-500",
+    lightDividerBorder: "border-gray-100",
+    lightToggleBg: "bg-gray-100",
+    lightToggleText: "text-gray-400",
+    lightToggleHoverBg: "hover:bg-gray-200",
+    lightExpandedBorder: "border-gray-100",
+    lightExpandedText: "text-gray-600",
+    lightImageBorder: "border-gray-200/60",
+    circuitLightColor: "rgb(200,200,200)",
+    circuitDarkColor: "rgb(34,197,94)",
+    circuitDarkOpacity: 0.5,
   },
+  // Card 2 — Blue
   {
-    border: "border-secondary",
-    borderHover: "group-hover:border-secondary/50",
-    bg: "bg-secondary",
-    text: "text-secondary",
-    glow: "shadow-secondary/20",
-    from: "from-secondary",
-    gradient: "from-secondary/20",
-    neonCard: "neon-card-secondary",
-    neonGridColor: "rgba(49,191,44,0.3)",
-    neonGridDark: "rgba(74,222,128,0.4)",
-    neonBorderLight: "rgba(49,191,44,0.15)",
-    neonBorderDark: "rgba(74,222,128,0.25)",
-    neonBorderDarkHover: "rgba(74,222,128,0.4)",
-    neonIconBg: "rgba(49,191,44,0.06)",
-    neonIconBgDark: "rgba(74,222,128,0.08)",
-    neonIconBorderLight: "rgba(49,191,44,0.2)",
-    neonIconBorderDark: "rgba(74,222,128,0.3)",
-    neonIconBorderDarkHover: "rgba(74,222,128,0.5)",
+    name: "blue",
+    border: "border-blue-500",
+    borderHover: "group-hover:border-blue-500/50",
+    bg: "bg-blue-500",
+    bgLight: "bg-blue-50",
+    bgLightDark: "dark:bg-blue-500/10",
+    text: "text-blue-500",
+    textLight: "text-blue-600",
+    textLightDark: "dark:text-blue-400",
+    glow: "shadow-blue-500/20",
+    from: "from-blue-500",
+    gradient: "from-blue-500/10",
+    neonCard: "neon-card-blue",
+    neonBorderSpin: "neon-border-blue",
+    neonGlowHover: "shadow-[0_0_40px_rgba(59,130,246,0.15)]",
+    neonBorderLight: "rgba(59,130,246,0.15)",
+    neonBorderDark: "rgba(59,130,246,0.3)",
+    neonBorderDarkHover: "rgba(59,130,246,0.6)",
+    neonIconBg: "rgba(59,130,246,0.06)",
+    neonIconBgDark: "rgba(59,130,246,0.1)",
+    neonIconBorderLight: "rgba(59,130,246,0.15)",
+    neonIconBorderDark: "rgba(59,130,246,0.3)",
+    neonIconBorderDarkHover: "rgba(59,130,246,0.5)",
+    lightCardBg: "bg-white",
+    lightCardBorder: "border-gray-200/80",
+    lightCardHoverBorder: "hover:border-blue-300/60",
+    lightCardHoverShadow: "hover:shadow-[0_8px_32px_rgba(59,130,246,0.08)]",
+    lightTitleText: "text-gray-900",
+    lightDescText: "text-gray-500",
+    lightDividerBorder: "border-gray-100",
+    lightToggleBg: "bg-gray-100",
+    lightToggleText: "text-gray-400",
+    lightToggleHoverBg: "hover:bg-gray-200",
+    lightExpandedBorder: "border-gray-100",
+    lightExpandedText: "text-gray-600",
+    lightImageBorder: "border-gray-200/60",
+    circuitLightColor: "rgb(200,200,200)",
+    circuitDarkColor: "rgb(59,130,246)",
+    circuitDarkOpacity: 0.5,
   },
 ];
 
@@ -317,10 +383,10 @@ function ServiceCard({
     <TiltCard maxTilt={4} perspective={1200} scale={1.01} className="h-full">
       <div
         ref={cardRef}
-        className={`relative h-full min-h-[340px] sm:min-h-[380px] rounded-2xl overflow-hidden group cursor-pointer transition-all duration-500
-          bg-card border border-border/50
-          hover:border-emerald-400/40 hover:shadow-[0_0_30px_rgba(49,191,44,0.15)] hover:shadow-emerald-400/10
-          dark:bg-slate-900 dark:border-0 ${accent.neonCard}`}
+        className={`relative h-full min-h-[340px] sm:min-h-[380px] rounded-2xl overflow-hidden group cursor-pointer
+          ${accent.lightCardBg} ${accent.lightCardBorder} ${accent.lightCardHoverBorder} ${accent.lightCardHoverShadow}
+          dark:bg-slate-900/80 dark:backdrop-blur-sm ${accent.neonCard}
+          transition-all duration-500`}
         onClick={onToggle}
         role="button"
         tabIndex={0}
@@ -328,117 +394,198 @@ function ServiceCard({
         onKeyDown={(e) => e.key === "Enter" && onToggle()}
         onMouseEnter={handleAccentEnter}
       >
-        {/* Top accent bar */}
+        {/* ═══════════════════════════════════════════
+            Rotating Neon Border — Always Active (Dark)
+            ═══════════════════════════════════════════ */}
         <div
-          ref={accentRef}
-          className={`absolute top-0 left-0 right-0 h-[2px] ${accent.bg}`}
+          className={`absolute inset-0 rounded-2xl pointer-events-none hidden dark:block ${accent.neonBorderSpin}`}
           aria-hidden="true"
         />
 
-        {/* Corner accent lines */}
-        <div className={`absolute top-0 left-0 w-10 h-[2px] ${accent.bg} opacity-30`} aria-hidden="true" />
-        <div className={`absolute top-0 left-0 w-[2px] h-10 ${accent.bg} opacity-30`} aria-hidden="true" />
-        <div className={`absolute bottom-0 right-0 w-10 h-[2px] ${accent.bg} opacity-30`} aria-hidden="true" />
-        <div className={`absolute bottom-0 right-0 w-[2px] h-10 ${accent.bg} opacity-30`} aria-hidden="true" />
-
-        {/* Circuit watermark */}
+        {/* ═══════════════════════════════════════════
+            Scanline Sweep (Dark Mode)
+            ═══════════════════════════════════════════ */}
         <div
-          className="absolute -bottom-12 -right-12 w-[180px] h-[180px] sm:w-[260px] sm:h-[260px] md:w-[320px] md:h-[320px] select-none pointer-events-none transition-all duration-500 group-hover:opacity-[0.1]"
+          className="card-scanline absolute left-0 right-0 h-[2px] pointer-events-none hidden dark:block"
           aria-hidden="true"
-          style={{ opacity: 0.06 }}
+        />
+
+        {/* ═══════════════════════════════════════════
+            Top Accent Bar — Expands on Hover
+            ═══════════════════════════════════════════ */}
+        <div
+          ref={accentRef}
+          className={`absolute top-0 left-0 right-0 h-[3px] ${accent.bg} z-20`}
+          aria-hidden="true"
+        />
+
+        {/* ═══════════════════════════════════════════
+            Corner Neon Dots (Dark Mode)
+            ═══════════════════════════════════════════ */}
+        <div className="absolute top-2 left-2 w-1.5 h-1.5 rounded-full hidden dark:block" aria-hidden="true"
+          style={{ backgroundColor: accent.circuitDarkColor, animation: 'corner-dot-pulse 2.5s ease-in-out infinite' }}
+        />
+        <div className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full hidden dark:block" aria-hidden="true"
+          style={{ backgroundColor: accent.circuitDarkColor, animation: 'corner-dot-pulse 2.5s ease-in-out infinite 0.6s' }}
+        />
+        <div className="absolute bottom-2 left-2 w-1.5 h-1.5 rounded-full hidden dark:block" aria-hidden="true"
+          style={{ backgroundColor: accent.circuitDarkColor, animation: 'corner-dot-pulse 2.5s ease-in-out infinite 1.2s' }}
+        />
+        <div className="absolute bottom-2 right-2 w-1.5 h-1.5 rounded-full hidden dark:block" aria-hidden="true"
+          style={{ backgroundColor: accent.circuitDarkColor, animation: 'corner-dot-pulse 2.5s ease-in-out infinite 1.8s' }}
+        />
+
+        {/* ═══════════════════════════════════════════
+            Corner Tech Accents (Light Mode)
+            ═══════════════════════════════════════════ */}
+        <div className={`absolute top-0 left-0 w-12 h-[2px] ${accent.bg} opacity-20 group-hover:opacity-40 transition-opacity duration-500 dark:hidden`} aria-hidden="true" />
+        <div className={`absolute top-0 left-0 w-[2px] h-12 ${accent.bg} opacity-20 group-hover:opacity-40 transition-opacity duration-500 dark:hidden`} aria-hidden="true" />
+        <div className={`absolute bottom-0 right-0 w-12 h-[2px] ${accent.bg} opacity-20 group-hover:opacity-40 transition-opacity duration-500 dark:hidden`} aria-hidden="true" />
+        <div className={`absolute bottom-0 right-0 w-[2px] h-12 ${accent.bg} opacity-20 group-hover:opacity-40 transition-opacity duration-500 dark:hidden`} aria-hidden="true" />
+
+        {/* ═══════════════════════════════════════════
+            Circuit Watermark — Abstract tech pattern
+            ═══════════════════════════════════════════ */}
+        <div
+          className="absolute -bottom-8 -right-8 w-[160px] h-[160px] sm:w-[220px] sm:h-[220px] md:w-[280px] md:h-[280px] select-none pointer-events-none transition-all duration-700 group-hover:opacity-[0.1]"
+          aria-hidden="true"
+          style={{ opacity: 0.04 }}
         >
-          <div className="dark:hidden" style={{ color: 'rgb(148, 163, 184)' }}>
+          <div className="dark:hidden" style={{ color: accent.circuitLightColor }}>
             {circuitDesigns[index % circuitDesigns.length]()}
           </div>
-          <div className="hidden dark:block" style={{ color: index === 1 ? 'rgb(96, 165, 250)' : 'rgb(74, 222, 128)', opacity: 0.6 }}>
+          <div className="hidden dark:block" style={{ color: accent.circuitDarkColor, opacity: accent.circuitDarkOpacity }}>
             {circuitDesigns[index % circuitDesigns.length]()}
           </div>
         </div>
 
-        {/* Subtle gradient overlay on hover */}
+        {/* ═══════════════════════════════════════════
+            Grid Pattern — Appears on Hover (Dark)
+            ═══════════════════════════════════════════ */}
         <div
-          className={`absolute inset-0 bg-gradient-to-br ${accent.gradient} via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`}
+          className="absolute inset-0 pointer-events-none hidden dark:block opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+          style={{
+            backgroundImage: `linear-gradient(${accent.neonBorderDark} 1px, transparent 1px), linear-gradient(90deg, ${accent.neonBorderDark} 1px, transparent 1px)`,
+            backgroundSize: '32px 32px',
+          }}
           aria-hidden="true"
         />
 
-        <div className="relative z-10 flex flex-col h-full p-8">
-          {/* Icon container — neon glow on hover */}
+        {/* ═══════════════════════════════════════════
+            Energy Trace — Bottom Line (Dark Mode)
+            ═══════════════════════════════════════════ */}
+        <div
+          className="card-energy-trace absolute bottom-0 left-0 right-0 h-[2px] pointer-events-none hidden dark:block"
+          aria-hidden="true"
+        />
+
+        {/* ═══════════════════════════════════════════
+            Subtle Gradient Overlay on Hover
+            ═══════════════════════════════════════════ */}
+        <div
+          className={`absolute inset-0 bg-gradient-to-br ${accent.gradient} via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none dark:from-white/[0.02]`}
+          aria-hidden="true"
+        />
+
+        {/* ═══════════════════════════════════════════
+            Content Layer
+            ═══════════════════════════════════════════ */}
+        <div className="relative z-10 flex flex-col h-full p-6 sm:p-8">
+          {/* ── Icon Container ── */}
           <div
             ref={iconRef}
-            className={`relative mb-6 sm:mb-8 inline-flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-2xl border transition-all duration-500
-              bg-card border-border/50 group-hover:shadow-lg
-              dark:bg-slate-800 dark:border-slate-700/50 neon-icon-container`}
+            className={`relative mb-6 sm:mb-7 inline-flex h-13 w-13 sm:h-14 sm:w-14 items-center justify-center rounded-xl border transition-all duration-500
+              ${accent.bgLight} ${accent.bgLightDark} neon-icon-v2`}
             style={{
-              boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
-              borderColor: index === 1 ? 'rgba(59, 130, 246, 0.2)' : 'rgba(34, 197, 94, 0.2)',
-              '--icon-bg-dark': accent.neonIconBgDark,
-              '--icon-border-dark': accent.neonIconBorderDark,
-              '--icon-border-dark-hover': accent.neonIconBorderDarkHover,
-              '--icon-glow-color': index === 1 ? 'rgba(96,165,250,0.2)' : 'rgba(74,222,128,0.2)',
+              borderColor: accent.neonIconBorderLight,
+              '--v2-icon-bg-dark': accent.neonIconBgDark,
+              '--v2-icon-border-dark': accent.neonIconBorderDark,
+              '--v2-icon-border-dark-hover': accent.neonIconBorderDarkHover,
+              '--v2-icon-glow': index === 0 ? 'rgba(239,68,68,0.25)' : index === 1 ? 'rgba(34,197,94,0.25)' : 'rgba(59,130,246,0.25)',
             } as React.CSSProperties}
           >
-            <Icon className={`h-6 w-6 sm:h-7 sm:w-7 ${index === 0 ? 'text-green-500' : index === 1 ? 'text-blue-500' : 'text-emerald-500'}`} aria-hidden="true" />
-            {/* Icon glow ring on hover */}
+            <Icon className={`h-6 w-6 sm:h-6.5 sm:w-6.5 ${accent.text}`} aria-hidden="true" />
+            {/* Icon neon pulse ring (Dark Mode) */}
             <div
-              className={`absolute inset-0 rounded-2xl ${accent.bg} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}
+              className="absolute inset-0 rounded-xl hidden dark:block pointer-events-none"
+              aria-hidden="true"
+              style={{
+                border: `1px solid ${accent.neonBorderDark}`,
+                animation: 'icon-ring-pulse 3s ease-in-out infinite',
+              }}
+            />
+            {/* Inner glow on hover */}
+            <div
+              className={`absolute inset-0 rounded-xl ${accent.bg} opacity-0 group-hover:opacity-[0.08] transition-opacity duration-300`}
               aria-hidden="true"
             />
           </div>
 
-          {/* Title */}
-          <h3 className="font-bold text-lg text-white sm:text-xl text-foreground tracking-tight">
+          {/* ── Title (Light Mode) ── */}
+          <h3 className={`font-bold text-lg sm:text-xl tracking-tight mb-2 dark:hidden ${accent.lightTitleText}`}>
+            {service.title}
+          </h3>
+          {/* ── Title (Dark Mode — Neon Glow) ── */}
+          <h3
+            className="font-bold text-lg sm:text-xl tracking-tight mb-2 hidden dark:block"
+            style={{
+              color: 'white',
+              textShadow: `0 0 20px ${accent.neonBorderDark}, 0 0 40px ${accent.neonBorderLight}`,
+            }}
+          >
             {service.title}
           </h3>
 
-          {/* Short description */}
-          <p className="text-sm text-white text-muted-foreground leading-relaxed line-clamp-2 mb-auto">
+          {/* ── Short Description ── */}
+          <p className={`text-sm leading-relaxed line-clamp-2 mb-auto ${accent.lightDescText} dark:text-slate-400`}>
             {service.description.slice(0, 120)}...
           </p>
 
-          {/* Divider + Toggle */}
-          <div className="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-border/50 flex items-center justify-between">
+          {/* ── Divider + Toggle ── */}
+          <div className={`mt-5 sm:mt-6 pt-3 sm:pt-4 border-t flex items-center justify-between ${accent.lightDividerBorder} dark:border-slate-700/40`}>
             <span
-              className={`text-xs font-medium uppercase tracking-wider ${index === 0 ? 'text-green-600' : index === 1 ? 'text-blue-600' : 'text-emerald-600'}`}
+              className={`text-xs font-semibold uppercase tracking-widest ${accent.textLight} ${accent.textLightDark}`}
             >
-              {isSelected ? "Cerrar detalles" : "Ver detalles"}
+              {isSelected ? "Cerrar" : "Ver detalles"}
             </span>
             <div
-              className={`flex h-8 w-8 items-center justify-center rounded-full transition-all duration-300 ${
+              className={`flex h-7 w-7 items-center justify-center rounded-lg transition-all duration-300 ${
                 isSelected
-                  ? `${accent.bg} text-white shadow-lg`
-                  : "bg-slate-100 text-slate-500 hover:bg-slate-200"
+                  ? `${accent.bg} text-white shadow-md`
+                  : `${accent.lightToggleBg} ${accent.lightToggleText} dark:bg-slate-800 dark:text-slate-500 ${accent.lightToggleHoverBg} dark:hover:bg-slate-700`
               }`}
             >
               {isSelected ? (
-                <ChevronUp className="h-4 w-4" aria-hidden="true" />
+                <ChevronUp className="h-3.5 w-3.5" aria-hidden="true" />
               ) : (
-                <ChevronDown className="h-4 w-4" aria-hidden="true" />
+                <ChevronDown className="h-3.5 w-3.5" aria-hidden="true" />
               )}
             </div>
           </div>
 
-          {/* Expanded content */}
+          {/* ── Expanded Content ── */}
           <div
             ref={contentRef}
             className="overflow-hidden"
             style={{ height: 0, opacity: 0 }}
           >
-            <div className="pt-4 sm:pt-5 mt-2 border-t border-border/50 space-y-4">
-              <p className="text-sm text-white text-muted-foreground leading-relaxed">
+            <div className={`pt-4 sm:pt-5 mt-2 border-t space-y-4 ${accent.lightExpandedBorder} dark:border-slate-700/40`}>
+              <p className={`text-sm leading-relaxed ${accent.lightExpandedText} dark:text-slate-400`}>
                 {service.description}
               </p>
 
-              {/* Service image */}
+              {/* Service image — HEIGHT NEVER CHANGES */}
               {service.image && (
-                <div className="relative w-full h-[250px] sm:h-[350px] md:h-[450px] lg:h-[500px] rounded-xl overflow-hidden border border-border/50">
+                <div className="relative w-full h-[250px] sm:h-[350px] md:h-[450px] lg:h-[500px] rounded-xl overflow-hidden border dark:border-slate-700/40">
                   <Image
                     src={service.image}
                     alt={service.title}
                     fill
                     className="object-contain transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                   <div
-                    className="absolute inset-0 bg-gradient-to-t from-card/40 to-transparent"
+                    className="absolute inset-0 bg-gradient-to-t from-white/60 to-transparent dark:from-slate-900/40"
                     aria-hidden="true"
                   />
                 </div>

@@ -33,6 +33,249 @@ const iconColors = [
   { bg: 'bg-cyan-400/10', text: 'text-cyan-400', neon: 'neon-cyan' },
 ]
 
+/* ═══════════════════════════════════════════════════
+   Tech Tree — Animated SVG (Desktop Only)
+   Represents Infonagreen: environmental + technology
+   8s cycle: 3s visible/forming → 5s fading out
+   ═══════════════════════════════════════════════════ */
+function TechTreeAnimation() {
+  return (
+    <div
+      className="tech-tree-container hidden lg:flex items-end justify-center flex-shrink-0"
+      style={{ width: '180px', height: '520px' }}
+      aria-hidden="true"
+    >
+      <svg
+        viewBox="0 0 180 520"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="w-full h-full"
+        style={{ '--tree-glow': 'rgba(34,197,94,0.6)' } as React.CSSProperties}
+      >
+        {/* ═══ ROOTS — circuit lines spreading at base ═══ */}
+        <path
+          className="tech-tree-root"
+          d="M90 480 L60 500 L30 505"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          opacity="0.7"
+        />
+        <path
+          className="tech-tree-root"
+          d="M90 480 L120 500 L150 505"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          opacity="0.7"
+        />
+        <path
+          className="tech-tree-root"
+          d="M90 480 L75 495 L70 510"
+          stroke="currentColor"
+          strokeWidth="1"
+          strokeLinecap="round"
+          opacity="0.5"
+        />
+        <path
+          className="tech-tree-root"
+          d="M90 480 L105 495 L110 510"
+          stroke="currentColor"
+          strokeWidth="1"
+          strokeLinecap="round"
+          opacity="0.5"
+        />
+
+        {/* Root node */}
+        <circle cx="90" cy="480" r="5" className="tech-tree-node tech-tree-node-1" fill="currentColor" opacity="0.8" />
+        <circle cx="30" cy="505" r="3" className="tech-tree-node tech-tree-node-2" fill="currentColor" opacity="0.5" />
+        <circle cx="150" cy="505" r="3" className="tech-tree-node tech-tree-node-3" fill="currentColor" opacity="0.5" />
+
+        {/* ═══ TRUNK — main circuit path ═══ */}
+        <path
+          className="tech-tree-trunk"
+          d="M90 480 L90 380 L90 280 L90 180 L90 120"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+
+        {/* ═══ BRANCHES — left side ═══ */}
+        {/* Branch 1 (low-left) */}
+        <path
+          className="tech-tree-branch tech-tree-branch-1"
+          d="M90 420 L60 390 L35 370"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        {/* Branch 2 (mid-left) */}
+        <path
+          className="tech-tree-branch tech-tree-branch-2"
+          d="M90 340 L55 310 L30 290"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        {/* Branch 3 (high-left) */}
+        <path
+          className="tech-tree-branch tech-tree-branch-3"
+          d="M90 260 L60 230 L40 210"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+
+        {/* ═══ BRANCHES — right side ═══ */}
+        {/* Branch 4 (low-right) */}
+        <path
+          className="tech-tree-branch tech-tree-branch-4"
+          d="M90 400 L120 370 L145 350"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        {/* Branch 5 (mid-right) */}
+        <path
+          className="tech-tree-branch tech-tree-branch-5"
+          d="M90 300 L125 270 L150 250"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        {/* Branch 6 (high-right) */}
+        <path
+          className="tech-tree-branch tech-tree-branch-6"
+          d="M90 220 L120 190 L140 170"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+
+        {/* ═══ NODES — glowing circles at branch ends ═══ */}
+        {/* Left nodes */}
+        <circle cx="35" cy="370" r="7" className="tech-tree-node tech-tree-node-1" fill="currentColor" />
+        <circle cx="35" cy="370" r="3.5" fill="white" className="tech-tree-node tech-tree-node-1" opacity="0.3" />
+        <circle cx="30" cy="290" r="7" className="tech-tree-node tech-tree-node-2" fill="currentColor" />
+        <circle cx="30" cy="290" r="3.5" fill="white" className="tech-tree-node tech-tree-node-2" opacity="0.3" />
+        <circle cx="40" cy="210" r="7" className="tech-tree-node tech-tree-node-3" fill="currentColor" />
+        <circle cx="40" cy="210" r="3.5" fill="white" className="tech-tree-node tech-tree-node-3" opacity="0.3" />
+        {/* Right nodes */}
+        <circle cx="145" cy="350" r="7" className="tech-tree-node tech-tree-node-4" fill="currentColor" />
+        <circle cx="145" cy="350" r="3.5" fill="white" className="tech-tree-node tech-tree-node-4" opacity="0.3" />
+        <circle cx="150" cy="250" r="7" className="tech-tree-node tech-tree-node-5" fill="currentColor" />
+        <circle cx="150" cy="250" r="3.5" fill="white" className="tech-tree-node tech-tree-node-5" opacity="0.3" />
+        <circle cx="140" cy="170" r="7" className="tech-tree-node tech-tree-node-6" fill="currentColor" />
+        <circle cx="140" cy="170" r="3.5" fill="white" className="tech-tree-node tech-tree-node-6" opacity="0.3" />
+
+        {/* Trunk junction nodes */}
+        <circle cx="90" cy="420" r="4" className="tech-tree-node tech-tree-node-1" fill="currentColor" opacity="0.7" />
+        <circle cx="90" cy="340" r="4" className="tech-tree-node tech-tree-node-2" fill="currentColor" opacity="0.7" />
+        <circle cx="90" cy="260" r="4" className="tech-tree-node tech-tree-node-3" fill="currentColor" opacity="0.7" />
+        <circle cx="90" cy="300" r="4" className="tech-tree-node tech-tree-node-4" fill="currentColor" opacity="0.7" />
+
+        {/* ═══ LEAVES — digital leaf shapes ═══ */}
+        {/* Left leaves */}
+        <g className="tech-tree-leaf tech-tree-leaf-1">
+          <ellipse cx="20" cy="365" rx="12" ry="6" fill="currentColor" opacity="0.15" transform="rotate(-30 20 365)" />
+          <circle cx="20" cy="365" r="2" fill="currentColor" opacity="0.4" />
+        </g>
+        <g className="tech-tree-leaf tech-tree-leaf-2">
+          <ellipse cx="18" cy="285" rx="12" ry="6" fill="currentColor" opacity="0.15" transform="rotate(-25 18 285)" />
+          <circle cx="18" cy="285" r="2" fill="currentColor" opacity="0.4" />
+        </g>
+        <g className="tech-tree-leaf tech-tree-leaf-3">
+          <ellipse cx="28" cy="205" rx="12" ry="6" fill="currentColor" opacity="0.15" transform="rotate(-35 28 205)" />
+          <circle cx="28" cy="205" r="2" fill="currentColor" opacity="0.4" />
+        </g>
+        {/* Right leaves */}
+        <g className="tech-tree-leaf tech-tree-leaf-4">
+          <ellipse cx="160" cy="345" rx="12" ry="6" fill="currentColor" opacity="0.15" transform="rotate(30 160 345)" />
+          <circle cx="160" cy="345" r="2" fill="currentColor" opacity="0.4" />
+        </g>
+        <g className="tech-tree-leaf tech-tree-leaf-5">
+          <ellipse cx="162" cy="245" rx="12" ry="6" fill="currentColor" opacity="0.15" transform="rotate(25 162 245)" />
+          <circle cx="162" cy="245" r="2" fill="currentColor" opacity="0.4" />
+        </g>
+        <g className="tech-tree-leaf tech-tree-leaf-6">
+          <ellipse cx="152" cy="165" rx="12" ry="6" fill="currentColor" opacity="0.15" transform="rotate(35 152 165)" />
+          <circle cx="152" cy="165" r="2" fill="currentColor" opacity="0.4" />
+        </g>
+
+        {/* ═══ CROWN — top digital canopy ═══ */}
+        <circle
+          cx="90"
+          cy="100"
+          className="tech-tree-crown"
+          fill="currentColor"
+          opacity="0.12"
+        />
+        <circle
+          cx="90"
+          cy="100"
+          r="25"
+          className="tech-tree-crown"
+          fill="currentColor"
+          opacity="0.08"
+        />
+        {/* Crown node */}
+        <circle cx="90" cy="100" r="6" className="tech-tree-node tech-tree-node-6" fill="currentColor" />
+        <circle cx="90" cy="100" r="3" fill="white" className="tech-tree-node tech-tree-node-6" opacity="0.3" />
+
+        {/* Crown branches */}
+        <path className="tech-tree-branch tech-tree-branch-5" d="M90 120 L70 100 L55 95" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+        <path className="tech-tree-branch tech-tree-branch-6" d="M90 120 L110 100 L125 95" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+
+        {/* Crown leaves */}
+        <g className="tech-tree-leaf tech-tree-leaf-3">
+          <ellipse cx="50" cy="92" rx="10" ry="5" fill="currentColor" opacity="0.12" transform="rotate(-20 50 92)" />
+        </g>
+        <g className="tech-tree-leaf tech-tree-leaf-6">
+          <ellipse cx="130" cy="92" rx="10" ry="5" fill="currentColor" opacity="0.12" transform="rotate(20 130 92)" />
+        </g>
+
+        {/* ═══ DATA FLOW DOTS — particles traveling up the trunk ═══ */}
+        <circle r="2.5" fill="currentColor" opacity="0.8" className="tech-tree-data-dot" />
+        <circle r="2" fill="currentColor" opacity="0.6" className="tech-tree-data-dot-2" />
+        <circle r="1.5" fill="currentColor" opacity="0.5" className="tech-tree-data-dot-3" />
+
+        {/* ═══ SECONDARY CIRCUIT PATHS — decorative tech lines ═══ */}
+        <path
+          className="tech-tree-branch tech-tree-branch-3"
+          d="M60 390 L50 375 L35 370"
+          stroke="currentColor"
+          strokeWidth="0.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          opacity="0.4"
+        />
+        <path
+          className="tech-tree-branch tech-tree-branch-6"
+          d="M120 370 L130 355 L145 350"
+          stroke="currentColor"
+          strokeWidth="0.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          opacity="0.4"
+        />
+
+        {/* Floating data points */}
+        <circle cx="15" cy="430" r="2" className="tech-tree-leaf tech-tree-leaf-1" fill="currentColor" opacity="0.3" />
+        <circle cx="165" cy="400" r="2" className="tech-tree-leaf tech-tree-leaf-4" fill="currentColor" opacity="0.3" />
+        <circle cx="10" cy="320" r="1.5" className="tech-tree-leaf tech-tree-leaf-2" fill="currentColor" opacity="0.25" />
+        <circle cx="170" cy="280" r="1.5" className="tech-tree-leaf tech-tree-leaf-5" fill="currentColor" opacity="0.25" />
+      </svg>
+    </div>
+  )
+}
+
 /* ── Facebook CTA with pulse + shine (CSS-only, no framer-motion) ── */
 function CTAFacebook() {
   const reducedMotion = useReducedMotion()
@@ -241,14 +484,24 @@ export default function Distintivo() {
           <AnimatedSection animation="fade-left" delay={0.2} duration={0.6}>
             <div>
               <h3 id="distintivo-video-heading" className="text-lg font-semibold text-foreground mb-4">Video Infonagreen</h3>
-              <div className="relative aspect-video rounded-2xl overflow-hidden border border-border bg-surface group cursor-pointer">
-                <video
-                  src="/Infonagreen.mp4"
-                  className="w-full h-full object-cover"
-                  controls
-                  preload="metadata"
-                  aria-label="Video institucional de Answer ST sobre Infonagreen"
-                />
+              <div className="flex flex-row items-end gap-4 lg:gap-6">
+                {/* Video — centered, respects original portrait dimensions */}
+                <div className="flex-1 flex justify-center">
+                  <div className="relative w-full max-w-[340px] sm:max-w-[380px] lg:max-w-[360px] rounded-2xl overflow-hidden border border-border bg-surface">
+                    <video
+                      src="/Infonagreen.mp4"
+                      className="w-full h-auto rounded-2xl"
+                      controls
+                      preload="metadata"
+                      aria-label="Video institucional de Answer ST sobre Infonagreen"
+                    />
+                  </div>
+                </div>
+
+                {/* Tech Tree — desktop only, fills remaining space */}
+                <div className="hidden lg:block text-green-600 dark:text-green-400">
+                  <TechTreeAnimation />
+                </div>
               </div>
             </div>
           </AnimatedSection>
