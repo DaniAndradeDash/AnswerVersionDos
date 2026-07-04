@@ -227,12 +227,12 @@ export default function Hero() {
             </Link>
           </div>
 
-          {/* Trust Pills */}
-          <div className="mt-12 flex flex-wrap items-center gap-3 justify-center lg:justify-start">
+          {/* Trust Pills 
+          /*<div className="mt-12 flex flex-wrap items-center gap-3 justify-center lg:justify-start">
             <TrustPill icon={Users} value="+150" label="Clientes" />
             <TrustPill icon={TrendingUp} value="98%" label="Satisfacción" />
             <TrustPill icon={CheckCircle2} value="10+" label="Años" />
-          </div>
+          </div>*/}
         </div>
 
         {/* Right — Logo Image */}
