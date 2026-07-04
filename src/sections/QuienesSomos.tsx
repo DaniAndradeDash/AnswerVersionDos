@@ -79,7 +79,7 @@ export default function QuienesSomos() {
               <div className="flex-1 relative z-10 space-y-5 sm:space-y-8 md:space-y-10 text-center lg:text-left">
                 <div className="flex items-center justify-center lg:justify-start gap-4 mb-4">
                   <div className="hidden sm:block w-12 h-[2px] bg-gradient-to-r from-secondary to-transparent"></div>
-                  <span className="text-secondary font-black tracking-[0.2em] text-white text-xs uppercase text-center sm:text-left">
+                  <span className="font-black tracking-[0.2em] text-xs uppercase text-center sm:text-left text-slate-950 dark:text-blue-600">
                     Quiénes somos
                   </span>
                 </div>
@@ -106,10 +106,10 @@ export default function QuienesSomos() {
                   <div className="absolute top-1/2 -right-2 -translate-y-1/2 w-4 h-px bg-secondary/40" />
                 </div>*/}
 
-                <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black text-foreground dark:text-white tracking-tighter leading-[0.9] mb-4 sm:mb-6 md:mb-8">
-                  {/* El alma de{" "}*/}
+                <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter leading-[0.9] mb-4 sm:mb-6 md:mb-8 text-slate-900 dark:text-white">
                   <span className="block sm:inline">
-                    ANSWER<span className="text-green-500">.st</span>
+                    <span className="text-slate-950 dark:text-blue-900">ANSWER</span>
+                    <span className="text-green-500">.st</span>
                   </span>
                 </h2>
 
@@ -119,8 +119,10 @@ export default function QuienesSomos() {
                   <div className="relative p-4 sm:p-6 md:p-8 rounded-3xl bg-white/50 dark:bg-slate-900/50 backdrop-blur-md border border-white/20 dark:border-white/5 space-y-3 sm:space-y-4 md:space-y-6 text-muted-foreground dark:text-slate-300 leading-relaxed text-sm sm:text-base md:text-lg">
                     <p>
                       En{" "}
-                      <span className="text-foreground dark:text-white font-semibold">
-                        ANSWER <span className="text-green-500">.st</span>
+                      <span className="font-semibold text-slate-900 dark:text-white">
+                        <span className="text-white dark:text-white">
+                          ANSWER                        </span>
+                        <span className="text-green-500">.st</span>
                       </span>{" "}
                       Somos una plataforma de consultoría que transforma
                       desafíos en resultados.

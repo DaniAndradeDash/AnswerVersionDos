@@ -1,7 +1,7 @@
-'use client'
+"use client";
 
-import { useRef, useEffect } from 'react'
-import Link from 'next/link'
+import { useRef, useEffect } from "react";
+import Link from "next/link";
 import {
   Landmark,
   Scale,
@@ -14,18 +14,18 @@ import {
   Users,
   Briefcase,
   TrendingUp,
-} from 'lucide-react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Section } from '@/components/ui/Section'
-import { AnimatedSection } from '@/components/motion/AnimatedSection'
-import { StaggerContainer } from '@/components/motion/StaggerContainer'
-import { AnimatedCounter } from '@/components/motion/AnimatedCounter'
-import { GradientOrb } from '@/components/motion/GradientOrb'
-import { asesorias } from '@/constants/asesorias'
-import { useReducedMotion } from '@/hooks/useReducedMotion'
+} from "lucide-react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Section } from "@/components/ui/Section";
+import { AnimatedSection } from "@/components/motion/AnimatedSection";
+import { StaggerContainer } from "@/components/motion/StaggerContainer";
+import { AnimatedCounter } from "@/components/motion/AnimatedCounter";
+import { GradientOrb } from "@/components/motion/GradientOrb";
+import { asesorias } from "@/constants/asesorias";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
-gsap.registerPlugin(ScrollTrigger)
+gsap.registerPlugin(ScrollTrigger);
 
 const iconMap: Record<string, React.ElementType> = {
   Landmark,
@@ -34,9 +34,9 @@ const iconMap: Record<string, React.ElementType> = {
   HeartPulse,
   Handshake,
   Leaf,
-}
+};
 
-const statIcons = [Target, Users, Briefcase, TrendingUp]
+const statIcons = [Target, Users, Briefcase, TrendingUp];
 
 /* ──────────────────────────────────────────────
    Advisory Card — horizontal layout, colored bar
@@ -47,18 +47,18 @@ function AsesoriaCard({
   item,
   index,
 }: {
-  item: (typeof asesorias)[number]
-  index: number
+  item: (typeof asesorias)[number];
+  index: number;
 }) {
-  const cardRef = useRef<HTMLDivElement>(null)
-  const iconRef = useRef<HTMLDivElement>(null)
-  const reducedMotion = useReducedMotion()
-  const Icon = iconMap[item.icon] ?? Landmark
+  const cardRef = useRef<HTMLDivElement>(null);
+  const iconRef = useRef<HTMLDivElement>(null);
+  const reducedMotion = useReducedMotion();
+  const Icon = iconMap[item.icon] ?? Landmark;
 
   // Icon entrance
   useEffect(() => {
-    const el = iconRef.current
-    if (!el || reducedMotion) return
+    const el = iconRef.current;
+    if (!el || reducedMotion) return;
 
     gsap.fromTo(
       el,
@@ -68,15 +68,15 @@ function AsesoriaCard({
         rotate: 0,
         duration: 0.6,
         delay: index * 0.08,
-        ease: 'back.out(1.7)',
+        ease: "back.out(1.7)",
         scrollTrigger: {
           trigger: el,
-          start: 'top 85%',
-          toggleActions: 'play none none none',
+          start: "top 85%",
+          toggleActions: "play none none none",
         },
-      }
-    )
-  }, [index, reducedMotion])
+      },
+    );
+  }, [index, reducedMotion]);
 
   return (
     <div
@@ -86,20 +86,20 @@ function AsesoriaCard({
         boxShadow: `0 0 0px ${item.color}00`,
       }}
       onMouseEnter={() => {
-        if (!cardRef.current || reducedMotion) return
+        if (!cardRef.current || reducedMotion) return;
         gsap.to(cardRef.current, {
           boxShadow: `0 20px 40px ${item.color}20, 0 0 0 1px ${item.color}30`,
           duration: 0.4,
-          ease: 'power2.out',
-        })
+          ease: "power2.out",
+        });
       }}
       onMouseLeave={() => {
-        if (!cardRef.current || reducedMotion) return
+        if (!cardRef.current || reducedMotion) return;
         gsap.to(cardRef.current, {
           boxShadow: `0 0 0px ${item.color}00`,
           duration: 0.4,
-          ease: 'power2.out',
-        })
+          ease: "power2.out",
+        });
       }}
     >
       {/* Light mode left colored bar (hidden in dark mode via CSS) */}
@@ -115,8 +115,18 @@ function AsesoriaCard({
         aria-hidden="true"
       >
         <svg viewBox="0 0 16 16" className="w-full h-full" fill="none">
-          <path d="M16 0L16 16" stroke={item.color} strokeWidth="0.5" opacity="0.4" />
-          <path d="M0 0L16 0" stroke={item.color} strokeWidth="0.5" opacity="0.4" />
+          <path
+            d="M16 0L16 16"
+            stroke={item.color}
+            strokeWidth="0.5"
+            opacity="0.4"
+          />
+          <path
+            d="M0 0L16 0"
+            stroke={item.color}
+            strokeWidth="0.5"
+            opacity="0.4"
+          />
           <circle cx="14" cy="2" r="1" fill={item.color} opacity="0.6" />
           <circle cx="2" cy="14" r="1" fill={item.color} opacity="0.3" />
         </svg>
@@ -155,7 +165,11 @@ function AsesoriaCard({
               boxShadow: `0 0 16px ${item.color}12`,
             }}
           >
-            <Icon className="h-6 w-6" style={{ color: item.color }} aria-hidden="true" />
+            <Icon
+              className="h-6 w-6"
+              style={{ color: item.color }}
+              aria-hidden="true"
+            />
           </div>
 
           {/* Content */}
@@ -181,15 +195,15 @@ function AsesoriaCard({
         />
       </div>
     </div>
-  )
+  );
 }
 
 /* ──────────────────────────────────────────────
    Main Section
    ────────────────────────────────────────────── */
 export default function Asesorias() {
-  const reducedMotion = useReducedMotion()
-  const statsRef = useRef<HTMLDivElement>(null)
+  const reducedMotion = useReducedMotion();
+  const statsRef = useRef<HTMLDivElement>(null);
 
   return (
     <Section
@@ -230,8 +244,7 @@ export default function Asesorias() {
                 id="asesorias-heading"
                 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-foreground leading-tight"
               >
-                Portafolio de{' '}
-                <span className="text-gradient">Asesorías</span>
+                Portafolio de <span className="text-gradient">Asesorías</span>
               </h2>
             </AnimatedSection>
           </div>
@@ -240,10 +253,9 @@ export default function Asesorias() {
           <div className="lg:col-span-5 lg:pt-4">
             <AnimatedSection animation="fade-left" duration={0.6} delay={0.2}>
               <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
-                Expertos en múltiples disciplinas a tu disposición.
-                Cada área de práctica está diseñada para brindarte
-                soluciones integrales que impulsan el crecimiento
-                sostenible de tu organización.
+                Expertos en múltiples disciplinas a tu disposición. Cada área de
+                práctica está diseñada para brindarte soluciones integrales que
+                impulsan el crecimiento sostenible de tu organización.
               </p>
             </AnimatedSection>
 
@@ -265,7 +277,8 @@ export default function Asesorias() {
           ref={statsRef}
           className="relative z-10 rounded-3xl overflow-hidden mb-16"
           style={{
-            background: 'linear-gradient(135deg, var(--primary) 0%, #0a1e5c 50%, var(--primary) 100%)',
+            background:
+              "linear-gradient(135deg, var(--primary) 0%, #0a1e5c 50%, var(--primary) 100%)",
           }}
         >
           {/* Subtle inner pattern */}
@@ -273,8 +286,8 @@ export default function Asesorias() {
             className="absolute inset-0 opacity-10 pointer-events-none"
             style={{
               backgroundImage:
-                'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0)',
-              backgroundSize: '32px 32px',
+                "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0)",
+              backgroundSize: "32px 32px",
             }}
             aria-hidden="true"
           />
@@ -294,12 +307,12 @@ export default function Asesorias() {
           <div className="relative z-10 px-4 py-8 sm:px-8 sm:py-12 lg:px-12 lg:py-14">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
               {[
-                { label: 'Áreas de práctica', value: 6, suffix: '+' },
-                { label: 'Clientes atendidos', value: 150, suffix: '+' },
-                { label: 'Proyectos completados', value: 300, suffix: '+' },
-                { label: 'Años de experiencia', value: 10, suffix: '' },
+                { label: "Áreas de práctica", value: 6, suffix: "+" },
+                { label: "Asistencias", value: 150, suffix: "+" },
+                { label: "Proyectos completados", value: 300, suffix: "+" },
+                { label: "Años de experiencia", value: 10, suffix: "" },
               ].map((stat, i) => {
-                const StatIcon = statIcons[i] ?? Target
+                const StatIcon = statIcons[i] ?? Target;
 
                 return (
                   <div
@@ -307,17 +320,10 @@ export default function Asesorias() {
                     className={`flex flex-col items-center text-center`}
                   >
                     {/* Icon circle */}
-                    <div className="mb-3 p-2.5 rounded-full bg-white/10 backdrop-blur-sm">
-                      <StatIcon className="h-5 w-5 text-white" aria-hidden="true" />
-                    </div>
-
-                    {/* Number */}
-                    <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white">
-                      <AnimatedCounter
-                        end={stat.value}
-                        suffix={stat.suffix}
-                        duration={2.2}
-                        delay={0.3 + i * 0.12}
+                    <div className="mb-3 p-4 sm:p-5 rounded-full bg-white/10 backdrop-blur-sm">
+                      <StatIcon
+                        className="h-8 w-8 sm:h-9 sm:w-9 md:h-10 md:w-10 text-white"
+                        aria-hidden="true"
                       />
                     </div>
 
@@ -326,7 +332,7 @@ export default function Asesorias() {
                       {stat.label}
                     </div>
                   </div>
-                )
+                );
               })}
             </div>
           </div>
@@ -369,5 +375,5 @@ export default function Asesorias() {
         </div>
       </div>
     </Section>
-  )
+  );
 }
