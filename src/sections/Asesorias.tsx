@@ -307,10 +307,10 @@ export default function Asesorias() {
           <div className="relative z-10 px-4 py-8 sm:px-8 sm:py-12 lg:px-12 lg:py-14">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
               {[
-                { label: "Áreas de práctica", value: 6, suffix: "+" },
-                { label: "Asistencias", value: 150, suffix: "+" },
-                { label: "Proyectos completados", value: 300, suffix: "+" },
-                { label: "Años de experiencia", value: 10, suffix: "" },
+                { label: "AREAS DE PRACTICA", value: 6, suffix: "+" },
+                { label: "ASISTENCIAS", value: 150, suffix: "+" },
+                { label: "SOPORTE", value: 300, suffix: "+" },
+                { label: "ESCALABILIDAD", value: 10, suffix: "" },
               ].map((stat, i) => {
                 const StatIcon = statIcons[i] ?? Target;
 

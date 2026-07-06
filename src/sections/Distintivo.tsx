@@ -365,7 +365,7 @@ export default function Distintivo() {
             <div className="flex items-center gap-3">
               <div className="h-16 w-16 sm:h-20 sm:w-20 relative flex-shrink-0">
                 <Image
-                  src="/infonagreenV2.png"
+                  src="/Infonagreen.png"
                   alt="Logo de INFONAGREEN"
                   fill
                   className="object-contain"

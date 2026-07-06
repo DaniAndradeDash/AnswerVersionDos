@@ -77,12 +77,12 @@ export default function QuienesSomos() {
 
               {/* Columna Izquierda: Bloque Informativo Tecnológico */}
               <div className="flex-1 relative z-10 space-y-5 sm:space-y-8 md:space-y-10 text-center lg:text-left">
-                <div className="flex items-center justify-center lg:justify-start gap-4 mb-4">
+                {/* <div className="flex items-center justify-center lg:justify-start gap-4 mb-4">
                   <div className="hidden sm:block w-12 h-[2px] bg-gradient-to-r from-secondary to-transparent"></div>
                   <span className="font-black tracking-[0.2em] text-xs uppercase text-center sm:text-left text-slate-950 dark:text-blue-600">
                     Quiénes somos
                   </span>
-                </div>
+                </div>*/}
 
                 {/* Núcleo de Seguridad / Focal Point 
                 <div className="relative w-20 h-20 md:w-24 md:h-24 mx-auto lg:mx-0 flex items-center justify-center group/shield">
@@ -106,11 +106,14 @@ export default function QuienesSomos() {
                   <div className="absolute top-1/2 -right-2 -translate-y-1/2 w-4 h-px bg-secondary/40" />
                 </div>*/}
 
-                <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter leading-[0.9] mb-4 sm:mb-6 md:mb-8 text-slate-900 dark:text-white">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter leading-[0.9] mb-4 sm:mb-6 md:mb-8 text-slate-900 dark:text-white">
                   <span className="block sm:inline">
-                    <span className="text-slate-950 dark:text-blue-900">ANSWER</span>
-                    <span className="text-green-500">.st</span>
+                    <span className="text-slate-950 dark:text-blue-900">Quienes somos </span>
                   </span>
+                  {/* <span className="block sm:inline">
+                    <span className="text-slate-950 dark:text-blue-900">ANSWER</span>
+                    <span className="text-green-500"> st.</span>
+                  </span>*/}
                 </h2>
 
                 {/* Contenedor de Texto con Profundidad */}
@@ -122,7 +125,7 @@ export default function QuienesSomos() {
                       <span className="font-semibold text-slate-900 dark:text-white">
                         <span className="text-white dark:text-white">
                           ANSWER                        </span>
-                        <span className="text-green-500">.st</span>
+                        <span className="text-green-500">st.</span>
                       </span>{" "}
                       Somos una plataforma de consultoría que transforma
                       desafíos en resultados.
