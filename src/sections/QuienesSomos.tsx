@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Section } from "@/components/ui/Section";
 import { AnimatedSection } from "@/components/motion/AnimatedSection";
 import { Float } from "@/components/motion/Float";
@@ -11,10 +12,13 @@ import {
   TrendingUp,
   Handshake,
   Shield,
+  X,
   type LucideIcon,
 } from "lucide-react";
 
 export default function QuienesSomos() {
+  const [isImageOpen, setIsImageOpen] = useState(false);
+
   return (
     <Section
       id="quienes-somos"
@@ -249,18 +253,45 @@ export default function QuienesSomos() {
                       <div className="absolute inset-0 rounded-full border-2 border-secondary/30 animate-pulse-slow" />
                       <div className="absolute inset-4 rounded-full border border-secondary/20 animate-pulse" />
 
-                      <Float distance={10} duration={4} axis="both">
-                        <div className="relative w-24 h-24 sm:w-56 sm:h-56 md:w-48 md:h-48 lg:w-56 lg:h-56">
+                        <Float distance={10} duration={4} axis="both">
+                        <div 
+                          className="relative w-32 h-32 sm:w-56 sm:h-56 md:w-48 md:h-48 lg:w-56 lg:h-56 cursor-pointer"
+                          onClick={() => setIsImageOpen(true)}
+                        >
                           <Image
-                            src="/heartSomos.png"
+                            src="/EstrategiasSustentables.jpeg"
                             alt="Alma de Answer"
                             fill
-                            className="object-contain relative z-10 drop-shadow-[0_0_30px_rgba(49,191,44,0.4)] dark:drop-shadow-[0_0_50px_rgba(49,191,44,0.7)]"
+                            className="object-contain border border-white/30 relative z-10 drop-shadow-[0_0_30px_rgba(49,191,44,0.4)] dark:drop-shadow-[0_0_50px_rgba(49,191,44,0.7)] rounded-2xl"
                           />
                         </div>
                       </Float>
                     </div>
                   </div>
+
+                  {/* Modal de Imagen */}
+                  {isImageOpen && (
+                    <div 
+                      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+                      onClick={() => setIsImageOpen(false)}
+                    >
+                      <button 
+                        className="absolute top-4 right-4 text-white p-2 hover:bg-white/10 rounded-full transition-colors"
+                        onClick={() => setIsImageOpen(false)}
+                      >
+                        <X size={32} />
+                      </button>
+                      <div className="relative w-full max-w-3xl max-h-[80vh] aspect-square">
+                        <Image
+                          src="/EstrategiasSustentables.jpeg"
+                          alt="Alma de Answer"
+                          fill
+                          className="object-contain rounded-2xl"
+                        />
+                      </div>
+                    </div>
+                  )}
+
 
                   {/* Módulos Interactivos (Widgets) */}
                   <Widget
