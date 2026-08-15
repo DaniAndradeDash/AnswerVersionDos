@@ -2235,6 +2235,53 @@ section[id] {
 }
 
 /* ============================================
+    Synergy Section — Dashboard + E-book POFS
+    ============================================ */
+
+/* Cursor spotlight — appears only while the mouse is over the panel */
+.synergy-panel .synergy-spot {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.synergy-panel.synergy-spot-active .synergy-spot {
+  opacity: 1;
+}
+
+/* Soft LED indicator dot */
+.synergy-led {
+  box-shadow: 0 0 8px currentColor;
+}
+
+/* Title neon glow (dark mode only) */
+.synergy-title-glow {
+  text-shadow: none;
+}
+[data-theme="dark"] .synergy-title-glow {
+  text-shadow: 0 0 24px var(--title-glow, rgba(74, 222, 128, 0.4));
+}
+
+/* Scanning line inside the live dashboard visual */
+.synergy-scan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1px;
+  z-index: 1;
+  background: linear-gradient(90deg, transparent, rgba(49, 191, 44, 0.7), transparent);
+  box-shadow: 0 0 12px rgba(49, 191, 44, 0.35);
+  animation: synergy-scan 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes synergy-scan {
+  0% { top: 0; opacity: 0; }
+  6% { opacity: 0.9; }
+  94% { opacity: 0.9; }
+  100% { top: 100%; opacity: 0; }
+}
+
+/* ============================================
     Reduced Motion
     ============================================ */
 @media (prefers-reduced-motion: reduce) {

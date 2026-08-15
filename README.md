@@ -200,3 +200,47 @@ Diseñado mobile-first. Breakpoints validados:
 - **Desarrollo:** Dash Systems
 - **Diseño:** Inspirado en Vercel, Stripe, Linear, Framer, Apple
 - **Hosting:** Hostinger / Neubox
+
+
+/*
+analiza el proyecto, y en la sección antes de infonagreen hay que agregar un apartado, tiene que ser tecnologico, moderno, animado, con hoover futurista e interactivo, segun el estilo de la pagina. El contenido es:
+
+Sección Web:           
+
+
+ Dashboard Synergy       
+         &            
+ E-book POFS 
+
+
+DASHBOARD SYNERGY:
+
+
+Centro de operaciones de nuestra red de expertos y oficios profesionales.
+En ANSWER st integramos la estrategia corporativa con la capacidad operativa real. A través de nuestro Dashboard Synergy, conectamos la demanda de nuestros clientes con un ecosistema verificado de profesionistas, consultores especializados y personal de oficios de alta calidad.
+Un departamento diseñado para ubicar, filtrar y enlazar con precisión quirúrgica el talento que tu proyecto, empresa o espacio residencial necesita, bajo un estricto rigor ético y profesional.
+
+
+El Sello de Confianza:                   
+
+
+E-BOOK  POFS
+
+
+Perfil Operativo de Formación y Servicios.
+
+
+Cada profesionista y especialista en oficios que forma parte de nuestra red cuenta con un respaldo documental y una trayectoria verificada. Antes de realizar cualquier enlace, ponemos a tu disposición el E-book POFS: el repositorio digital maestro donde puedes consultar con total transparencia:
+Credenciales y certificaciones oficiales y técnicas.
+Historial de experiencia y proyectos previos ejecutados con éxito.
+Fichas técnicas y portafolio de trabajos anteriores alineados a nuestros estándares de calidad.
+Evaluaciones de desempeño y cumplimiento de nuestro código de ética.
+
+
+Explora el Dashboard: Visualiza la disponibilidad y especialidad de nuestra red de expertos en tiempo real.
+Solicita el E-book POFS!!! Conoce a fondo la experiencia, especialidad y garantías del profesionista u oficio que requieras.
+Contacta  con seguridad: Activa el servicio con la certeza y el respaldo institucional que solo ANSWER st puede ofrecerte. 
+
+
+esa es la informacion que me compartieron favor de acomodarla estrategicamente.
+*/
