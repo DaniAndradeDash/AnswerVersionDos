@@ -536,7 +536,7 @@ export default function Synergy() {
             <AnimatedSection animation="fade-right" duration={0.6}>
               <div className="flex items-center gap-3 mb-5">
                 <div className="h-px w-10 bg-gradient-to-r from-secondary to-transparent" aria-hidden="true" />
-                <span className="text-xs font-mono font-medium text-secondary uppercase tracking-[0.25em]">
+                <span className="text-xs font-mono font-medium text-blue-700 uppercase tracking-[0.25em]">
                   Red de talento verificado
                 </span>
               </div>
@@ -559,9 +559,7 @@ export default function Synergy() {
                 En Answer{" "}
                 <span className="text-secondary font-bold text-green-500">st</span>{" "}
                 integramos la estrategia corporativa con la capacidad operativa
-                real: conectamos tu demanda con un ecosistema verificado de
-                profesionistas, consultores especializados y oficios de alta
-                calidad.
+                real.
               </p>
             </AnimatedSection>
           </div>
@@ -579,7 +577,7 @@ export default function Synergy() {
           accent={accents.green}
           title="Dashboard Synergy"
           subtitle="Centro de operaciones"
-          description="A través de nuestro Dashboard Synergy conectamos la demanda de nuestros clientes con un ecosistema verificado de profesionistas, consultores especializados y personal de oficios de alta calidad. Diseñado para ubicar, filtrar y enlazar con precisión quirúrgica el talento que tu proyecto, empresa o espacio residencial necesita, bajo un estricto rigor ético y profesional."
+          description="A través de nuestro Dashboard Synergy conectamos la demanda de nuestros clientes con un ecosistema verificado de profesionistas, consultores especializados y personal de oficios de alta calidad. Diseñado para ubicar, filtrar y enlazar con precisión quirúrgica el talento que tu proyecto, empresa o alguna coyuntura compleja requieran, bajo un estricto rigor ético y profesional."
         >
           <div className="mb-5 flex flex-wrap gap-2">
             {[
@@ -608,7 +606,7 @@ export default function Synergy() {
           accent={accents.blue}
           title="E-book POFS"
           subtitle="Perfil Operativo de Formación y Servicios"
-          description="Cada profesionista y especialista en oficios de nuestra red cuenta con un respaldo documental y una trayectoria verificada. El E-book POFS es el repositorio digital maestro donde puedes consultar con total transparencia su perfil completo antes de realizar cualquier enlace."
+          description="Cada profesionista y especialista en oficios de nuestra red cuenta con un respaldo documental y una trayectoria verificada. El E-book POFS es el repositorio digital donde puedes consultar con total transparencia su perfil completo antes de contratar algún servicio."
         >
           <RepoVisual />
         </FuturisticPanel>
