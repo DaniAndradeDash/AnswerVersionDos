@@ -217,9 +217,16 @@ export default function Footer() {
           />
 
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-xs text-muted-foreground/70">
-              &copy; {currentYear} {siteConfig.name} — Todos los derechos reservados
-            </p>
+            <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground/70">
+              <span>&copy; {currentYear} {siteConfig.name}</span>
+              <span className="opacity-30">·</span>
+              <Link
+                href="/aviso-privacidad/"
+                className="font-medium text-muted-foreground hover:text-secondary underline underline-offset-4 decoration-border hover:decoration-secondary transition-colors"
+              >
+                Aviso de privacidad
+              </Link>
+            </div>
 
             <div className="flex items-center gap-4">
               <p className="text-[11px] text-muted-foreground/50">

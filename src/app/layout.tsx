@@ -2,6 +2,7 @@ import './globals.css'
 import { Inter } from 'next/font/google'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import PrivacyBanner from '@/components/layout/PrivacyBanner'
 import { ThemeProvider } from '@/providers/ThemeProvider'
 import { LenisProvider } from '@/providers/LenisProvider'
 import { siteMetadata } from '@/constants/seo'
@@ -63,6 +64,7 @@ export default function RootLayout({
             <Header />
             <main id="main-content" className="min-h-screen" role="main">{children}</main>
             <Footer />
+            <PrivacyBanner />
           </LenisProvider>
         </ThemeProvider>
       </body>

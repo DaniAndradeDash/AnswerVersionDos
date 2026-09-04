@@ -236,7 +236,7 @@ export async function POST(request: NextRequest) {
       pass: process.env.MAILTRAP_PASS,
     },
     secure: false,
-  } as nodemailer.TransportOptions)
+  })
 
   // Send email with timeout
   const emailHTML = buildEmailHTML({
