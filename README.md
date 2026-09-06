@@ -217,9 +217,7 @@ DASHBOARD SYNERGY:
 
 
 Centro de operaciones de nuestra red de expertos y oficios profesionales.
-En ANSWER st integramos la estrategia corporativa con la capacidad operativa real. A través de nuestro Dashboard Synergy, conectamos la demanda de nuestros clientes con un ecosistema verificado de profesionistas, consultores especializados y personal de oficios de alta calidad.
-Un departamento diseñado para ubicar, filtrar y enlazar con precisión quirúrgica el talento que tu proyecto, empresa o espacio residencial necesita, bajo un estricto rigor ético y profesional.
-
+En ANSWER st integramos la estrategia corporativa con la capacidad operativa real. A través de nuestro Dashboard Synergy, conectamos la demanda de nuestros clientes con un ecosistema verificado de profesionistas, consultores especializados y personal de oficios de alta calidad. Un departamento diseñado para ubicar, filtrar y enlazar con precisión quirúrgica el talento que tu proyecto, empresa o espacio residencial necesita, bajo un estricto rigor ético y profesional.
 
 El Sello de Confianza:                   
 
@@ -233,8 +231,7 @@ Perfil Operativo de Formación y Servicios.
 Cada profesionista y especialista en oficios que forma parte de nuestra red cuenta con un respaldo documental y una trayectoria verificada. Antes de realizar cualquier enlace, ponemos a tu disposición el E-book POFS: el repositorio digital maestro donde puedes consultar con total transparencia:
 Credenciales y certificaciones oficiales y técnicas.
 Historial de experiencia y proyectos previos ejecutados con éxito.
-Fichas técnicas y portafolio de trabajos anteriores alineados a nuestros estándares de calidad.
-Evaluaciones de desempeño y cumplimiento de nuestro código de ética.
+Fichas técnicas y portafolio de trabajos anteriores alineados a nuestros estándares de calidad. Evaluaciones de desempeño y cumplimiento de nuestro código de ética.
 
 
 Explora el Dashboard: Visualiza la disponibilidad y especialidad de nuestra red de expertos en tiempo real.

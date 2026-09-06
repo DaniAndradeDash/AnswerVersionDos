@@ -226,6 +226,13 @@ export default function Footer() {
               >
                 Aviso de privacidad
               </Link>
+              <span className="opacity-30">·</span>
+              <Link
+                href="/derechos-para-todxs/"
+                className="font-medium text-muted-foreground hover:text-secondary underline underline-offset-4 decoration-border hover:decoration-secondary transition-colors"
+              >
+                Derechos para todxs
+              </Link>
             </div>
 
             <div className="flex items-center gap-4">
